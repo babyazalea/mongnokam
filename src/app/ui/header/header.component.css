@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+}
+
+header {
+  width: 100%;
+  border: 1px solid red;
+}
+
+nav {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+}
+
+nav div ul {
+  display: flex;
+}
+
+nav div ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s;
+  border-radius: 5px;
+}
+
+nav div ul li:hover {
+  background-color: #30363d;
+}
+
+.logo p {
+  display: inline;
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.page-menus ul li {
+  width: 35px;
+  height: 35px;
+  box-sizing: border-box;
+  background-color: var(--main-box-color);
+}
+
+.page-menus ul li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.action-menus {
+  justify-self: flex-end;
+  margin-right: 20px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+}
+
+.action-menus ul li {
+  background-color: var(--main-box-color);
+  padding: 7px;
+  box-sizing: border-box;
+}
+
+.action-menus ul li:not(:last-child) {
+  margin-right: 15px;
+}
+
+/* .btn-sign-up {
+  background-color: #58a6ff;
+}
+
+.btn-login {
+  background-color: #238636;
+} */
