@@ -1,0 +1,13 @@
+:host {
+  grid-area: header;
+  width: 80%;
+  height: 80%;
+  border: 1px solid red;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}

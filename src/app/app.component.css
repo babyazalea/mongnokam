@@ -1,7 +1,31 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-areas:
+    " . aside aside main main main . "
+    " . aside aside main main main . "
+    " . aside aside main main main . "
+    " . aside aside main main main . "
+    " . header header main main main ."
+    " . header header main main main . ";
+  align-items: center;
+  justify-items: flex-end;
+}
+
+aside {
+  width: 80%;
+  height: 83%;
+  grid-area: aside;
+}
+
 main {
   width: 80%;
-  height: 85%;
-  margin: 0 auto;
+  height: 90%;
   border-radius: 30px;
   background-color: var(--main-box-color);
+  grid-area: main;
+  justify-self: center;
 }
