@@ -12,3 +12,11 @@ nav {
   align-items: flex-end;
   justify-content: center;
 }
+
+nav > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.logo {
+  font-size: 1.8rem;
+}
