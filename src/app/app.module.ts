@@ -4,17 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MakeUpComponent } from './make-up/make-up.component';
+import { ListBoxComponent } from './ui/list-box/list-box.component';
 import { NavigationComponent } from './ui/navigation/navigation.component';
-import { PlateComponent } from './plate/plate.component';
-import { ListBoxComponent } from './list-box/list-box.component';
+import { PlateComponent } from './ui/plate/plate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    MakeUpComponent,
-    PlateComponent,
     ListBoxComponent,
+    PlateComponent,
+    MakeUpComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
