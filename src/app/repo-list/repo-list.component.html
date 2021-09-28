@@ -1,5 +1,24 @@
-<ul>
-  <li *ngFor="let repo of repos">
-    <app-repo [repoData]="repo"></app-repo>
-  </li>
-</ul>
+<div
+  class="repo-list-wrapper"
+  [ngClass]="{ 'dragging-over-container': draggingOver }"
+  (dragenter)="dragEnterOnList($event)"
+  (dragover)="!draggingInList && dragOverOnList($event)"
+  (dragleave)="!draggingInList && dragLeaveOnList($event)"
+  (drop)="!draggingInList && dropOnList($event)"
+>
+  <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
+    <div class="dragging-overlay" *ngIf="draggingOver"></div>
+    <li
+      *ngFor="let repo of repos; index as i"
+      [ngClass]="{
+        'dragging-item': draggingInList && draggingStyling(repo.id)
+      }"
+      draggable="true"
+      (dragstart)="dragStart($event, i, repo)"
+      (dragenter)="draggingInList && dragEnterInList($event, i)"
+      (dragend)="dragEnd()"
+    >
+      <app-repo [repoData]="repo"></app-repo>
+    </li>
+  </ul>
+</div>
