@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MakeUpComponent } from './make-up/make-up.component';
+import { RepoListComponent } from './repo-list/repo-list.component';
+import { RepoComponent } from './repo-list/repo/repo.component';
 import { ListBoxComponent } from './ui/list-box/list-box.component';
 import { NavigationComponent } from './ui/navigation/navigation.component';
 import { PlateComponent } from './ui/plate/plate.component';
@@ -15,6 +17,8 @@ import { PlateComponent } from './ui/plate/plate.component';
     ListBoxComponent,
     PlateComponent,
     MakeUpComponent,
+    RepoListComponent,
+    RepoComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
