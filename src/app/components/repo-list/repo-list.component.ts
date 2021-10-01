@@ -57,6 +57,7 @@ export class RepoListComponent {
     const draggingRepo = this.dropEventService.getDraggingRepo();
     if (draggingRepo.location === this.listName) {
       this.draggingOver = false;
+      console.log('dragging on other-list');
     } else if (draggingRepo.location !== this.listName) {
       this.draggingOver = true;
     }

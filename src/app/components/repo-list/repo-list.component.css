@@ -1,0 +1,22 @@
+.dragging-item {
+  color: #444;
+  background-color: #444;
+}
+
+.dragging-over-container * {
+  pointer-events: none;
+  /* drag-leave 이벤트가 해당 드롭 영역에서만 발동하도록 해줌. */
+}
+
+.dragging-over-list {
+  position: relative;
+}
+
+.dragging-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
