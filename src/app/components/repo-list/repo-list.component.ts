@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Repo } from './repo/repo.model';
-import { DragDropService } from '../shared/drag-drop/drag-drop.service';
+import { DragDropService } from '../../shared/drag-drop/drag-drop.service';
 
 @Component({
   selector: 'app-repo-list',

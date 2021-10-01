@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Octokit } from '@octokit/core';
 
-import { Repo } from '../../repo-list/repo/repo.model';
+import { Repo } from '../../components/repo-list/repo/repo.model';
 
 @Component({
   selector: 'app-plate',
