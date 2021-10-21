@@ -10,11 +10,13 @@ import { ListContainerComponent } from './ui/list-container/list-container.compo
 import { ListBoxComponent } from './ui/list-container/list-box/list-box.component';
 import { NavigationComponent } from './ui/navigation/navigation.component';
 import { PlateComponent } from './ui/plate/plate.component';
+import { AsideComponent } from './ui/aside/aside.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
+    AsideComponent,
     ListContainerComponent,
     ListBoxComponent,
     PlateComponent,
