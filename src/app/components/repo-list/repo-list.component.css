@@ -1,3 +1,12 @@
+.repo-list-wrapper > ul > li {
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.repo-list-wrapper > ul > li:not(:last-child) {
+  margin-bottom: 0.7rem;
+}
+
 .dragging-item {
   color: var(--text-primary-color);
   background-color: #444;

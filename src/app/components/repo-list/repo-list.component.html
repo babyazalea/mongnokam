@@ -8,6 +8,9 @@
 >
   <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
+    <li draggable="false">
+      <span>{{ listName }}</span>
+    </li>
     <li
       *ngFor="let repo of repos; index as i"
       [ngClass]="{

@@ -177,6 +177,78 @@ export class MakeUpComponent implements OnInit {
           },
         ],
       },
+      {
+        id: 'list3',
+        'list-name': 'vue',
+        'list-repos': [
+          {
+            id: '21',
+            title: 'test-my-repos21',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '22',
+            title: 'test-my-repos22',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '23',
+            title: 'test-my-repos23',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '24',
+            title: 'test-my-repos24',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '25',
+            title: 'test-my-repos25',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+        ],
+      },
+      {
+        id: 'list3',
+        'list-name': 'spring boot',
+        'list-repos': [
+          {
+            id: '26',
+            title: 'test-my-repos26',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '27',
+            title: 'test-my-repos27',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '28',
+            title: 'test-my-repos28',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '29',
+            title: 'test-my-repos29',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '30',
+            title: 'test-my-repos30',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+        ],
+      },
     ];
   }
 }

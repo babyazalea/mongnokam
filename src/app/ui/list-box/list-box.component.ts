@@ -8,9 +8,9 @@ import { Repo } from 'src/app/components/repo-list/repo/repo.model';
   styleUrls: ['./list-box.component.css'],
 })
 export class ListBoxComponent {
-  @Input() list!: {
-    id: string;
-    'list-name': string;
-    'list-repos': Array<Repo>;
-  };
+  // @Input() list!: {
+  //   id: string;
+  //   'list-name': string;
+  //   'list-repos': Array<Repo>;
+  // };
 }
