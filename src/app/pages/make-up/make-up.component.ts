@@ -16,7 +16,11 @@ export class MakeUpComponent implements OnInit {
   };
   octokit = new Octokit();
   allRepos: Array<Repo> = [];
-  myRepos: Array<Repo> = [];
+  myLists: Array<{
+    id: string;
+    'list-name': string;
+    'list-repos': Array<Repo>;
+  }> = [];
 
   ngOnInit() {
     // this.octokit
@@ -100,66 +104,78 @@ export class MakeUpComponent implements OnInit {
       },
     ];
 
-    this.myRepos = [
+    this.myLists = [
       {
-        id: '11',
-        title: 'test-my-repos11',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
+        id: 'list1',
+        'list-name': 'react',
+        'list-repos': [
+          {
+            id: '11',
+            title: 'test-my-repos11',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '12',
+            title: 'test-my-repos12',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '13',
+            title: 'test-my-repos13',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '14',
+            title: 'test-my-repos14',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+        ],
       },
       {
-        id: '12',
-        title: 'test-my-repos12',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '13',
-        title: 'test-my-repos13',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '14',
-        title: 'test-my-repos14',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '15',
-        title: 'test-my-repos15',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '16',
-        title: 'test-my-repos16',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '17',
-        title: 'test-my-repos17',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '18',
-        title: 'test-my-repos18',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '19',
-        title: 'test-my-repos19',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
-      },
-      {
-        id: '20',
-        title: 'test-my-repos20',
-        url: 'https://www.google.com/',
-        location: this.locationName.plate,
+        id: 'list2',
+        'list-name': 'angular',
+        'list-repos': [
+          {
+            id: '15',
+            title: 'test-my-repos15',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '16',
+            title: 'test-my-repos16',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '17',
+            title: 'test-my-repos17',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '18',
+            title: 'test-my-repos18',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '19',
+            title: 'test-my-repos19',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+          {
+            id: '20',
+            title: 'test-my-repos20',
+            url: 'https://www.google.com/',
+            location: this.locationName.plate,
+          },
+        ],
       },
     ];
   }

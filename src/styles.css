@@ -9,10 +9,10 @@
 /* global color */
 
 :root {
-  --main-bg-color: #090c10;
+  --main-bg-color: #fff;
   --main-box-color: #21262d;
-  --header-font-color: #f0f6fc;
-  --text-primary-color: #c9d1d9;
+  --header-font-color: #333;
+  --text-primary-color: #333;
   --text-secondary-color: #8b949e;
 }
 

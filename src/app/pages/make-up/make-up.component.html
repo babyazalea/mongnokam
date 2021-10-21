@@ -2,7 +2,5 @@
   <app-plate>
     <app-repo-list [listName]="'test1'" [repos]="allRepos"></app-repo-list>
   </app-plate>
-  <app-list-container>
-    <app-repo-list [listName]="'test2'" [repos]="myRepos"></app-repo-list>
-  </app-list-container>
+  <app-list-container [lists]="myLists"></app-list-container>
 </main>

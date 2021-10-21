@@ -76,11 +76,11 @@ export class RepoListComponent {
     event.stopPropagation();
     this.draggingOver = false;
     this.draggingInList = false;
-    const dropedRepo = this.dropEventService.getDraggingRepo();
-    if (dropedRepo.location !== this.listName) {
+    const droppedRepo = this.dropEventService.getDraggingRepo();
+    if (droppedRepo.location !== this.listName) {
       this.dropEventService.dropedInOtherList();
       const newItems = this.repos;
-      const updatedRepo = { ...dropedRepo, location: this.listName };
+      const updatedRepo = { ...droppedRepo, location: this.listName };
       newItems.splice(newItems.length, 0, updatedRepo);
       this.repos = newItems;
     }
@@ -91,10 +91,10 @@ export class RepoListComponent {
     this.draggingOver = false;
     this.draggingNode = null;
     const draggingRepo = this.dropEventService.getDraggingRepo();
-    const isDroped = this.dropEventService.getDropedState();
+    const isDropped = this.dropEventService.getDropedState();
     const currentItems = this.repos;
     let updatedItems;
-    if (isDroped) {
+    if (isDropped) {
       updatedItems = currentItems.filter((repo) => repo.id !== draggingRepo.id);
       this.repos = updatedItems;
     }

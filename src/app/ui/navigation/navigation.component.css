@@ -9,14 +9,76 @@ nav {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   justify-content: center;
+  align-items: center;
 }
 
 nav > div:not(:last-child) {
-  margin-bottom: 10px;
+  margin-bottom: 1.2rem;
 }
 
 .logo {
+  width: 80%;
+  border-radius: 0.8rem;
   font-size: 1.8rem;
+  text-align: center;
 }
+
+.page-menus > ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "first second"
+    "third fourth";
+  column-gap: 1.5rem;
+  row-gap: 1rem;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+}
+
+.menu > span {
+  text-align: center;
+}
+
+.first-menu {
+  grid-area: first;
+}
+
+.second-menu {
+  grid-area: second;
+}
+
+.third-menu {
+  grid-area: third;
+}
+
+.fourth-menu {
+  grid-area: fourth;
+}
+
+.action-menus {
+  border: 1px solid red;
+}
+
+.action-menus ul {
+  text-align: center;
+}
+
+/*.page-menus > ul > li {*/
+/*  width: 100%;*/
+/*  display: grid;*/
+/*  grid-template-columns: 0.3fr 1.5fr;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.page-menus > ul > li > span {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.action-menus > ul > li {*/
+/*  text-align: center;*/
+/*}*/

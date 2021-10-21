@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { MakeUpComponent } from './pages/make-up/make-up.component';
 import { RepoListComponent } from './components/repo-list/repo-list.component';
 import { RepoComponent } from './components/repo-list/repo/repo.component';
-import { ListBoxComponent } from './ui/list-container/list-container.component';
+import { ListContainerComponent } from './ui/list-container/list-container.component';
+import { ListBoxComponent } from './ui/list-container/list-box/list-box.component';
 import { NavigationComponent } from './ui/navigation/navigation.component';
 import { PlateComponent } from './ui/plate/plate.component';
 
@@ -14,6 +15,7 @@ import { PlateComponent } from './ui/plate/plate.component';
   declarations: [
     AppComponent,
     NavigationComponent,
+    ListContainerComponent,
     ListBoxComponent,
     PlateComponent,
     MakeUpComponent,

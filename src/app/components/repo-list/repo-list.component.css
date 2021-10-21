@@ -1,5 +1,5 @@
 .dragging-item {
-  color: #444;
+  color: var(--text-primary-color);
   background-color: #444;
 }
 
