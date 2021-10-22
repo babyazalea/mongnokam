@@ -10,6 +10,7 @@ import { DragDropService } from '../../shared/drag-drop/drag-drop.service';
 })
 export class RepoListComponent {
   @Input() listName: string = '';
+  @Input() listId: string = '';
   @Input() repos: Array<Repo> = [];
 
   draggingInList: boolean = false;
@@ -55,10 +56,10 @@ export class RepoListComponent {
     event.preventDefault();
 
     const draggingRepo = this.dropEventService.getDraggingRepo();
-    if (draggingRepo.location === this.listName) {
+    if (draggingRepo.location === this.listId) {
       this.draggingOver = false;
       console.log('dragging on other-list');
-    } else if (draggingRepo.location !== this.listName) {
+    } else if (draggingRepo.location !== this.listId) {
       this.draggingOver = true;
     }
   }
@@ -77,10 +78,10 @@ export class RepoListComponent {
     this.draggingOver = false;
     this.draggingInList = false;
     const droppedRepo = this.dropEventService.getDraggingRepo();
-    if (droppedRepo.location !== this.listName) {
+    if (droppedRepo.location !== this.listId) {
       this.dropEventService.dropedInOtherList();
       const newItems = this.repos;
-      const updatedRepo = { ...droppedRepo, location: this.listName };
+      const updatedRepo = { ...droppedRepo, location: this.listId };
       newItems.splice(newItems.length, 0, updatedRepo);
       this.repos = newItems;
     }
