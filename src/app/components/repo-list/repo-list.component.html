@@ -21,7 +21,10 @@
       (dragenter)="draggingInList && dragEnterInList($event, i)"
       (dragend)="dragEnd()"
     >
-      <app-repo [repoData]="repo"></app-repo>
+      <app-repo
+        [isDragging]="draggingInList && draggingStyling(repo.id)"
+        [repoData]="repo"
+      ></app-repo>
     </li>
   </ul>
 </div>

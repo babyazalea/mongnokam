@@ -7,11 +7,6 @@
   margin-bottom: 0.7rem;
 }
 
-.dragging-item {
-  color: var(--text-primary-color);
-  background-color: #444;
-}
-
 .dragging-over-container * {
   pointer-events: none;
   /* drag-leave 이벤트가 해당 드롭 영역에서만 발동하도록 해줌. */

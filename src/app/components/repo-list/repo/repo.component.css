@@ -1,5 +1,31 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid green;
+}
+
+.repo {
+  display: grid;
+  box-shadow: 2px 3px 5px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.repo > span:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.dragging-repo {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+span {
+  font-family: "Noto Sans Mono", monospace;
+}
+
+.repo-title {
+  font-size: 1rem;
+}
+
+.repo-url {
+  justify-self: flex-end;
+  font-size: 0.8rem;
 }

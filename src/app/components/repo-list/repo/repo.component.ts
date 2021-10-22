@@ -13,4 +13,5 @@ export class RepoComponent {
     url: '',
     location: '',
   };
+  @Input() isDragging = false;
 }
