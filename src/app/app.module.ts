@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MakeUpComponent } from './pages/make-up/make-up.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NavigationComponent } from './ui/navigation/navigation.component';
+import { AsideComponent } from './ui/aside/aside.component';
+import { ListBoxComponent } from './ui/list-box/list-box.component';
 import { RepoListComponent } from './components/repo-list/repo-list.component';
 import { RepoComponent } from './components/repo-list/repo/repo.component';
-import { ListBoxComponent } from './ui/list-box/list-box.component';
-import { NavigationComponent } from './ui/navigation/navigation.component';
-import { PlateComponent } from './ui/plate/plate.component';
-import { AsideComponent } from './ui/aside/aside.component';
+import { MakeUpComponent } from './pages/make-up/make-up.component';
+import { MyListsComponent } from './pages/my-lists/my-lists.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +17,10 @@ import { AsideComponent } from './ui/aside/aside.component';
     NavigationComponent,
     AsideComponent,
     ListBoxComponent,
-    PlateComponent,
-    MakeUpComponent,
     RepoListComponent,
     RepoComponent,
+    MakeUpComponent,
+    MyListsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
