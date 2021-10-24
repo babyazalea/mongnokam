@@ -1,8 +1,11 @@
 <main>
-  <div class="list-container">
+  <div class="provider list-container">
     <app-repo-list [listName]="'test1'" [repos]="allRepos"></app-repo-list>
   </div>
-  <div class="list-container">
+  <div class="consumer list-container">
+    <button class="add-list-btn" (click)="addMyList()">
+      <i class="fas fa-plus"></i>
+    </button>
     <ul>
       <li *ngFor="let list of myLists">
         <app-list-box>

@@ -4,7 +4,7 @@ import { Repo } from 'src/app/components/repo-list/repo/repo.model';
 @Component({
   selector: 'app-my-lists',
   templateUrl: './my-lists.component.html',
-  styleUrls: ['./my-lists.component.css'],
+  styleUrls: ['./my-lists.component.css', '../../shared/styles/main.css'],
 })
 export class MyListsComponent implements OnInit {
   myFavoriteLists: Array<{

@@ -7,7 +7,7 @@ import { Repo } from '../../components/repo-list/repo/repo.model';
 @Component({
   selector: 'app-make-up',
   templateUrl: './make-up.component.html',
-  styleUrls: ['./make-up.component.css'],
+  styleUrls: ['./make-up.component.css', '../../shared/styles/main.css'],
 })
 export class MakeUpComponent implements OnInit {
   octokit = new Octokit();
@@ -246,5 +246,15 @@ export class MakeUpComponent implements OnInit {
         ],
       },
     ];
+  } //ngOnInit
+
+  addMyList() {
+    const newList = {
+      id: Date.now().toString(),
+      'list-name': Date.now().toString(),
+      'list-repos': [],
+    };
+
+    this.myLists.push(newList);
   }
 }
