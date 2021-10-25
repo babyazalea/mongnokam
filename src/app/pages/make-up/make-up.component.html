@@ -8,7 +8,6 @@
   <ul>
     <li *ngFor="let list of myLists">
       <app-repo-list
-        [isMultiple]="true"
         [listName]="list['list-name']"
         [listId]="list['id']"
         [repos]="list['list-repos']"

@@ -4,11 +4,16 @@
   display: flex;
 }
 
-.consumer {
+.provider.list-container {
+  padding-right: 2rem;
+}
+
+.consumer.list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  padding-left: 2rem;
 }
 
 .add-list-btn {
