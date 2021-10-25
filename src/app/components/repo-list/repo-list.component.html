@@ -1,12 +1,12 @@
 <div
   class="repo-list-wrapper"
-  [ngClass]="{ 'dragging-over-container': draggingOver }"
+  [ngClass]="{ 'dragging-over-container': draggingOver, solo: !isMultiple }"
   (dragenter)="dragEnterOnList($event)"
   (dragover)="!draggingInList && dragOverOnList($event)"
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-  <ul [ngClass]="{ 'dragging-over-list': draggingOver, solo: !isMultiple }">
+  <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li draggable="false">
       <span>{{ listName }}</span>
