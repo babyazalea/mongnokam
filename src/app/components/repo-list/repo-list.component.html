@@ -6,7 +6,7 @@
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-  <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
+  <ul [ngClass]="{ 'dragging-over-list': draggingOver, solo: !isMultiple }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li draggable="false">
       <span>{{ listName }}</span>

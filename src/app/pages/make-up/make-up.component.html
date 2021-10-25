@@ -1,20 +1,19 @@
-<main>
-  <div class="provider list-container">
-    <app-repo-list [listName]="'test1'" [repos]="allRepos"></app-repo-list>
-  </div>
-  <div class="consumer list-container">
-    <button class="add-list-btn" (click)="addMyList()">
-      <i class="fas fa-plus"></i>
-    </button>
-    <ul>
-      <li *ngFor="let list of myLists">
-        <app-repo-list
-          [listName]="list['list-name']"
-          [listId]="list['id']"
-          [repos]="list['list-repos']"
-        >
-        </app-repo-list>
-      </li>
-    </ul>
-  </div>
-</main>
+<div class="provider list-container">
+  <app-repo-list [listName]="'test1'" [repos]="allRepos"></app-repo-list>
+</div>
+<div class="consumer list-container">
+  <button class="add-list-btn" (click)="addMyList()">
+    <i class="fas fa-plus"></i>
+  </button>
+  <ul>
+    <li *ngFor="let list of myLists">
+      <app-repo-list
+        [isMultiple]="true"
+        [listName]="list['list-name']"
+        [listId]="list['id']"
+        [repos]="list['list-repos']"
+      >
+      </app-repo-list>
+    </li>
+  </ul>
+</div>

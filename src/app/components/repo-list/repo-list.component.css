@@ -1,3 +1,22 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.repo-list-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.repo-list-wrapper > ul {
+  width: 85%;
+}
+
+.repo-list-wrapper > ul.solo {
+  width: 80%;
+}
+
 .repo-list-wrapper > ul > li {
   padding: 0.5rem;
   box-sizing: border-box;

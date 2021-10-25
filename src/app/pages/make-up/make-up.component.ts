@@ -106,6 +106,12 @@ export class MakeUpComponent implements OnInit {
         'list-name': 'react',
         'list-repos': [
           {
+            id: '10',
+            title: 'test-my-repos11',
+            url: 'https://www.google.com/',
+            location: 'list0',
+          },
+          {
             id: '11',
             title: 'test-my-repos11',
             url: 'https://www.google.com/',

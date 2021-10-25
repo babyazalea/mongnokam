@@ -1,13 +1,5 @@
-main {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
 .list-container {
-  width: 45%;
+  width: 50%;
   height: 100%;
   overflow: auto;
   scrollbar-width: none;
@@ -18,13 +10,18 @@ main {
 
 .list-container > ul {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .list-container > ul > li {
+  display: inline-block;
+  width: 80%;
+  height: 200px;
   overflow: auto;
   scrollbar-width: none;
   border: 1px solid red;
-  height: 30%;
 }
 
 .list-container > ul > li:not(:last-child) {

@@ -9,6 +9,7 @@ import { DragDropService } from '../../shared/drag-drop/drag-drop.service';
   styleUrls: ['./repo-list.component.css'],
 })
 export class RepoListComponent {
+  @Input() isMultiple: boolean = false;
   @Input() listName: string = '';
   @Input() listId: string = '';
   @Input() repos: Array<Repo> = [];
