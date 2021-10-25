@@ -2,26 +2,22 @@
   <div class="list-container">
     <ul>
       <li *ngFor="let list of myFavoriteLists">
-        <app-list-box>
-          <app-repo-list
-            [listName]="list['list-name']"
-            [repos]="list['list-repos']"
-          >
-          </app-repo-list>
-        </app-list-box>
+        <app-repo-list
+          [listName]="list['list-name']"
+          [repos]="list['list-repos']"
+        >
+        </app-repo-list>
       </li>
     </ul>
   </div>
   <div class="list-container">
     <ul>
       <li *ngFor="let list of myLists">
-        <app-list-box>
-          <app-repo-list
-            [listName]="list['list-name']"
-            [repos]="list['list-repos']"
-          >
-          </app-repo-list>
-        </app-list-box>
+        <app-repo-list
+          [listName]="list['list-name']"
+          [repos]="list['list-repos']"
+        >
+        </app-repo-list>
       </li>
     </ul>
   </div>

@@ -8,14 +8,12 @@
     </button>
     <ul>
       <li *ngFor="let list of myLists">
-        <app-list-box>
-          <app-repo-list
-            [listName]="list['list-name']"
-            [listId]="list['id']"
-            [repos]="list['list-repos']"
-          >
-          </app-repo-list>
-        </app-list-box>
+        <app-repo-list
+          [listName]="list['list-name']"
+          [listId]="list['id']"
+          [repos]="list['list-repos']"
+        >
+        </app-repo-list>
       </li>
     </ul>
   </div>
