@@ -10,13 +10,15 @@ import { Repo } from '../../components/repo-list/repo/repo.model';
   styleUrls: ['./make-up.component.css', '../../shared/styles/main.css'],
 })
 export class MakeUpComponent implements OnInit {
-  octokit = new Octokit();
+  isFirstTime: boolean = true;
+  isLoading: boolean = false;
   allRepos: Array<Repo> = [];
   myLists: Array<{
     id: string;
     'list-name': string;
     'list-repos': Array<Repo>;
   }> = [];
+  octokit = new Octokit();
 
   ngOnInit() {
     // this.octokit
@@ -37,68 +39,68 @@ export class MakeUpComponent implements OnInit {
     //     });
     //     this.allRepos = arr;
     //   });
-    this.allRepos = [
-      {
-        id: '1',
-        title: 'test-all-repos1',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '2',
-        title: 'test-all-repos2',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '3',
-        title: 'test-all-repos3',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '4',
-        title: 'test-all-repos4',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '5',
-        title: 'test-all-repos5',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '6',
-        title: 'test-all-repos6',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '7',
-        title: 'test-all-repos7',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '8',
-        title: 'test-all-repos8',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '9',
-        title: 'test-all-repos9',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-      {
-        id: '10',
-        title: 'test-all-repos10',
-        url: 'https://www.google.com/',
-        location: 'all-repos',
-      },
-    ];
+    // this.allRepos = [
+    //   {
+    //     id: '1',
+    //     title: 'test-all-repos1',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '2',
+    //     title: 'test-all-repos2',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '3',
+    //     title: 'test-all-repos3',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '4',
+    //     title: 'test-all-repos4',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '5',
+    //     title: 'test-all-repos5',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '6',
+    //     title: 'test-all-repos6',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '7',
+    //     title: 'test-all-repos7',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '8',
+    //     title: 'test-all-repos8',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '9',
+    //     title: 'test-all-repos9',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    //   {
+    //     id: '10',
+    //     title: 'test-all-repos10',
+    //     url: 'https://www.google.com/',
+    //     location: 'all-repos',
+    //   },
+    // ];
 
     this.myLists = [
       {
@@ -253,6 +255,41 @@ export class MakeUpComponent implements OnInit {
       },
     ];
   } //ngOnInit
+
+  async loadReposHandler() {
+    this.isFirstTime = false;
+    this.isLoading = true;
+
+    try {
+      const response = await this.octokit.request(
+        'GET /users/babyazalea/repos',
+        {
+          username: 'babyazalea',
+          per_page: 100,
+        }
+      );
+      const responseData = await response.data;
+
+      this.isLoading = false;
+      if (!responseData) {
+        return;
+      }
+
+      let arr: Array<Repo> = [];
+      response.data.map((responseData: any, index: string) => {
+        const repository = {
+          id: index,
+          title: responseData.name,
+          url: responseData.html_url,
+          location: 'all-repos',
+        };
+        arr.push(repository);
+      });
+      this.allRepos = arr;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   addMyList() {
     const newList = {
