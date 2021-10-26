@@ -1,4 +1,7 @@
 <div class="provider list-container">
+  <div class="provider-inside" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </div>
   <div class="provider-inside load-repo-controller" *ngIf="isFirstTime">
     <p>wanna load repositories from github?</p>
     <button (click)="loadReposHandler()">

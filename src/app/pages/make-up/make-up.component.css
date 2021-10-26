@@ -38,6 +38,10 @@ button:active {
   height: 100%;
 }
 
+.provider-inside .fa-spinner {
+  font-size: 3rem;
+}
+
 .provider-inside button {
   width: 80%;
   height: 80px;
