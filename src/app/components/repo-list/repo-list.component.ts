@@ -10,16 +10,22 @@ import { DragDropService } from '../../shared/drag-drop/drag-drop.service';
 })
 export class RepoListComponent {
   @Input() listName: string = '';
+  @Input() createdDate: string = '';
   @Input() listId: string = '';
   @Input() repos: Array<Repo> = [];
 
+  // drag & drop state
   draggingInList: boolean = false;
   draggingOver: boolean = false;
   draggingNode: any;
   draggingItemIndex: any;
 
+  // repo-list state
+  isDateExpanded: boolean = false;
+
   constructor(private dropEventService: DragDropService) {}
 
+  // drag & drop actions
   dragStart(event: DragEvent, index: number, repo: Repo) {
     this.draggingInList = true;
     this.draggingNode = event.target;
@@ -100,5 +106,10 @@ export class RepoListComponent {
       this.repos = updatedItems;
     }
     this.dropEventService.dragDropSvcInit();
+  }
+
+  // repo-list actions
+  dateExpandHandler() {
+    this.isDateExpanded = !this.isDateExpanded;
   }
 }

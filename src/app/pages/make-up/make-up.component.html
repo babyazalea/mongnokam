@@ -34,6 +34,7 @@
     <li *ngFor="let list of myLists">
       <app-repo-list
         [listName]="list['list-name']"
+        [createdDate]="list['createdDate']"
         [listId]="list['id']"
         [repos]="list['list-repos']"
       >

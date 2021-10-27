@@ -6,6 +6,7 @@
 }
 
 .repo-list-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -14,6 +15,60 @@
 
 .repo-list-wrapper.solo {
   width: 100%;
+}
+
+.repo-list-info {
+  position: absolute;
+}
+
+.repo-list-name {
+  top: -0.5rem;
+}
+
+.repo-list-created-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  bottom: 0.7rem;
+  right: -0.5rem;
+  overflow: hidden;
+  transition: width 0.02s;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.repo-list-created-date.expanded {
+  background-color: #caf0f8;
+  width: 10rem;
+}
+
+.repo-list-created-date-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #caf0f8;
+  z-index: 1;
+}
+
+.repo-list-created-date.expanded .repo-list-created-date-icon {
+  display: none;
+}
+
+.repo-list-created-date-text {
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: all 0.01s;
+}
+
+.repo-list-created-date.expanded .repo-list-created-date-text {
+  opacity: 1;
 }
 
 .repo-list-wrapper > ul {
@@ -29,7 +84,7 @@
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
 }
 
-.repo-list-wrapper > ul > li {
+.repo-list-wrapper > ul > li:not(.repo-list-create-date) {
   width: 85%;
   padding: 0.5rem;
   box-sizing: border-box;
