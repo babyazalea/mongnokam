@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Octokit } from '@octokit/core';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Repo } from '../../components/repo-list/repo/repo.model';
 
@@ -293,11 +294,11 @@ export class MakeUpComponent implements OnInit {
 
   addMyList() {
     const newList = {
-      id: Date.now().toString(),
-      'list-name': Date.now().toString(),
+      id: uuidv4(),
+      'list-name': '생성된 리스트',
       'list-repos': [],
     };
 
-    this.myLists.push(newList);
+    this.myLists.splice(0, 0, newList);
   }
 }
