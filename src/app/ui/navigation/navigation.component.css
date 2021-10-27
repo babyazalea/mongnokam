@@ -23,6 +23,7 @@ nav > div:not(:last-child) {
   border-radius: 0.8rem;
   font-size: 1.8rem;
   text-align: center;
+  font-weight: 700;
 }
 
 .page-menus > ul {
@@ -68,18 +69,3 @@ nav > div:not(:last-child) {
 .action-menus ul {
   text-align: center;
 }
-
-/*.page-menus > ul > li {*/
-/*  width: 100%;*/
-/*  display: grid;*/
-/*  grid-template-columns: 0.3fr 1.5fr;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.page-menus > ul > li > span {*/
-/*  text-align: center;*/
-/*}*/
-
-/*.action-menus > ul > li {*/
-/*  text-align: center;*/
-/*}*/

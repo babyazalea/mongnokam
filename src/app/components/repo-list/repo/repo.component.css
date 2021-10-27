@@ -7,6 +7,7 @@
   border-radius: 1rem;
   padding: 10px;
   box-sizing: border-box;
+  background-color: #fff;
 }
 
 .repo > span:not(:last-child) {
@@ -18,7 +19,7 @@
 }
 
 span {
-  font-family: "Noto Sans Mono", monospace;
+  font-family: "Pretendard";
 }
 
 .repo-title {
