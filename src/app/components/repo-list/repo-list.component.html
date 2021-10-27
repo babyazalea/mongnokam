@@ -6,22 +6,24 @@
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-  <span class="repo-list-info repo-list-name">
-    {{ listName }}
-  </span>
-  <div
-    class="repo-list-info repo-list-created-date"
-    [ngClass]="{ expanded: isDateExpanded }"
-    (click)="dateExpandHandler()"
-  >
-    <span class="repo-list-created-date-icon">
-      <i class="far fa-clock"></i>
+  <ng-template [ngIf]="!isAllRepos">
+    <span class="repo-list-info repo-list-name">
+      {{ listName }}
     </span>
-    <div class="repo-list-created-date-text">
-      <span> 만들어진 시각:</span>
-      {{ createdDate }}
+    <div
+      class="repo-list-info repo-list-created-date"
+      [ngClass]="{ expanded: isDateExpanded }"
+      (click)="dateExpandHandler()"
+    >
+      <span class="repo-list-created-date-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <div class="repo-list-created-date-text">
+        <span> 만들어진 시각:</span>
+        {{ createdDate }}
+      </div>
     </div>
-  </div>
+  </ng-template>
   <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li

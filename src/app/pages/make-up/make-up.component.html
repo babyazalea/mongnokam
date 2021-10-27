@@ -21,7 +21,7 @@
     </button>
   </div>
   <app-repo-list
-    [listName]="'test1'"
+    [isAllRepos]="true"
     [repos]="allRepos"
     *ngIf="allRepos.length > 0 && !isFirstTime && !isLoading"
   ></app-repo-list>
