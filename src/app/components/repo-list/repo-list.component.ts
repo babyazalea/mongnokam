@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Repo } from './repo/repo.model';
 import { DragDropService } from '../../shared/drag-drop/drag-drop.service';
@@ -14,6 +14,10 @@ export class RepoListComponent {
   @Input() createdDate: string = '';
   @Input() listId: string = '';
   @Input() repos: Array<Repo> = [];
+  @Output() newListNameEvent = new EventEmitter<{
+    listId: string;
+    listName: string;
+  }>();
 
   // drag & drop state
   draggingInList: boolean = false;
@@ -23,6 +27,7 @@ export class RepoListComponent {
 
   // repo-list state
   isDateExpanded: boolean = false;
+  isListNameEditing: boolean = false;
 
   constructor(private dropEventService: DragDropService) {}
 
@@ -112,5 +117,14 @@ export class RepoListComponent {
   // repo-list actions
   dateExpandHandler() {
     this.isDateExpanded = !this.isDateExpanded;
+  }
+
+  listNameEditHandler() {
+    this.isListNameEditing = true;
+  }
+
+  newListNameSubmit(newListName: string) {
+    this.newListNameEvent.emit({ listId: this.listId, listName: newListName });
+    this.isListNameEditing = false;
   }
 }

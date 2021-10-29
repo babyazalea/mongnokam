@@ -9,6 +9,7 @@ import { RepoListComponent } from './components/repo-list/repo-list.component';
 import { RepoComponent } from './components/repo-list/repo/repo.component';
 import { MakeUpComponent } from './pages/make-up/make-up.component';
 import { MyListsComponent } from './pages/my-lists/my-lists.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MyListsComponent } from './pages/my-lists/my-lists.component';
     MakeUpComponent,
     MyListsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

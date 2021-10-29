@@ -22,6 +22,8 @@
 }
 
 .repo-list-name {
+  display: flex;
+  align-items: center;
   top: -1rem;
   left: -0.5rem;
   background-color: #caf0f8;
@@ -29,6 +31,14 @@
   border-radius: 1rem;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+.repo-list-name button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  padding: 0;
 }
 
 .repo-list-created-date {
