@@ -28,6 +28,7 @@ button:active {
 
 .provider.list-container {
   padding-right: 2rem;
+  padding-bottom: 0.3rem;
 }
 
 .provider-inside {
