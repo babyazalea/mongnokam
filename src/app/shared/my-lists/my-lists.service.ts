@@ -8,7 +8,51 @@ import { RepoList } from 'src/app/components/repo-list/repo-list.model';
 @Injectable({ providedIn: 'root' })
 export class MyListsService {
   private myLists: Array<RepoList> = [];
-  private myListsUpdated = new Subject<Array<RepoList>>();
+  private isInitLists: boolean = true;
+  private myListsUpdated = new Subject<{
+    lists: Array<RepoList>;
+    isInitLists: boolean;
+  }>();
+
+  // private testingList = [
+  //   {
+  //     id: 'list1',
+  //     createdDate: Date.now().toLocaleString(),
+  //     'list-name': 'react',
+  //     'list-repos': [
+  //       {
+  //         id: '10',
+  //         title: 'test-my-repos11',
+  //         url: 'https://www.google.com/',
+  //         location: 'list0',
+  //       },
+  //       {
+  //         id: '11',
+  //         title: 'test-my-repos11',
+  //         url: 'https://www.google.com/',
+  //         location: 'list1',
+  //       },
+  //       {
+  //         id: '12',
+  //         title: 'test-my-repos12',
+  //         url: 'https://www.google.com/',
+  //         location: 'list1',
+  //       },
+  //       {
+  //         id: '13',
+  //         title: 'test-my-repos13',
+  //         url: 'https://www.google.com/',
+  //         location: 'list1',
+  //       },
+  //       {
+  //         id: '14',
+  //         title: 'test-my-repos14',
+  //         url: 'https://www.google.com/',
+  //         location: 'list1',
+  //       },
+  //     ],
+  //   },
+  // ];
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -29,16 +73,22 @@ export class MyListsService {
   constructor(private http: HttpClient) {}
 
   getMyLists() {
-    // this.http
-    //   .get<Array<RepoList>>(
-    //     'https://mongnokam-default-rtdb.firebaseio.com/my-lists.json'
-    //   )
-    //   .pipe(catchError(this.handleError))
-    //   .subscribe((lists) => {
-    //     console.log(lists);
-    //     this.myLists = lists;
-    //   });
-    return [...this.myLists];
+    this.http
+      .get<Array<RepoList>>(
+        'https://mongnokam-default-rtdb.firebaseio.com/my-lists.json'
+      )
+      .pipe(catchError(this.handleError))
+      .subscribe((listsData) => {
+        this.isInitLists = true;
+        if (listsData === null) {
+          return;
+        }
+        this.myLists = listsData;
+        this.myListsUpdated.next({
+          lists: [...this.myLists],
+          isInitLists: this.isInitLists,
+        });
+      });
   }
 
   getMyListsUpdateListener() {
@@ -47,17 +97,31 @@ export class MyListsService {
 
   addMylist(listData: RepoList) {
     this.myLists.push(listData);
-    this.myListsUpdated.next([...this.myLists]);
+    this.isInitLists = false;
+    this.myListsUpdated.next({
+      lists: [...this.myLists],
+      isInitLists: this.isInitLists,
+    });
   }
 
   storingMyLists() {
     const listsData = [...this.myLists];
     this.http
       .put(
-        'https://mongnokam-default-rtdb.firebaseio.com/lists.json',
+        'https://mongnokam-default-rtdb.firebaseio.com/my-lists.json',
         listsData
       )
-      .subscribe((data) => console.log(data));
+      .subscribe(
+        () => {},
+        (error) => console.log(error),
+        () => {
+          this.isInitLists = true;
+          this.myListsUpdated.next({
+            lists: [...this.myLists],
+            isInitLists: this.isInitLists,
+          });
+        }
+      );
   }
 
   logging() {

@@ -9,7 +9,7 @@ import { MyListsService } from 'src/app/shared/my-lists/my-lists.service';
   styleUrls: ['./aside.component.css'],
 })
 export class AsideComponent implements OnInit, OnDestroy {
-  isListsUpdated: boolean = false;
+  canSaveLists!: boolean;
   private myListsSub: Subscription = new Subscription();
 
   constructor(private myListsService: MyListsService) {}
@@ -17,10 +17,8 @@ export class AsideComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.myListsSub = this.myListsService
       .getMyListsUpdateListener()
-      .subscribe((listData) => {
-        if (listData) {
-          this.isListsUpdated = true;
-        }
+      .subscribe((listsData) => {
+        this.canSaveLists = !listsData.isInitLists;
       });
   }
 

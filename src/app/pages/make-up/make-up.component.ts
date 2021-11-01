@@ -18,12 +18,12 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos: Array<Repo> = [];
-  myLists: Array<{
+  myLists!: Array<{
     id: string;
     'list-name': string;
     createdDate: string;
     'list-repos': Array<Repo>;
-  }> = [];
+  }>;
   octokit = new Octokit();
   private myListsSub: Subscription = new Subscription();
 
@@ -113,6 +113,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     // this.myLists = [
     //   {
     //     id: 'list1',
+    //     createdDate: Date.now().toLocaleString(),
     //     'list-name': 'react',
     //     'list-repos': [
     //       {
@@ -150,6 +151,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     //   {
     //     id: 'list2',
     //     'list-name': 'angular',
+    //     createdDate: Date.now().toLocaleString(),
     //     'list-repos': [
     //       {
     //         id: '15',
@@ -192,6 +194,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     //   {
     //     id: 'list3',
     //     'list-name': 'vue',
+    //     createdDate: Date.now().toLocaleString(),
     //     'list-repos': [
     //       {
     //         id: '21',
@@ -228,6 +231,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     //   {
     //     id: 'list4',
     //     'list-name': 'spring boot',
+    //     createdDate: Date.now().toLocaleString(),
+
     //     'list-repos': [
     //       {
     //         id: '26',
@@ -263,11 +268,11 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     //   },
     // ];
     this.isConsumerLoading = true;
-    this.myLists = this.myListsService.getMyLists();
+    this.myListsService.getMyLists();
     this.myListsSub = this.myListsService
       .getMyListsUpdateListener()
-      .subscribe((listsData: Array<RepoList>) => {
-        this.myLists = listsData;
+      .subscribe((listsData) => {
+        this.myLists = listsData.lists;
       });
   } //ngOnInit
 
