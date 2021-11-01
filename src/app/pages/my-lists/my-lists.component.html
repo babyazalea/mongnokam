@@ -1,0 +1,24 @@
+<main>
+  <div class="list-container">
+    <ul>
+      <li *ngFor="let list of myFavoriteLists">
+        <app-repo-list
+          [listName]="list['list-name']"
+          [repos]="list['list-repos']"
+        >
+        </app-repo-list>
+      </li>
+    </ul>
+  </div>
+  <div class="list-container">
+    <ul>
+      <li *ngFor="let list of myLists">
+        <app-repo-list
+          [listName]="list['list-name']"
+          [repos]="list['list-repos']"
+        >
+        </app-repo-list>
+      </li>
+    </ul>
+  </div>
+</main>

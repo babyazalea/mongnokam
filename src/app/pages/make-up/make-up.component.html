@@ -1,0 +1,45 @@
+<div class="provider list-container">
+  <div class="provider-inside" *ngIf="isProviderLoading">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </div>
+  <div class="provider-inside load-repo-controller" *ngIf="isFirstTime">
+    <p>wanna load repositories from github?</p>
+    <button (click)="loadReposHandler()">
+      <i class="fab fa-github"></i>
+      <i class="fas fa-share"></i>
+      <i class="fas fa-list-ul"></i>
+    </button>
+  </div>
+  <div
+    class="provider-inside no-repos"
+    *ngIf="!isFirstTime && allRepos.length === 0"
+  >
+    <p>no repos found.</p>
+    <button (click)="loadReposHandler()">
+      <span>retry</span>
+      <i class="fas fa-redo-alt"></i>
+    </button>
+  </div>
+  <app-repo-list
+    [isAllRepos]="true"
+    [repos]="allRepos"
+    *ngIf="allRepos.length > 0 && !isFirstTime && !isProviderLoading"
+  ></app-repo-list>
+</div>
+<div class="consumer list-container">
+  <button class="add-list-btn" (click)="onAddMyList()">
+    <i class="fas fa-plus"></i>
+  </button>
+  <ul>
+    <li *ngFor="let list of myLists">
+      <app-repo-list
+        [listName]="list['list-name']"
+        [createdDate]="list['createdDate']"
+        [listId]="list['id']"
+        [repos]="list['list-repos']"
+        (newListNameEvent)="editListName($event)"
+      >
+      </app-repo-list>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,136 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.repo-list-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.repo-list-wrapper.solo {
+  width: 100%;
+}
+
+.repo-list-info {
+  position: absolute;
+}
+
+.repo-list-name {
+  display: flex;
+  align-items: center;
+  top: -1rem;
+  left: -0.5rem;
+  background-color: #caf0f8;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.repo-list-name button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  padding: 0;
+}
+
+.repo-list-created-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 10px;
+  bottom: 0.5rem;
+  right: -0.5rem;
+  overflow: hidden;
+  transition: width 0.02s;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.repo-list-created-date.expanded {
+  background-color: #caf0f8;
+  width: 15rem;
+}
+
+.repo-list-created-date-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #caf0f8;
+  z-index: 2;
+}
+
+.repo-list-created-date.expanded .repo-list-created-date-icon {
+  display: none;
+}
+
+.repo-list-created-date-text {
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: all 0.01s;
+}
+
+.repo-list-created-date-text span {
+  margin-right: 0.3rem;
+}
+
+.repo-list-created-date.expanded .repo-list-created-date-text {
+  opacity: 1;
+}
+
+.repo-list-wrapper > ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--main-box-color);
+  border-radius: 1rem;
+  scrollbar-width: none;
+  overflow-y: auto;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem 0 1.5rem 0;
+  box-sizing: border-box;
+}
+
+.repo-list-wrapper > ul > li:not(.repo-list-create-date) {
+  width: 85%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.repo-list-wrapper > ul > li:not(:last-child) {
+  margin-bottom: 0.7rem;
+}
+
+.dragging-over-container * {
+  pointer-events: none;
+  /* drag-leave 이벤트가 해당 드롭 영역에서만 발동하도록 해줌. */
+}
+
+.dragging-over-list {
+  position: relative;
+}
+
+.dragging-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}

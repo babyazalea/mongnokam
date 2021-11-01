@@ -1,0 +1,25 @@
+.list-container {
+  width: 50%;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: none;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.list-container > ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-container > ul > li {
+  display: inline-block;
+  width: 80%;
+  height: 200px;
+}
+
+.list-container > ul > li:not(:last-child) {
+  margin-bottom: 2rem;
+}

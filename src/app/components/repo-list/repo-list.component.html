@@ -1,0 +1,61 @@
+<div
+  class="repo-list-wrapper"
+  [ngClass]="{ 'dragging-over-container': draggingOver }"
+  (dragenter)="dragEnterOnList($event)"
+  (dragover)="!draggingInList && dragOverOnList($event)"
+  (dragleave)="!draggingInList && dragLeaveOnList($event)"
+  (drop)="!draggingInList && dropOnList($event)"
+>
+  <ng-template [ngIf]="!isAllRepos">
+    <div class="repo-list-info repo-list-name">
+      <ng-container *ngIf="!isListNameEditing; else liseNameInput">
+        <span>
+          {{ listName }}
+        </span>
+        <button (click)="listNameEditHandler()">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </ng-container>
+      <ng-template #liseNameInput>
+        <input type="text" [(ngModel)]="listName" />
+        <button (click)="newListNameSubmit(listName)">
+          <i class="far fa-save"></i>
+        </button>
+        <button>
+          <i class="far fa-times-circle"></i>
+        </button>
+      </ng-template>
+    </div>
+    <div
+      class="repo-list-info repo-list-created-date"
+      [ngClass]="{ expanded: isDateExpanded }"
+      (click)="dateExpandHandler()"
+    >
+      <span class="repo-list-created-date-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <div class="repo-list-created-date-text">
+        <span>만들어진 시각:</span>
+        {{ createdDate }}
+      </div>
+    </div>
+  </ng-template>
+  <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
+    <div class="dragging-overlay" *ngIf="draggingOver"></div>
+    <li
+      *ngFor="let repo of repos; index as i"
+      [ngClass]="{
+        'dragging-item': draggingInList && draggingStyling(repo.id)
+      }"
+      draggable="true"
+      (dragstart)="dragStart($event, i, repo)"
+      (dragenter)="draggingInList && dragEnterInList($event, i)"
+      (dragend)="dragEnd()"
+    >
+      <app-repo
+        [isDragging]="draggingInList && draggingStyling(repo.id)"
+        [repoData]="repo"
+      ></app-repo>
+    </li>
+  </ul>
+</div>
