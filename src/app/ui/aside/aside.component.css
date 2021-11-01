@@ -29,7 +29,7 @@ button:active {
   color: rgba(0, 0, 0, 0.2);
 }
 
-/* button:disabled {
+button:disabled {
   pointer-events: none;
   background: rgba(0, 0, 0, 0.1);
-} */
+}
