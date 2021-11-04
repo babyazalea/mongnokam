@@ -49,14 +49,9 @@ button:active {
   height: 80px;
   position: relative;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 0 7rem 0 7rem;
+  justify-content: space-around;
   box-sizing: border-box;
-}
-
-.provider-inside button i:not(:last-child) {
-  margin-right: 1rem;
 }
 
 .provider-inside button i.fa-share {
