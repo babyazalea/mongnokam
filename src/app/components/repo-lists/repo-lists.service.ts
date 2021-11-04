@@ -17,52 +17,12 @@ export class RepoListsService {
   }>();
 
   // allRepos variable
-  private allRepos: Array<RepoList> = [];
-  private isInitAllRepos: boolean = true;
+  private allRepos: Array<Repo> = [];
+  private isFirstTime: boolean = true;
   private allReposUpadated = new Subject<{
-    lists: Array<RepoList>;
-    isinitAllRepos: boolean;
+    allRepos: Array<Repo>;
+    isFirstTime: boolean;
   }>();
-
-  // private testingList = [
-  //   {
-  //     id: 'list1',
-  //     createdDate: Date.now().toLocaleString(),
-  //     'list-name': 'react',
-  //     'list-repos': [
-  //       {
-  //         id: '10',
-  //         title: 'test-my-repos11',
-  //         url: 'https://www.google.com/',
-  //         location: 'list0',
-  //       },
-  //       {
-  //         id: '11',
-  //         title: 'test-my-repos11',
-  //         url: 'https://www.google.com/',
-  //         location: 'list1',
-  //       },
-  //       {
-  //         id: '12',
-  //         title: 'test-my-repos12',
-  //         url: 'https://www.google.com/',
-  //         location: 'list1',
-  //       },
-  //       {
-  //         id: '13',
-  //         title: 'test-my-repos13',
-  //         url: 'https://www.google.com/',
-  //         location: 'list1',
-  //       },
-  //       {
-  //         id: '14',
-  //         title: 'test-my-repos14',
-  //         url: 'https://www.google.com/',
-  //         location: 'list1',
-  //       },
-  //     ],
-  //   },
-  // ];
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -82,20 +42,29 @@ export class RepoListsService {
 
   constructor(private http: HttpClient) {}
 
-  getMyListsInLocalStorage() {
-    let lists;
-    const listsData = localStorage.getItem('listsData');
-    if (listsData !== null) {
-      lists = JSON.parse(listsData);
-      this.isInitMyLists = true;
-      this.myLists = lists;
-      this.myListsUpdated.next({
-        lists: [...this.myLists],
-        isInitMyLists: this.isInitMyLists,
-      });
+  getAllReposInLocalStorage() {
+    const allReposData = localStorage.getItem('allRepos');
+    if (allReposData !== null) {
+      console.log('all-repos-not-null');
+      const allRepos = JSON.parse(allReposData);
+      this.allRepos = allRepos;
     }
 
-    return lists;
+    return this.allRepos;
+  }
+
+  allReposUpdatedListener() {
+    return this.allReposUpadated.asObservable();
+  }
+
+  getMyListsInLocalStorage() {
+    const listsData = localStorage.getItem('listsData');
+    if (listsData !== null) {
+      const lists = JSON.parse(listsData);
+      this.isInitMyLists = true;
+      this.myLists = lists;
+    }
+    return this.myLists;
   }
 
   getMyLists() {
@@ -153,10 +122,10 @@ export class RepoListsService {
     });
 
     // if(isAllRepos) {
-    //   this.isInitAllRepos = false;
+    //   this.isFirstTime = false;
     //   this.allReposUpadated.next({
     //     lists: updatedLists,
-    //     isinitAllRepos: this.isInitAllRepos,
+    //     isFirstTime: this.isFirstTime,
     //   })
     // } else {
     //   this.isInitMyLists = false;
