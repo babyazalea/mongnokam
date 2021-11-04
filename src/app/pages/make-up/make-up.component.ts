@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Octokit } from '@octokit/core';
-import { MyListsService } from 'src/app/shared/my-lists/my-lists.service';
+import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Repo } from '../../components/repo-list/repo/repo.model';
-import { RepoList } from 'src/app/components/repo-list/repo-list.model';
+import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
 
 @Component({
   selector: 'app-make-up',
@@ -27,7 +26,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   octokit = new Octokit();
   private myListsSub: Subscription = new Subscription();
 
-  constructor(public myListsService: MyListsService) {}
+  constructor(public repoListsService: RepoListsService) {}
 
   ngOnInit() {
     // this.octokit
@@ -268,8 +267,9 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     //   },
     // ];
     this.isConsumerLoading = true;
-    this.myListsService.getMyLists();
-    this.myListsSub = this.myListsService
+    this.myLists = this.repoListsService.getMyListsInLocalStorage();
+    // this.repoListsService.getMyLists();
+    this.myListsSub = this.repoListsService
       .getMyListsUpdateListener()
       .subscribe((listsData) => {
         this.myLists = listsData.lists;
@@ -319,7 +319,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       'list-repos': [],
     };
 
-    this.myListsService.addMylist(newList);
+    this.repoListsService.addMyList(newList);
   }
 
   editListName(listObj: { listId: string; listName: string }) {

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { MyListsService } from 'src/app/shared/my-lists/my-lists.service';
+import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 
 @Component({
   selector: 'app-aside',
@@ -12,18 +12,25 @@ export class AsideComponent implements OnInit, OnDestroy {
   canSaveLists!: boolean;
   private myListsSub: Subscription = new Subscription();
 
-  constructor(private myListsService: MyListsService) {}
+  constructor(private repoListsService: RepoListsService) {}
 
   ngOnInit() {
-    this.myListsSub = this.myListsService
+    this.myListsSub = this.repoListsService
       .getMyListsUpdateListener()
       .subscribe((listsData) => {
-        this.canSaveLists = !listsData.isInitLists;
+        this.canSaveLists = !listsData.isInitMyLists;
       });
   }
 
   saveRecentLists() {
-    this.myListsService.storingMyLists();
+    const isAuth = false;
+
+    if (!isAuth) {
+      this.repoListsService.storingMyListsInLocalStorage();
+      return;
+    }
+
+    this.repoListsService.storingMyLists();
   }
 
   ngOnDestroy() {

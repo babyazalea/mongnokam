@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Repo } from 'src/app/components/repo-list/repo/repo.model';
+import { Repo } from 'src/app/components/repo-lists/repo-list/repo/repo.model';
 
 @Component({
   selector: 'app-my-lists',
