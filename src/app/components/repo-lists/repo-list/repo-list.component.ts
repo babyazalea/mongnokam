@@ -123,6 +123,8 @@ export class RepoListComponent {
       // need conditionally save
       if (!this.isAllRepos) {
         this.repoListsService.updatingMyList(this.repos, this.listId);
+      } else {
+        this.repoListsService.updatingAllRepos(this.repos);
       }
     }
   }
@@ -154,6 +156,8 @@ export class RepoListComponent {
     // need conditionally save
     if (!this.isAllRepos) {
       this.repoListsService.updatingMyList(this.repos, this.listId);
+    } else {
+      this.repoListsService.updatingAllRepos(this.repos);
     }
   }
 

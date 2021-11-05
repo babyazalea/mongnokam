@@ -18,10 +18,8 @@ export class RepoListsService {
 
   // allRepos variable
   private allRepos: Array<Repo> = [];
-  private isFirstTime: boolean = true;
   private allReposUpadated = new Subject<{
     allRepos: Array<Repo>;
-    isFirstTime: boolean;
   }>();
 
   private handleError(error: HttpErrorResponse) {
@@ -120,27 +118,25 @@ export class RepoListsService {
       lists: [...this.myLists],
       isInitMyLists: this.isInitMyLists,
     });
+  }
 
-    // if(isAllRepos) {
-    //   this.isFirstTime = false;
-    //   this.allReposUpadated.next({
-    //     lists: updatedLists,
-    //     isFirstTime: this.isFirstTime,
-    //   })
-    // } else {
-    //   this.isInitMyLists = false;
-    //   this.myListsUpdated.next({
-    //     lists: updatedLists,
-    //     isInitMyLists: this.isInitMyLists,
-    //   });
-    // }
+  updatingAllRepos(updatedRepos: Array<Repo>) {
+    this.allRepos = updatedRepos;
+
+    this.allReposUpadated.next({
+      allRepos: [...this.allRepos],
+    });
   }
 
   storingMyListsInLocalStorage() {
-    const lists = [...this.myLists];
-    const listsData = JSON.stringify(lists);
+    const currentMyLists = [...this.myLists];
+    const currentMyListsJSON = JSON.stringify(currentMyLists);
 
-    localStorage.setItem('listsData', listsData);
+    const currentAllRepos = [...this.allRepos];
+    const currentAllReposJSON = JSON.stringify(currentAllRepos);
+
+    localStorage.setItem('listsData', currentMyListsJSON);
+    localStorage.setItem('allRepos', currentAllReposJSON);
     this.isInitMyLists = true;
     this.myListsUpdated.next({
       lists: [...this.myLists],

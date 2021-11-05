@@ -188,7 +188,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   constructor(public repoListsService: RepoListsService) {}
 
   ngOnInit() {
-    // load all repos
+    // need load all-repos conditionally from database, localStroage or firebase
     this.allRepos = this.repoListsService.getAllReposInLocalStorage();
     if (this.allRepos.length === 0) {
       this.isFirstTime = true;
@@ -201,6 +201,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
         this.isProviderLoading = false;
       });
 
+    // need load my-lists conditionally from database, localStroage or firebase
     this.myLists = this.repoListsService.getMyListsInLocalStorage();
     this.myListsSub = this.repoListsService
       .getMyListsUpdateListener()
