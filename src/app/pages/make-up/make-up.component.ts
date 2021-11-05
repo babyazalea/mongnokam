@@ -220,6 +220,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
         {
           username: 'babyazalea',
           per_page: 100,
+          page: 2,
         }
       );
       const responseData = await response.data;
@@ -232,7 +233,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       let arr: Array<Repo> = [];
       response.data.map((responseData: any, index: string) => {
         const repository = {
-          id: index,
+          id: responseData.id,
           title: responseData.name,
           url: responseData.html_url,
           location: 'all-repos',
