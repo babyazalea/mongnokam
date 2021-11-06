@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
 import { Octokit } from '@octokit/core';
@@ -181,11 +182,14 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     createdDate: string;
     'list-repos': Array<Repo>;
   }>;
-  octokit = new Octokit();
+  octokit = new Octokit({ auth: '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' });
   private myListsSub: Subscription = new Subscription();
   private allReposSub: Subscription = new Subscription();
 
-  constructor(public repoListsService: RepoListsService) {}
+  constructor(
+    public repoListsService: RepoListsService,
+    public http: HttpClient
+  ) {}
 
   ngOnInit() {
     // need load all-repos conditionally from database, localStroage or firebase
@@ -214,39 +218,40 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.isFirstTime = false;
     this.isProviderLoading = true;
 
-    try {
-      const response = await this.octokit.request(
-        'GET /users/babyazalea/repos',
-        {
-          username: 'babyazalea',
-          per_page: 100,
-          page: 2,
-        }
-      );
-      const responseData = await response.data;
+    // const response = await this.octokit.request('GET /user');
+    // const responseData = await response;
 
-      this.isProviderLoading = false;
-      if (!responseData) {
-        return;
-      }
+    // try {
+    // const response = await this.octokit.request('GET /users/octocat/repos', {
+    //   username: 'octocat',
+    //   per_page: 100,
+    //   page: 1,
+    // });
 
-      let arr: Array<Repo> = [];
-      response.data.map((responseData: any, index: string) => {
-        const repository = {
-          id: responseData.id,
-          title: responseData.name,
-          url: responseData.html_url,
-          location: 'all-repos',
-        };
-        arr.push(repository);
-      });
-      // storing to localStorage
-      const allRepos = JSON.stringify(arr);
-      localStorage.setItem('allRepos', allRepos);
-      this.allRepos = arr;
-    } catch (error) {
-      console.log(error);
-    }
+    //   const responseData = await response.data;
+
+    //   this.isProviderLoading = false;
+    //   if (!responseData) {
+    //     return;
+    //   }
+
+    //   let arr: Array<Repo> = [];
+    //   response.data.map((responseData: any, index: string) => {
+    //     const repository = {
+    //       id: responseData.id,
+    //       title: responseData.name,
+    //       url: responseData.html_url,
+    //       location: 'all-repos',
+    //     };
+    //     arr.push(repository);
+    //   });
+    //   // storing to localStorage
+    //   const allRepos = JSON.stringify(arr);
+    //   localStorage.setItem('allRepos', allRepos);
+    //   this.allRepos = arr;
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   onAddMyList() {
