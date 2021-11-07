@@ -8,13 +8,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent {
+  githubLoginBaseUrl = 'https://github.com/login/oauth/authorize?';
   githubLoginConfig = {
     client_id: environment.githubApiKey,
     allow_signup: 'false',
     scope: 'repo' + ' ' + 'user',
   };
-
-  githubLoginBaseUrl = 'https://github.com/login/oauth/authorize?';
   githubLoginConfigUrl = new URLSearchParams(this.githubLoginConfig).toString();
 
   githubLoginUrl = this.githubLoginBaseUrl + this.githubLoginConfigUrl;
