@@ -128,7 +128,7 @@ export class RepoListsService {
     });
   }
 
-  storingMyListsInLocalStorage() {
+  storingCurrentMakeUpLocalStorage() {
     const currentMyLists = [...this.myLists];
     const currentMyListsJSON = JSON.stringify(currentMyLists);
 

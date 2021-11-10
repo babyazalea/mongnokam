@@ -26,7 +26,7 @@ export class AsideComponent implements OnInit, OnDestroy {
     const isAuth = false;
 
     if (!isAuth) {
-      this.repoListsService.storingMyListsInLocalStorage();
+      this.repoListsService.storingCurrentMakeUpLocalStorage();
       return;
     }
 
