@@ -11,6 +11,7 @@ import { MakeUpComponent } from './pages/make-up/make-up.component';
 import { MyListsComponent } from './pages/my-lists/my-lists.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { GithubLoginCallbackComponent } from './pages/auth/github-login-callback/github-login-callback.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     RepoComponent,
     MakeUpComponent,
     MyListsComponent,
+    GithubLoginCallbackComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
