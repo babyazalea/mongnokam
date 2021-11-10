@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth, GithubAuthProvider } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 
 @NgModule({
@@ -27,15 +27,15 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
     MyListsComponent,
   ],
   imports: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
   ],
-  providers: [],
+  providers: [GithubAuthProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
