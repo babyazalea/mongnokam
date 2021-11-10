@@ -10,16 +10,18 @@ import { Repo } from 'src/app/components/repo-lists/repo-list/repo/repo.model';
 export class RepoListsService {
   // myLists variable
   private myLists: Array<RepoList> = [];
-  private isInitMyLists: boolean = true;
+  private detectedChangingMyLists: boolean = false;
   private myListsUpdated = new Subject<{
     lists: Array<RepoList>;
-    isInitMyLists: boolean;
+    detectedChangingMyLists: boolean;
   }>();
 
   // allRepos variable
   private allRepos: Array<Repo> = [];
+  private detectedChangingAllRepos: boolean = false;
   private allReposUpadated = new Subject<{
     allRepos: Array<Repo>;
+    detectedChangingAllrepos: boolean;
   }>();
 
   private handleError(error: HttpErrorResponse) {
@@ -59,7 +61,7 @@ export class RepoListsService {
     const listsData = localStorage.getItem('listsData');
     if (listsData !== null) {
       const lists = JSON.parse(listsData);
-      this.isInitMyLists = true;
+      this.detectedChangingMyLists = true;
       this.myLists = lists;
     }
     return this.myLists;
@@ -72,14 +74,14 @@ export class RepoListsService {
       )
       .pipe(catchError(this.handleError))
       .subscribe((listsData) => {
-        this.isInitMyLists = true;
+        this.detectedChangingMyLists = true;
         if (listsData === null) {
           return;
         }
         this.myLists = listsData;
         this.myListsUpdated.next({
           lists: [...this.myLists],
-          isInitMyLists: this.isInitMyLists,
+          detectedChangingMyLists: this.detectedChangingMyLists,
         });
       });
   }
@@ -91,10 +93,10 @@ export class RepoListsService {
   addMyList(listData: RepoList) {
     console.log('add my list');
     this.myLists.push(listData);
-    this.isInitMyLists = false;
+    this.detectedChangingMyLists = true;
     this.myListsUpdated.next({
       lists: [...this.myLists],
-      isInitMyLists: this.isInitMyLists,
+      detectedChangingMyLists: this.detectedChangingMyLists,
     });
   }
 
@@ -113,18 +115,23 @@ export class RepoListsService {
 
     this.myLists = myLists;
 
-    this.isInitMyLists = false;
+    this.detectedChangingMyLists = true;
     this.myListsUpdated.next({
       lists: [...this.myLists],
-      isInitMyLists: this.isInitMyLists,
+      detectedChangingMyLists: this.detectedChangingMyLists,
     });
+  }
+
+  getAllReposUpdateListener() {
+    return this.allReposUpadated.asObservable();
   }
 
   updatingAllRepos(updatedRepos: Array<Repo>) {
     this.allRepos = updatedRepos;
-
+    this.detectedChangingAllRepos = true;
     this.allReposUpadated.next({
       allRepos: [...this.allRepos],
+      detectedChangingAllrepos: this.detectedChangingAllRepos,
     });
   }
 
@@ -137,29 +144,34 @@ export class RepoListsService {
 
     localStorage.setItem('listsData', currentMyListsJSON);
     localStorage.setItem('allRepos', currentAllReposJSON);
-    this.isInitMyLists = true;
+    this.detectedChangingMyLists = false;
     this.myListsUpdated.next({
-      lists: [...this.myLists],
-      isInitMyLists: this.isInitMyLists,
+      lists: currentMyLists,
+      detectedChangingMyLists: this.detectedChangingMyLists,
+    });
+    this.detectedChangingAllRepos = false;
+    this.allReposUpadated.next({
+      allRepos: currentAllRepos,
+      detectedChangingAllrepos: this.detectedChangingAllRepos,
     });
   }
 
-  storingMyLists() {
-    const lists = [...this.myLists];
-    this.http
-      .put('https://mongnokam-default-rtdb.firebaseio.com/my-lists.json', lists)
-      .subscribe(
-        () => {},
-        (error) => console.log(error),
-        () => {
-          this.isInitMyLists = true;
-          this.myListsUpdated.next({
-            lists: [...this.myLists],
-            isInitMyLists: this.isInitMyLists,
-          });
-        }
-      );
-  }
+  // storingMyLists() {
+  //   const lists = [...this.myLists];
+  //   this.http
+  //     .put('https://mongnokam-default-rtdb.firebaseio.com/my-lists.json', lists)
+  //     .subscribe(
+  //       () => {},
+  //       (error) => console.log(error),
+  //       () => {
+  //         this.detectedChangingMyLists = true;
+  //         this.myListsUpdated.next({
+  //           lists: [...this.myLists],
+  //           detectedChangingMyLists: this.detectedChangingMyLists,
+  //         });
+  //       }
+  //     );
+  // }
 
   logging() {
     console.log('just logging');
