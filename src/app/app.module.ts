@@ -11,6 +11,10 @@ import { MakeUpComponent } from './pages/make-up/make-up.component';
 import { MyListsComponent } from './pages/my-lists/my-lists.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,15 @@ import { HttpClientModule } from '@angular/common/http';
     MakeUpComponent,
     MyListsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

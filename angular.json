@@ -31,8 +31,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-                "lodash"
-             ]
+              "lodash"
+            ]
           },
           "configurations": {
             "production": {
@@ -100,6 +100,16 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "mongnokam:build:production",
+            "firebaseProject": "mongnokam",
+            "firebaseHostingSite": "mongnokam"
           }
         }
       }

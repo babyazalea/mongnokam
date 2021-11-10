@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mongnokam": {
+      "hosting": {
+        "mongnokam": [
+          "mongnokam"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mongnokam"
+  }
+}
