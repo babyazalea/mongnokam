@@ -230,7 +230,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
         return;
       }
 
-      let arr: Array<Repo> = [];
+      let repos: Array<Repo> = [];
       response.data.map((responseData: any, index: string) => {
         const repository = {
           id: responseData.id,
@@ -238,12 +238,10 @@ export class MakeUpComponent implements OnInit, OnDestroy {
           url: responseData.html_url,
           location: 'all-repos',
         };
-        arr.push(repository);
+        repos.push(repository);
       });
-      // storing to localStorage
-      const allRepos = JSON.stringify(arr);
-      localStorage.setItem('allRepos', allRepos);
-      this.allRepos = arr;
+
+      this.repoListsService.updatingAllRepos(repos);
     } catch (error) {
       console.log(error);
     }
