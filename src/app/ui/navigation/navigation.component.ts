@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { signInWithPopup, GithubAuthProvider, Auth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -12,7 +13,7 @@ export class NavigationComponent {
   constructor(
     public auth: Auth,
     public githubAuthProvider: GithubAuthProvider,
-    public http: HttpClient
+    private authService: AuthService
   ) {}
 
   githubLoginHandler() {
@@ -29,21 +30,7 @@ export class NavigationComponent {
         const token = credential?.accessToken;
         if (token) {
           localStorage.setItem('accessToken', token);
-
-          this.http
-            .get('https://api.github.com/user', {
-              headers: {
-                Authorization: `token ${token}`,
-              },
-            })
-            .subscribe(
-              (response: any) => {
-                const res = response;
-                console.log(res['public_repos']);
-                console.log(res['total_private_repos']);
-              },
-              (error) => console.log(error)
-            );
+          this.authService.getUser(token);
         }
       })
       .catch((error) => console.log(error));
