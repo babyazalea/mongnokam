@@ -1,27 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   // user variable
-  private user!: {
-    username: string;
-    avatarUrl: string;
-    githubUrl: string;
-    publicRepoAmount: number;
-    privateRepoAmount: number;
-  };
+  private user!: User;
   private userUpdated = new Subject<{
-    user: {
-      username: string;
-      avatarUrl: string;
-      githubUrl: string;
-      publicRepoAmount: number;
-      privateRepoAmount: number;
-    };
+    user: User;
   }>();
 
   constructor(private http: HttpClient) {}
@@ -37,7 +26,7 @@ export class UserService {
       .subscribe(
         (response: any) => {
           if (response.login) {
-            const loggedInUser = {
+            const loggedInUser: User = {
               username: response.login,
               avatarUrl: response['avatar_url'],
               githubUrl: response['html_url'],
