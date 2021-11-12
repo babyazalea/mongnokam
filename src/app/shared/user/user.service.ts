@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class UserService {
   // user variable
   private user!: { username: string; avatarUrl: string; githubUrl: string };
 
