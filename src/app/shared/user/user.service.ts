@@ -42,4 +42,8 @@ export class UserService {
         (error) => console.log(error)
       );
   }
+
+  getUserUpdated() {
+    return this.userUpdated.asObservable();
+  }
 }
