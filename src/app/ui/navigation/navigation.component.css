@@ -32,18 +32,19 @@ nav > div:not(:last-child) {
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "first second"
-    "third fourth";
+    "third third";
   column-gap: 1.5rem;
   row-gap: 1rem;
 }
 
 .menu {
-  display: grid;
-  grid-template-columns: 0.3fr 1fr;
+  display: flex;
+  justify-content: center;
 }
 
-.menu > span {
-  text-align: center;
+.menu button {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
 }
 
 .first-menu {
@@ -54,25 +55,11 @@ nav > div:not(:last-child) {
   grid-area: second;
 }
 
-.third-menu {
+.login-nav {
   grid-area: third;
 }
 
-.fourth-menu {
-  grid-area: fourth;
-}
-
-.action-menus {
-  border: 1px solid red;
-}
-
-.action-menus ul {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.action-menus ul li button {
-  background: none;
-  border: none;
+.logged-in-nav {
+  justify-content: space-around;
+  grid-area: third;
 }
