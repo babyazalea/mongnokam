@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { signInWithPopup, GithubAuthProvider, Auth } from '@angular/fire/auth';
-import { UserService } from 'src/app/shared/user/user.service';
-import { User } from 'src/app/shared/user/user.model';
 import { Subscription } from 'rxjs';
+
+import { User } from 'src/app/shared/user/user.model';
+import { UserService } from 'src/app/shared/user/user.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
