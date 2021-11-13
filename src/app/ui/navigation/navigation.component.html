@@ -22,22 +22,30 @@
         </span>
         <span>{{ user ? user.username : "내 정보" }}</span>
       </li>
-      <li class="menu fourth-menu">
-        <span>
-          <i class="fas fa-sign-out-alt"></i>
-        </span>
-        <span>로그아웃</span>
-      </li>
+      <li class="menu fourth-menu"></li>
     </ul>
   </div>
   <div class="action-menus">
     <ul>
-      <li class="btn-sign-up">
-        <span>가입하기</span>
-      </li>
-      <li class="btn-login" (click)="githubLoginHandler()">
-        <span>로그인</span>
-      </li>
+      <ng-template [ngIf]="!user">
+        <li class="btn-sign-up">
+          <button>
+            <span>가입하기</span>
+          </button>
+        </li>
+        <li class="btn-login">
+          <button (click)="githubLoginHandler()">
+            <span>로그인</span>
+          </button>
+        </li>
+      </ng-template>
+      <ng-template [ngIf]="user">
+        <li class="btn-logout">
+          <button>
+            <span>로그아웃</span>
+          </button>
+        </li>
+      </ng-template>
     </ul>
   </div>
 </nav>

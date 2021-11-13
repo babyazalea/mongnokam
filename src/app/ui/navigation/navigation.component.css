@@ -67,5 +67,12 @@ nav > div:not(:last-child) {
 }
 
 .action-menus ul {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.action-menus ul li button {
+  background: none;
+  border: none;
 }
