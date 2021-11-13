@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { User } from 'src/app/shared/user/user.model';
-import { UserService } from 'src/app/shared/user/user.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
@@ -11,19 +9,17 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  user!: User;
-  private userSub: Subscription = new Subscription();
+  isAuthenticated: boolean = false;
+  private authStatusSub!: Subscription;
 
-  constructor(
-    private userService: UserService,
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    // load user info
-    this.userSub = this.userService.getUserUpdated().subscribe((userData) => {
-      this.user = userData.user;
-    });
+    // load auth status
+    this.isAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatus()
+      .subscribe((isAuth) => (this.isAuthenticated = isAuth));
   }
 
   githubLoginHandler() {
@@ -31,6 +27,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }

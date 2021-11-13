@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { signInWithPopup, GithubAuthProvider, Auth } from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/user/user.service';
 
@@ -6,7 +8,8 @@ import { UserService } from 'src/app/shared/user/user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn: boolean = false;
+  private isAuthenticated: boolean = false;
+  private authStatusListener = new Subject<boolean>();
 
   constructor(
     private auth: Auth,
@@ -14,9 +17,16 @@ export class AuthService {
     private userService: UserService
   ) {}
 
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
+  getAuthStatus() {
+    return this.authStatusListener.asObservable();
+  }
+
   githubLogin() {
     const ghProvider = this.githubAuthProvider;
-
     ghProvider.addScope('repo user');
     ghProvider.setCustomParameters({
       allow_signup: 'false',
@@ -27,9 +37,10 @@ export class AuthService {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         if (token) {
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
           localStorage.setItem('accessToken', token);
           this.userService.getUser(token);
-          this.isLoggedIn = true;
         }
       })
       .catch((error) => console.log(error));
