@@ -182,8 +182,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     'list-repos': Array<Repo>;
   }>;
   octokit = new Octokit();
-  private myListsSub: Subscription = new Subscription();
-  private allReposSub: Subscription = new Subscription();
+  private myListsSub!: Subscription;
+  private allReposSub!: Subscription;
 
   constructor(public repoListsService: RepoListsService) {}
 
