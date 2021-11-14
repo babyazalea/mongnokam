@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { signInWithPopup, GithubAuthProvider, Auth } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithPopup,
+  GithubAuthProvider,
+  signOut,
+} from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/user/user.service';
 
 @Injectable({
@@ -49,6 +54,7 @@ export class AuthService {
             'authData',
             JSON.stringify(authenticatedUserData)
           );
+          this.setAuthTimer(expiresDuration);
           this.userService.getUser(token);
         }
       })
@@ -64,19 +70,28 @@ export class AuthService {
     const parsedAuthData = JSON.parse(authData);
     const expiresInDate = new Date(parsedAuthData.expiresIn);
     const now = new Date();
-    const remainingTime = expiresInDate.getTime() - now.getTime();
-    if (remainingTime > 0) {
-      console.log(remainingTime);
+    const remainingDuration = expiresInDate.getTime() - now.getTime();
+    if (remainingDuration > 0) {
       this.isAuthenticated = true;
-      this.setAuthTimer(remainingTime);
+      this.authStatusListener.next(true);
+      this.setAuthTimer(remainingDuration);
     }
-    console.log(this.setAuthTimer);
+  }
+
+  logout() {
+    signOut(this.auth)
+      .then((res) => {
+        this.isAuthenticated = false;
+        this.authStatusListener.next(false);
+        clearTimeout(this.authTimer);
+        localStorage.removeItem('authData');
+      })
+      .catch((error) => error);
   }
 
   private setAuthTimer(duration: number) {
     this.authTimer = setTimeout(() => {
-      // need logout
-      console.log('logout');
+      this.logout();
     }, duration);
   }
 }

@@ -26,6 +26,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.authService.githubLogin();
   }
 
+  logoutHandler() {
+    this.authService.logout();
+  }
+
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
