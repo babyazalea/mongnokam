@@ -16,14 +16,6 @@ export class RepoListsService {
     detectedChangingMyLists: boolean;
   }>();
 
-  // allRepos variable
-  private allRepos: Array<Repo> = [];
-  private detectedChangingAllRepos: boolean = false;
-  private allReposUpadated = new Subject<{
-    allRepos: Array<Repo>;
-    detectedChangingAllrepos: boolean;
-  }>();
-
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -42,19 +34,21 @@ export class RepoListsService {
 
   constructor(private http: HttpClient) {}
 
-  getAllReposInLocalStorage() {
-    const allReposData = localStorage.getItem('allRepos');
-    if (allReposData !== null) {
-      console.log('all-repos-not-null');
-      const allRepos = JSON.parse(allReposData);
-      this.allRepos = allRepos;
+  loadRepos() {
+    const token = localStorage.getItem('accessToken');
+
+    if (token) {
+      this.http
+        .get('https://api.github.com/user/repos', {
+          headers: {
+            Authorization: `token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .subscribe((response: any) => {
+          console.log(response);
+        });
     }
-
-    return this.allRepos;
-  }
-
-  allReposUpdatedListener() {
-    return this.allReposUpadated.asObservable();
   }
 
   getMyListsInLocalStorage() {
@@ -122,56 +116,18 @@ export class RepoListsService {
     });
   }
 
-  getAllReposUpdateListener() {
-    return this.allReposUpadated.asObservable();
-  }
-
-  updatingAllRepos(updatedRepos: Array<Repo>) {
-    this.allRepos = updatedRepos;
-    this.detectedChangingAllRepos = true;
-    this.allReposUpadated.next({
-      allRepos: [...this.allRepos],
-      detectedChangingAllrepos: this.detectedChangingAllRepos,
-    });
-  }
-
-  storingCurrentMakeUpLocalStorage() {
+  storingCurrentMyLists() {
     const currentMyLists = [...this.myLists];
     const currentMyListsJSON = JSON.stringify(currentMyLists);
 
-    const currentAllRepos = [...this.allRepos];
-    const currentAllReposJSON = JSON.stringify(currentAllRepos);
-
     localStorage.setItem('listsData', currentMyListsJSON);
-    localStorage.setItem('allRepos', currentAllReposJSON);
+
     this.detectedChangingMyLists = false;
     this.myListsUpdated.next({
       lists: currentMyLists,
       detectedChangingMyLists: this.detectedChangingMyLists,
     });
-    this.detectedChangingAllRepos = false;
-    this.allReposUpadated.next({
-      allRepos: currentAllRepos,
-      detectedChangingAllrepos: this.detectedChangingAllRepos,
-    });
   }
-
-  // storingMyLists() {
-  //   const lists = [...this.myLists];
-  //   this.http
-  //     .put('https://mongnokam-default-rtdb.firebaseio.com/my-lists.json', lists)
-  //     .subscribe(
-  //       () => {},
-  //       (error) => console.log(error),
-  //       () => {
-  //         this.detectedChangingMyLists = true;
-  //         this.myListsUpdated.next({
-  //           lists: [...this.myLists],
-  //           detectedChangingMyLists: this.detectedChangingMyLists,
-  //         });
-  //       }
-  //     );
-  // }
 
   logging() {
     console.log('just logging');

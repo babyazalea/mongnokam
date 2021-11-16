@@ -19,7 +19,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.isAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .authStatsuListener()
-      .subscribe((isAuth) => (this.isAuthenticated = isAuth));
+      .subscribe((isAuth) => {
+        console.log(isAuth);
+        this.isAuthenticated = isAuth;
+        console.log(this.isAuthenticated);
+      });
   }
 
   githubLoginHandler() {

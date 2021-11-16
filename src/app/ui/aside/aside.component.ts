@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RepoService } from 'src/app/components/repo-lists/repo-list/repo/repo.service';
 
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 
@@ -14,7 +15,10 @@ export class AsideComponent implements OnInit, OnDestroy {
   private myListsSub: Subscription = new Subscription();
   private allReposSub: Subscription = new Subscription();
 
-  constructor(private repoListsService: RepoListsService) {}
+  constructor(
+    private repoService: RepoService,
+    private repoListsService: RepoListsService
+  ) {}
 
   ngOnInit() {
     this.myListsSub = this.repoListsService
@@ -22,7 +26,7 @@ export class AsideComponent implements OnInit, OnDestroy {
       .subscribe((listsData) => {
         this.detectingChangingMyList = listsData.detectedChangingMyLists;
       });
-    this.allReposSub = this.repoListsService
+    this.allReposSub = this.repoService
       .getAllReposUpdateListener()
       .subscribe((allReposData) => {
         console.log(allReposData);
@@ -31,14 +35,8 @@ export class AsideComponent implements OnInit, OnDestroy {
   }
 
   saveRecentLists() {
-    const isAuth = false;
-
-    if (!isAuth) {
-      this.repoListsService.storingCurrentMakeUpLocalStorage();
-      return;
-    }
-
-    this.repoListsService.storingCurrentMakeUpLocalStorage();
+    this.repoService.storingCurrentAllRepos();
+    this.repoListsService.storingCurrentMyLists();
   }
 
   loggingState() {
