@@ -1,17 +1,27 @@
 <div class="provider list-container">
   <div class="provider-inside">
-    <ng-template [ngIf]="isProviderLoading">
+    <ng-template [ngIf]="!isAuthenticated">
+      아래의 메뉴에서 Github 로그인을 하시면 저장소를 불러올 수 있습니다.
+    </ng-template>
+    <ng-template [ngIf]="isAuthenticated && isProviderLoading">
       <i class="fas fa-spinner fa-pulse"></i>
     </ng-template>
-    <ng-template [ngIf]="isFirstTime">
-      <p>wanna load repositories from github?</p>
+    <ng-template [ngIf]="isAuthenticated && isFirstTime">
+      <p>Github에서 저장소를 불러 올까요?</p>
       <button (click)="loadReposHandler()">
         <i class="fab fa-github"></i>
         <i class="fas fa-share"></i>
         <i class="fas fa-list-ul"></i>
       </button>
     </ng-template>
-    <ng-template [ngIf]="!isFirstTime && allRepos.length === 0">
+    <ng-template
+      [ngIf]="
+        isAuthenticated &&
+        !isFirstTime &&
+        !isProviderLoading &&
+        allRepos.length === 0
+      "
+    >
       <p>no repos found.</p>
       <button (click)="loadReposHandler()">
         <span>retry</span>
@@ -21,7 +31,7 @@
     <app-repo-list
       [isAllRepos]="true"
       [repos]="allRepos"
-      *ngIf="allRepos.length > 0 && !isFirstTime && !isProviderLoading"
+      *ngIf="allRepos.length > 0 && isAuthenticated && !isProviderLoading"
     ></app-repo-list>
   </div>
 </div>

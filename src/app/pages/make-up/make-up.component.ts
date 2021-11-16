@@ -6,6 +6,7 @@ import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.servi
 import { v4 as uuidv4 } from 'uuid';
 
 import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 const dummyDatas = [
   {
@@ -171,7 +172,8 @@ const dummyDatas = [
   styleUrls: ['./make-up.component.css', '../../shared/styles/main.css'],
 })
 export class MakeUpComponent implements OnInit, OnDestroy {
-  isFirstTime: boolean = false;
+  isAuthenticated: boolean = false;
+  isFirstTime: boolean = true;
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
@@ -182,17 +184,25 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     'list-repos': Array<Repo>;
   }>;
   octokit = new Octokit();
+
+  private isAuthSub!: Subscription;
   private myListsSub!: Subscription;
   private allReposSub!: Subscription;
 
-  constructor(public repoListsService: RepoListsService) {}
+  constructor(
+    private authService: AuthService,
+    private repoListsService: RepoListsService
+  ) {}
 
   ngOnInit() {
+    // load auth-status
+    this.isAuthenticated = this.authService.getIsAuth();
+    this.isAuthSub = this.authService
+      .authStatsuListener()
+      .subscribe((isAuth) => (this.isAuthenticated = isAuth));
+
     // need load all-repos conditionally from database, localStroage or firebase
     this.allRepos = this.repoListsService.getAllReposInLocalStorage();
-    if (this.allRepos.length === 0) {
-      this.isFirstTime = true;
-    }
     this.allReposSub = this.repoListsService
       .allReposUpdatedListener()
       .subscribe((allReposData) => {
@@ -281,6 +291,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.isAuthSub.unsubscribe();
     this.myListsSub.unsubscribe();
     this.allReposSub.unsubscribe();
   }
