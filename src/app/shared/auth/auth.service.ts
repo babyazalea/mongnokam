@@ -27,7 +27,7 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  getAuthStatus() {
+  authStatsuListener() {
     return this.authStatusListener.asObservable();
   }
 
