@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Octokit } from '@octokit/core';
-import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { RepoService } from 'src/app/components/repo-lists/repo-list/repo/repo.service';
+import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
+import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
 
 const dummyDatas = [
   {
@@ -183,7 +183,6 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     createdDate: string;
     'list-repos': Array<Repo>;
   }>;
-  isFirstTime: boolean = true;
   octokit = new Octokit();
 
   private isAuthSub!: Subscription;
@@ -207,14 +206,9 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.allReposSub = this.repoService
       .getAllReposUpdateListener()
       .subscribe((allReposData) => {
-        console.log(allReposData);
         this.allRepos = allReposData.allRepos;
         this.isProviderLoading = false;
       });
-
-    if (this.allRepos) {
-      this.isFirstTime = false;
-    }
 
     // need load my-lists conditionally from database, localStroage or firebase
     this.myLists = this.repoListsService.getMyListsInLocalStorage();

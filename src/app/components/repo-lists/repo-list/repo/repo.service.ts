@@ -9,7 +9,7 @@ import { Repo } from './repo.model';
 })
 export class RepoService {
   // allRepos variable
-  private allRepos: Array<Repo> = [];
+  private allRepos!: Array<Repo>;
   private detectedChangingAllRepos: boolean = false;
   private allReposUpadated = new Subject<{
     allRepos: Array<Repo>;
@@ -37,7 +37,7 @@ export class RepoService {
         })
         .subscribe((res: any) => {
           let repos: Array<Repo> = [];
-          res.map((responseData: any, index: string) => {
+          res.map((responseData: any) => {
             const repository = {
               id: responseData.id,
               title: responseData.name,
