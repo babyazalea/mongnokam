@@ -205,7 +205,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.allRepos = this.repoService.getAllReposInLocalStorage();
     this.allReposSub = this.repoService
       .getAllReposUpdateListener()
-      .subscribe((allReposData) => {
+      .subscribe((allReposData: { allRepos: Repo[] }) => {
         this.allRepos = allReposData.allRepos;
         this.isProviderLoading = false;
       });
