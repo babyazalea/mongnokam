@@ -19,7 +19,9 @@ export class RepoService {
   constructor(private http: HttpClient) {}
 
   loadRepos() {
-    const token = localStorage.getItem('accessToken');
+    const authData = localStorage.getItem('authData');
+    const parsedAuthData = JSON.parse(authData!);
+    const token = parsedAuthData.token;
 
     if (token) {
       this.http
@@ -28,17 +30,37 @@ export class RepoService {
             Authorization: `token ${token}`,
             'Content-Type': 'application/json',
           },
+          params: {
+            per_page: 100,
+            page: 2,
+          },
         })
-        .subscribe((response: any) => {
-          console.log(response);
+        .subscribe((res: any) => {
+          let repos: Array<Repo> = [];
+          res.map((responseData: any, index: string) => {
+            const repository = {
+              id: responseData.id,
+              title: responseData.name,
+              url: responseData.html_url,
+              location: 'all-repos',
+            };
+            repos.push(repository);
+          });
+          this.detectedChangingAllRepos = true;
+          this.allRepos = repos;
+          this.allReposUpadated.next({
+            allRepos: [...this.allRepos],
+            detectedChangingAllrepos: this.detectedChangingAllRepos,
+          });
         });
     }
+
+    return;
   }
 
   getAllReposInLocalStorage() {
     const allReposData = localStorage.getItem('allRepos');
     if (allReposData !== null) {
-      console.log('all-repos-not-null');
       const allRepos = JSON.parse(allReposData);
       this.allRepos = allRepos;
     }

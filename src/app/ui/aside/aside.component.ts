@@ -29,7 +29,6 @@ export class AsideComponent implements OnInit, OnDestroy {
     this.allReposSub = this.repoService
       .getAllReposUpdateListener()
       .subscribe((allReposData) => {
-        console.log(allReposData);
         this.detectingChangingAllRepos = allReposData.detectedChangingAllrepos;
       });
   }
@@ -37,12 +36,6 @@ export class AsideComponent implements OnInit, OnDestroy {
   saveRecentLists() {
     this.repoService.storingCurrentAllRepos();
     this.repoListsService.storingCurrentMyLists();
-  }
-
-  loggingState() {
-    console.log(this.detectingChangingAllRepos);
-    console.log(this.detectingChangingMyList);
-    console.log(this.detectingChangingAllRepos || this.detectingChangingMyList);
   }
 
   ngOnDestroy() {

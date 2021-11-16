@@ -43,6 +43,7 @@ export class AuthService {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         if (token) {
+          console.log('got token');
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const expiresDuration = Date.now() + 3600000;

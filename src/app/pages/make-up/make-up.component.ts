@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { RepoService } from 'src/app/components/repo-lists/repo-list/repo/repo.service';
 
 const dummyDatas = [
   {
@@ -173,7 +174,6 @@ const dummyDatas = [
 })
 export class MakeUpComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
-  isFirstTime: boolean = true;
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
@@ -183,6 +183,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     createdDate: string;
     'list-repos': Array<Repo>;
   }>;
+  isFirstTime: boolean = true;
   octokit = new Octokit();
 
   private isAuthSub!: Subscription;
@@ -191,6 +192,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private repoService: RepoService,
     private repoListsService: RepoListsService
   ) {}
 
@@ -201,15 +203,18 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       .authStatsuListener()
       .subscribe((isAuth) => (this.isAuthenticated = isAuth));
 
-    // need load all-repos conditionally from database, localStroage or firebase
-    this.allRepos = this.repoListsService.getAllReposInLocalStorage();
-    this.allReposSub = this.repoListsService
-      .allReposUpdatedListener()
+    this.allRepos = this.repoService.getAllReposInLocalStorage();
+    this.allReposSub = this.repoService
+      .getAllReposUpdateListener()
       .subscribe((allReposData) => {
         console.log(allReposData);
         this.allRepos = allReposData.allRepos;
         this.isProviderLoading = false;
       });
+
+    if (this.allRepos) {
+      this.isFirstTime = false;
+    }
 
     // need load my-lists conditionally from database, localStroage or firebase
     this.myLists = this.repoListsService.getMyListsInLocalStorage();
@@ -220,41 +225,10 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
   } //ngOnInit
 
-  async loadReposHandler() {
-    this.isFirstTime = false;
+  loadReposHandler() {
     this.isProviderLoading = true;
 
-    try {
-      const response = await this.octokit.request(
-        'GET /users/babyazalea/repos',
-        {
-          username: 'babyazalea',
-          per_page: 100,
-          page: 2,
-        }
-      );
-      const responseData = await response.data;
-
-      this.isProviderLoading = false;
-      if (!responseData) {
-        return;
-      }
-
-      let repos: Array<Repo> = [];
-      response.data.map((responseData: any, index: string) => {
-        const repository = {
-          id: responseData.id,
-          title: responseData.name,
-          url: responseData.html_url,
-          location: 'all-repos',
-        };
-        repos.push(repository);
-      });
-
-      this.repoListsService.updatingAllRepos(repos);
-    } catch (error) {
-      console.log(error);
-    }
+    this.repoService.loadRepos();
   }
 
   onAddMyList() {

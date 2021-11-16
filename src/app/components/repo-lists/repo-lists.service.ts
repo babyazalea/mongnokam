@@ -34,23 +34,6 @@ export class RepoListsService {
 
   constructor(private http: HttpClient) {}
 
-  loadRepos() {
-    const token = localStorage.getItem('accessToken');
-
-    if (token) {
-      this.http
-        .get('https://api.github.com/user/repos', {
-          headers: {
-            Authorization: `token ${token}`,
-            'Content-Type': 'application/json',
-          },
-        })
-        .subscribe((response: any) => {
-          console.log(response);
-        });
-    }
-  }
-
   getMyListsInLocalStorage() {
     const listsData = localStorage.getItem('listsData');
     if (listsData !== null) {

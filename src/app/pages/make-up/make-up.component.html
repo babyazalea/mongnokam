@@ -31,7 +31,7 @@
     <app-repo-list
       [isAllRepos]="true"
       [repos]="allRepos"
-      *ngIf="allRepos.length > 0 && isAuthenticated && !isProviderLoading"
+      *ngIf="isAuthenticated && allRepos.length > 0 && !isProviderLoading"
     ></app-repo-list>
   </div>
 </div>
