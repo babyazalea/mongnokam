@@ -56,7 +56,7 @@ export class AuthService {
             JSON.stringify(authenticatedUserData)
           );
           this.setAuthTimer(expiresDuration);
-          this.userService.getUser(token);
+          this.userService.loadUserInfoFromGithub(token);
         }
       })
       .catch((error) => console.log(error));

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
+import { UserService } from 'src/app/shared/user/user.service';
 import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
 
 const dummyDatas = [
@@ -183,16 +184,19 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     createdDate: string;
     'list-repos': Array<Repo>;
   }>;
+
   octokit = new Octokit();
 
   private isAuthSub!: Subscription;
   private myListsSub!: Subscription;
   private allReposSub!: Subscription;
+  private userSub!: Subscription;
 
   constructor(
     private authService: AuthService,
     private reposService: ReposService,
-    private repoListsService: RepoListsService
+    private repoListsService: RepoListsService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -205,7 +209,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.allRepos = this.reposService.getAllReposInLocalStorage();
     this.allReposSub = this.reposService
       .getAllReposUpdateListener()
-      .subscribe((allReposData: { allRepos: Repo[] }) => {
+      .subscribe((allReposData: any) => {
+        console.log(allReposData);
         this.allRepos = allReposData.allRepos;
         this.isProviderLoading = false;
       });
@@ -221,8 +226,10 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
   loadReposHandler() {
     this.isProviderLoading = true;
+    // const userReposAmount = localStorage.getItem('userReposAmount');
+    // const userReposAmountNum = parseInt(userReposAmount!);
 
-    this.reposService.loadRepos();
+    this.reposService.loadRepos(1);
   }
 
   onAddMyList() {

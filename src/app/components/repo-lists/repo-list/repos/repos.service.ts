@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
 import { Repo } from './repo/repo.model';
 
@@ -18,44 +18,41 @@ export class ReposService {
 
   constructor(private http: HttpClient) {}
 
-  loadRepos() {
+  loadRepos(pageNum: number) {
     const authData = localStorage.getItem('authData');
     const parsedAuthData = JSON.parse(authData!);
     const token = parsedAuthData.token;
 
-    if (token) {
-      this.http
-        .get('https://api.github.com/user/repos', {
-          headers: {
-            Authorization: `token ${token}`,
-            'Content-Type': 'application/json',
-          },
-          params: {
-            per_page: 100,
-            page: 2,
-          },
-        })
-        .subscribe((res: any) => {
-          let repos: Array<Repo> = [];
-          res.map((responseData: any) => {
-            const repository = {
-              id: responseData.id,
-              title: responseData.name,
-              url: responseData.html_url,
-              location: 'all-repos',
-            };
-            repos.push(repository);
-          });
-          this.detectedChangingAllRepos = true;
-          this.allRepos = repos;
-          this.allReposUpadated.next({
-            allRepos: [...this.allRepos],
-            detectedChangingAllrepos: this.detectedChangingAllRepos,
-          });
-        });
-    }
+    this.http
+      .get('https://api.github.com/user/repos', {
+        headers: {
+          Authorization: `token ${token}`,
+          'Content-Type': 'application/json',
+        },
+        params: {
+          per_page: 30,
+          page: pageNum,
+        },
+      })
+      .subscribe((res: any) => {
+        let repos: Array<Repo> = [];
 
-    return;
+        res.map((responseData: any) => {
+          const repository = {
+            id: responseData.id,
+            title: responseData.name,
+            url: responseData.html_url,
+            location: 'all-repos',
+          };
+          repos.push(repository);
+        });
+        this.detectedChangingAllRepos = true;
+        this.allRepos = repos;
+        this.allReposUpadated.next({
+          allRepos: [...this.allRepos],
+          detectedChangingAllrepos: this.detectedChangingAllRepos,
+        });
+      });
   }
 
   getAllReposInLocalStorage() {
@@ -74,7 +71,9 @@ export class ReposService {
 
   updatingAllRepos(updatedRepos: Array<Repo>) {
     this.allRepos = updatedRepos;
+    // this.allRepos = dummyDatas;
     this.detectedChangingAllRepos = true;
+    console.log(this.allRepos);
     this.allReposUpadated.next({
       allRepos: [...this.allRepos],
       detectedChangingAllrepos: this.detectedChangingAllRepos,

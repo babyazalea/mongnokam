@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUser(token: string) {
+  loadUserInfoFromGithub(token: string) {
     this.http
       .get('https://api.github.com/user', {
         headers: {
@@ -33,6 +33,12 @@ export class UserService {
               publicRepoAmount: response['public_repos'],
               privateRepoAmount: response['owned_private_repos'],
             };
+            localStorage.setItem(
+              'userReposAmount',
+              (
+                loggedInUser.privateRepoAmount + loggedInUser.publicRepoAmount
+              ).toString()
+            );
             this.user = loggedInUser;
             this.userUpdated.next({
               user: this.user,
@@ -41,6 +47,10 @@ export class UserService {
         },
         (error) => console.log(error)
       );
+  }
+
+  getUser() {
+    return this.user;
   }
 
   getUserUpdated() {

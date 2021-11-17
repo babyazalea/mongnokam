@@ -23,11 +23,9 @@
             <i class="fas fa-redo-alt"></i>
           </button>
         </ng-template>
-        <app-repo-list
-          [isAllRepos]="true"
-          [repos]="allRepos"
-          *ngIf="allRepos.length > 0"
-        ></app-repo-list>
+        <ng-template [ngIf]="allRepos.length > 0">
+          <app-repo-list [isAllRepos]="true" [repos]="allRepos"></app-repo-list>
+        </ng-template>
       </ng-template>
     </ng-template>
   </div>
