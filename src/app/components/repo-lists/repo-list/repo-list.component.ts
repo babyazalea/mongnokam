@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Repo } from './repo/repo.model';
+import { Repo } from './repos/repo/repo.model';
 import { DragDropService } from '../../../shared/drag-drop/drag-drop.service';
-import { RepoService } from './repo/repo.service';
+import { ReposService } from './repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class RepoListComponent {
 
   constructor(
     private dropEventService: DragDropService,
-    private repoService: RepoService,
+    private repoService: ReposService,
     private repoListsService: RepoListsService
   ) {}
 

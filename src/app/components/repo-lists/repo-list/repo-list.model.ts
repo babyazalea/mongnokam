@@ -1,4 +1,4 @@
-import { Repo } from './repo/repo.model';
+import { Repo } from './repos/repo/repo.model';
 
 export interface RepoList {
   id: string;

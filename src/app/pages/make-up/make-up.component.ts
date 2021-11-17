@@ -5,9 +5,9 @@ import { Octokit } from '@octokit/core';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { RepoService } from 'src/app/components/repo-lists/repo-list/repo/repo.service';
+import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
-import { Repo } from '../../components/repo-lists/repo-list/repo/repo.model';
+import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
 
 const dummyDatas = [
   {
@@ -191,7 +191,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private repoService: RepoService,
+    private reposService: ReposService,
     private repoListsService: RepoListsService
   ) {}
 
@@ -202,8 +202,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       .authStatsuListener()
       .subscribe((isAuth) => (this.isAuthenticated = isAuth));
 
-    this.allRepos = this.repoService.getAllReposInLocalStorage();
-    this.allReposSub = this.repoService
+    this.allRepos = this.reposService.getAllReposInLocalStorage();
+    this.allReposSub = this.reposService
       .getAllReposUpdateListener()
       .subscribe((allReposData: { allRepos: Repo[] }) => {
         this.allRepos = allReposData.allRepos;
@@ -222,7 +222,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   loadReposHandler() {
     this.isProviderLoading = true;
 
-    this.repoService.loadRepos();
+    this.reposService.loadRepos();
   }
 
   onAddMyList() {

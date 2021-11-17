@@ -4,7 +4,7 @@ import { Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { RepoList } from 'src/app/components/repo-lists/repo-list/repo-list.model';
-import { Repo } from 'src/app/components/repo-lists/repo-list/repo/repo.model';
+import { Repo } from 'src/app/components/repo-lists/repo-list/repos/repo/repo.model';
 
 @Injectable({ providedIn: 'root' })
 export class RepoListsService {

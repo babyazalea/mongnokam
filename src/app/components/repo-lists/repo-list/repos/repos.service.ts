@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { Repo } from './repo.model';
+import { Repo } from './repo/repo.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RepoService {
+export class ReposService {
   // allRepos variable
   private allRepos!: Array<Repo>;
   private detectedChangingAllRepos: boolean = false;

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { RepoService } from 'src/app/components/repo-lists/repo-list/repo/repo.service';
+import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 
@@ -16,7 +16,7 @@ export class AsideComponent implements OnInit, OnDestroy {
   private allReposSub: Subscription = new Subscription();
 
   constructor(
-    private repoService: RepoService,
+    private repoService: ReposService,
     private repoListsService: RepoListsService
   ) {}
 
