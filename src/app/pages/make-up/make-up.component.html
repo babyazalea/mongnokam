@@ -9,7 +9,7 @@
       </ng-template>
       <ng-template [ngIf]="!allRepos && !isProviderLoading">
         <p>Github에서 저장소를 불러 올까요?</p>
-        <button (click)="loadReposHandler()">
+        <button (click)="firstLoadReposHandler()">
           <i class="fab fa-github"></i>
           <i class="fas fa-share"></i>
           <i class="fas fa-list-ul"></i>
@@ -18,13 +18,14 @@
       <ng-template [ngIf]="allRepos && !isProviderLoading">
         <ng-template [ngIf]="allRepos.length === 0">
           <p>no repos found.</p>
-          <button (click)="loadReposHandler()">
+          <button (click)="firstLoadReposHandler()">
             <span>retry</span>
             <i class="fas fa-redo-alt"></i>
           </button>
         </ng-template>
         <ng-template [ngIf]="allRepos.length > 0">
           <app-repo-list [isAllRepos]="true" [repos]="allRepos"></app-repo-list>
+          <app-paginator [allPageNumArray]="allPageNumArray"></app-paginator>
         </ng-template>
       </ng-template>
     </ng-template>

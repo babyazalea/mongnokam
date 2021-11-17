@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
-import { UserService } from 'src/app/shared/user/user.service';
 import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
 
 const dummyDatas = [
@@ -178,6 +177,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
+  allPageNumArray!: Array<Number>;
   myLists!: Array<{
     id: string;
     'list-name': string;
@@ -190,13 +190,11 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   private isAuthSub!: Subscription;
   private myListsSub!: Subscription;
   private allReposSub!: Subscription;
-  private userSub!: Subscription;
 
   constructor(
     private authService: AuthService,
     private reposService: ReposService,
-    private repoListsService: RepoListsService,
-    private userService: UserService
+    private repoListsService: RepoListsService
   ) {}
 
   ngOnInit() {
@@ -224,12 +222,26 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
   } //ngOnInit
 
-  loadReposHandler() {
+  firstLoadReposHandler() {
+    this.isProviderLoading = true;
+    const allReposAmount = parseInt(localStorage.getItem('userReposAmount')!);
+    const allPageNum = Math.floor(allReposAmount / 30) + 1;
+
+    let pageArray = [];
+    for (let i = 1; i < allPageNum + 1; i++) {
+      pageArray.push(i);
+    }
+    this.allPageNumArray = pageArray;
+
+    this.reposService.loadRepos(1);
+  }
+
+  loadReposPageHandler(pageNum: number) {
     this.isProviderLoading = true;
     // const userReposAmount = localStorage.getItem('userReposAmount');
     // const userReposAmountNum = parseInt(userReposAmount!);
 
-    this.reposService.loadRepos(1);
+    this.reposService.loadRepos(pageNum);
   }
 
   onAddMyList() {
