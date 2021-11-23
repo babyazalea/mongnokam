@@ -33,12 +33,7 @@ export class UserService {
               publicRepoAmount: response['public_repos'],
               privateRepoAmount: response['owned_private_repos'],
             };
-            localStorage.setItem(
-              'userReposAmount',
-              (
-                loggedInUser.privateRepoAmount + loggedInUser.publicRepoAmount
-              ).toString()
-            );
+            localStorage.setItem('userData', JSON.stringify(loggedInUser));
             this.user = loggedInUser;
             this.userUpdated.next({
               user: this.user,
@@ -50,6 +45,16 @@ export class UserService {
   }
 
   getUser() {
+    return this.user;
+  }
+
+  getUserInLocalStorage() {
+    const userData = localStorage.getItem('userData');
+    if (userData !== null) {
+      const user = JSON.parse(userData);
+      this.user = user;
+    }
+
     return this.user;
   }
 

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
+import { UserService } from 'src/app/shared/user/user.service';
 
 const dummyDatas = [
   {
@@ -193,6 +194,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private reposService: ReposService,
     private repoListsService: RepoListsService
   ) {}
@@ -224,7 +226,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
   firstLoadReposHandler() {
     this.isProviderLoading = true;
-    const allReposAmount = parseInt(localStorage.getItem('userReposAmount')!);
+    const user = this.userService.getUserInLocalStorage();
+    const allReposAmount = user.privateRepoAmount + user.publicRepoAmount;
     const allPageNum = Math.floor(allReposAmount / 30) + 1;
 
     let pageArray = [];
