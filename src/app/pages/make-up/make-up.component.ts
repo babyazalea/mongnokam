@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs';
 import { Octokit } from '@octokit/core';
 import { v4 as uuidv4 } from 'uuid';
 
+import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
+import { User } from 'src/app/shared/user/user.model';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { UserService } from 'src/app/shared/user/user.service';
 import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
-import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
-import { UserService } from 'src/app/shared/user/user.service';
 
 const dummyDatas = [
   {
@@ -178,19 +179,33 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
-  allPageNumArray!: Array<Number>;
   myLists!: Array<{
     id: string;
     'list-name': string;
     createdDate: string;
     'list-repos': Array<Repo>;
   }>;
+  loggedInUser!: User;
+  allPageNumArray!: Array<number>;
+
+  private pageNumCalc = (userData: User) => {
+    const allReposAmount =
+      userData.privateRepoAmount + userData.publicRepoAmount;
+    const repoPageNum = Math.floor(allReposAmount / 30) + 1;
+    let repoPageArr = [];
+    for (let i = 1; i < repoPageNum + 1; i++) {
+      repoPageArr.push(i);
+    }
+
+    return repoPageArr;
+  };
 
   octokit = new Octokit();
 
   private isAuthSub!: Subscription;
   private myListsSub!: Subscription;
   private allReposSub!: Subscription;
+  private userSub!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -222,19 +237,22 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       .subscribe((listsData) => {
         this.myLists = listsData.lists;
       });
+
+    // get userData
+    this.loggedInUser = this.userService.getUserInLocalStorage();
+    if (this.loggedInUser) {
+      this.allPageNumArray = this.pageNumCalc(this.loggedInUser);
+    }
+    this.userSub = this.userService
+      .getUserUpdateListener()
+      .subscribe((userData) => {
+        this.loggedInUser = userData.user;
+        this.allPageNumArray = this.pageNumCalc(this.loggedInUser);
+      });
   } //ngOnInit
 
   firstLoadReposHandler() {
     this.isProviderLoading = true;
-    const user = this.userService.getUserInLocalStorage();
-    const allReposAmount = user.privateRepoAmount + user.publicRepoAmount;
-    const allPageNum = Math.floor(allReposAmount / 30) + 1;
-
-    let pageArray = [];
-    for (let i = 1; i < allPageNum + 1; i++) {
-      pageArray.push(i);
-    }
-    this.allPageNumArray = pageArray;
 
     this.reposService.loadRepos(1);
   }
@@ -284,5 +302,6 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.isAuthSub.unsubscribe();
     this.myListsSub.unsubscribe();
     this.allReposSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }

@@ -58,7 +58,7 @@ export class UserService {
     return this.user;
   }
 
-  getUserUpdated() {
+  getUserUpdateListener() {
     return this.userUpdated.asObservable();
   }
 }
