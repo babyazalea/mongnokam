@@ -175,7 +175,7 @@ const dummyDatas = [
   styleUrls: ['./make-up.component.css', '../../shared/styles/main.css'],
 })
 export class MakeUpComponent implements OnInit, OnDestroy {
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean = true;
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
@@ -215,17 +215,20 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log('ngOnInIt');
+
     // load auth-status
     this.isAuthenticated = this.authService.getIsAuth();
     this.isAuthSub = this.authService
       .authStatsuListener()
-      .subscribe((isAuth) => (this.isAuthenticated = isAuth));
+      .subscribe((isAuth) => {
+        this.isAuthenticated = isAuth;
+      });
 
     this.allRepos = this.reposService.getAllReposInLocalStorage();
     this.allReposSub = this.reposService
       .getAllReposUpdateListener()
       .subscribe((allReposData: any) => {
-        console.log(allReposData);
         this.allRepos = allReposData.allRepos;
         this.isProviderLoading = false;
       });
@@ -251,16 +254,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
   } //ngOnInit
 
-  firstLoadReposHandler() {
-    this.isProviderLoading = true;
-
-    this.reposService.loadRepos(1);
-  }
-
   loadReposPageHandler(pageNum: number) {
     this.isProviderLoading = true;
-    // const userReposAmount = localStorage.getItem('userReposAmount');
-    // const userReposAmountNum = parseInt(userReposAmount!);
 
     this.reposService.loadRepos(pageNum);
   }

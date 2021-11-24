@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import {
   Auth,
@@ -14,7 +14,7 @@ import { UserService } from 'src/app/shared/user/user.service';
 })
 export class AuthService {
   private isAuthenticated: boolean = false;
-  private authStatusListener = new Subject<boolean>();
+  private authStatusListener = new BehaviorSubject<boolean>(false);
   private authTimer!: NodeJS.Timer;
 
   constructor(

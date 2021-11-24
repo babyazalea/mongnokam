@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 
 @Component({
   selector: 'app-paginator',
@@ -7,4 +8,11 @@ import { Component, Input } from '@angular/core';
 })
 export class PaginatorComponent {
   @Input() allPageNumArray!: Array<Number>;
+  @Output() paginatingEvent = new EventEmitter<number>();
+
+  constructor(private reposService: ReposService) {}
+
+  onClickPageButton(pageNum: number) {
+    this.paginatingEvent.emit(pageNum);
+  }
 }

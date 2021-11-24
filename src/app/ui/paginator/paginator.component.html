@@ -1,7 +1,7 @@
 <div class="paginaotor-container">
   <ul>
-    <li *ngFor="let pageNum of allPageNumArray">
-      <button>
+    <li *ngFor="let pageNum of allPageNumArray; index as i">
+      <button (click)="onClickPageButton(i + 1)">
         {{ pageNum }}
       </button>
     </li>
