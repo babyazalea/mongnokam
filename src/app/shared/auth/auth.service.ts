@@ -85,7 +85,7 @@ export class AuthService {
         this.isAuthenticated = false;
         this.authStatusListener.next(false);
         clearTimeout(this.authTimer);
-        localStorage.removeItem('authData');
+        localStorage.clear();
       })
       .catch((error) => error);
   }
