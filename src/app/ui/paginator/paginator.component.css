@@ -1,4 +1,16 @@
+:host {
+  position: absolute;
+  bottom: -2rem;
+}
+
+.paginaotor-container {
+}
+
 .paginaotor-container ul {
   display: flex;
   gap: 1rem;
+}
+
+.paginaotor-container ul li button {
+  cursor: pointer;
 }
