@@ -45,7 +45,8 @@
     <li
       *ngFor="let repo of repos; index as i"
       [ngClass]="{
-        'dragging-item': draggingInList && draggingStyling(repo.id)
+        'dragging-item':
+          draggingInList && draggingStyling(repo.id, repo.location)
       }"
       draggable="true"
       (dragstart)="dragStart($event, i, repo)"
@@ -53,7 +54,7 @@
       (dragend)="dragEnd()"
     >
       <app-repo
-        [isDragging]="draggingInList && draggingStyling(repo.id)"
+        [isDragging]="draggingInList && draggingStyling(repo.id, repo.location)"
         [repoData]="repo"
       ></app-repo>
     </li>

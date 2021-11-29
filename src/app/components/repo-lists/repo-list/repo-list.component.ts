@@ -50,9 +50,12 @@ export class RepoListComponent {
   }
 
   // repo를 드래그 중일 때 css-styling(overlay) 적용
-  draggingStyling(id: string) {
+  draggingStyling(id: string, location: string) {
     const currentDraggingItem = this.dropEventService.getDraggingRepo();
-    if (currentDraggingItem.id === id) {
+    if (
+      currentDraggingItem.id === id &&
+      currentDraggingItem.location === location
+    ) {
       return true;
     }
     return false;
