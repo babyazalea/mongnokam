@@ -125,7 +125,14 @@ export class RepoListComponent {
     }
 
     const droppedRepo = this.dropEventService.getDraggingRepo();
-    // 다른 리스트에서 온 것인지 다시 확인
+    // 다른 리스트에서 온 것인지 & 현재 리스트에 repo가 중복되지 않는지 확인
+    const sameRepo = this.repos.find((repo) => repo.id === droppedRepo.id);
+
+    if (sameRepo) {
+      // need warning
+      return;
+    }
+
     if (droppedRepo.location !== this.listId) {
       this.dropEventService.dropedInOtherList();
       const newRepos = this.repos;
