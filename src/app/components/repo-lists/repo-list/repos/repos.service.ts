@@ -55,13 +55,7 @@ export class ReposService {
       });
   }
 
-  getAllReposInLocalStorage() {
-    const allReposData = localStorage.getItem('allRepos');
-    if (allReposData !== null) {
-      const allRepos = JSON.parse(allReposData);
-      this.allRepos = allRepos;
-    }
-
+  getAllRepos() {
     return this.allRepos;
   }
 
@@ -71,9 +65,7 @@ export class ReposService {
 
   updatingAllRepos(updatedRepos: Array<Repo>) {
     this.allRepos = updatedRepos;
-    // this.allRepos = dummyDatas;
     this.detectedChangingAllRepos = true;
-    console.log(this.allRepos);
     this.allReposUpadated.next({
       allRepos: [...this.allRepos],
       detectedChangingAllrepos: this.detectedChangingAllRepos,

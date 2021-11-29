@@ -1,7 +1,4 @@
 <button><i class="fas fa-redo"></i></button>
-<button
-  [disabled]="!detectingChangingMyList && !detectingChangingAllRepos"
-  (click)="saveRecentLists()"
->
+<button [disabled]="!detectingChangingMyList" (click)="saveRecentLists()">
   <i class="far fa-save"></i>
 </button>

@@ -11,14 +11,9 @@ import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.servi
 })
 export class AsideComponent implements OnInit, OnDestroy {
   detectingChangingMyList: boolean = false;
-  detectingChangingAllRepos: boolean = false;
   private myListsSub: Subscription = new Subscription();
-  private allReposSub: Subscription = new Subscription();
 
-  constructor(
-    private repoService: ReposService,
-    private repoListsService: RepoListsService
-  ) {}
+  constructor(private repoListsService: RepoListsService) {}
 
   ngOnInit() {
     this.myListsSub = this.repoListsService
@@ -26,20 +21,13 @@ export class AsideComponent implements OnInit, OnDestroy {
       .subscribe((listsData) => {
         this.detectingChangingMyList = listsData.detectedChangingMyLists;
       });
-    this.allReposSub = this.repoService
-      .getAllReposUpdateListener()
-      .subscribe((allReposData) => {
-        this.detectingChangingAllRepos = allReposData.detectedChangingAllrepos;
-      });
   }
 
   saveRecentLists() {
-    this.repoService.storingCurrentAllRepos();
     this.repoListsService.storingCurrentMyLists();
   }
 
   ngOnDestroy() {
     this.myListsSub.unsubscribe();
-    this.allReposSub.unsubscribe();
   }
 }

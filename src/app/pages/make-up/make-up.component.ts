@@ -215,8 +215,6 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('ngOnInIt');
-
     // load auth-status
     this.isAuthenticated = this.authService.getIsAuth();
     this.isAuthSub = this.authService
@@ -225,7 +223,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
         this.isAuthenticated = isAuth;
       });
 
-    this.allRepos = this.reposService.getAllReposInLocalStorage();
+    this.allRepos = this.reposService.getAllRepos();
     this.allReposSub = this.reposService
       .getAllReposUpdateListener()
       .subscribe((allReposData: any) => {
