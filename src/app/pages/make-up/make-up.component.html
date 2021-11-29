@@ -1,9 +1,12 @@
-<div class="provider list-container">
-  <div class="provider-inside">
-    <ng-template [ngIf]="!isAuthenticated" [ngIfElse]="loggedIn">
-      <p>아래의 메뉴에서 Github 로그인을 하시면 저장소를 불러올 수 있습니다.</p>
-    </ng-template>
-    <ng-template #loggedIn>
+<ng-template [ngIf]="!isAuthenticated" [ngIfElse]="loggedIn">
+  <div class="greeting-message">
+    <p>아래의 메뉴에서 Github 로그인을 하시면 저장소를 불러올 수 있습니다.</p>
+    <p>(이전에 저장한 데이터가 있다면 곧바로 불러옵니다.)</p>
+  </div>
+</ng-template>
+<ng-template #loggedIn>
+  <div class="provider list-container">
+    <div class="provider-inside">
       <ng-template [ngIf]="isProviderLoading">
         <i class="fas fa-spinner fa-pulse"></i>
       </ng-template>
@@ -37,23 +40,23 @@
           <i class="fas fa-spinner fa-pulse"></i>
         </ng-template>
       </ng-template>
-    </ng-template>
+    </div>
   </div>
-</div>
-<div class="consumer list-container">
-  <button class="add-list-btn" (click)="onAddMyList()">
-    <i class="fas fa-plus"></i>
-  </button>
-  <ul>
-    <li *ngFor="let list of myLists">
-      <app-repo-list
-        [listName]="list['list-name']"
-        [createdDate]="list['createdDate']"
-        [listId]="list['id']"
-        [repos]="list['list-repos']"
-        (newListNameEvent)="editListName($event)"
-      >
-      </app-repo-list>
-    </li>
-  </ul>
-</div>
+  <div class="consumer list-container">
+    <button class="add-list-btn" (click)="onAddMyList()">
+      <i class="fas fa-plus"></i>
+    </button>
+    <ul>
+      <li *ngFor="let list of myLists">
+        <app-repo-list
+          [listName]="list['list-name']"
+          [createdDate]="list['createdDate']"
+          [listId]="list['id']"
+          [repos]="list['list-repos']"
+          (newListNameEvent)="editListName($event)"
+        >
+        </app-repo-list>
+      </li>
+    </ul>
+  </div>
+</ng-template>
