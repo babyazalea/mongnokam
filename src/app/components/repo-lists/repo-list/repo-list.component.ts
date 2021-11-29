@@ -112,8 +112,15 @@ export class RepoListComponent {
   dropOnList(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
+
     this.draggingOver = false;
     this.draggingInList = false;
+
+    // all-repos-lists의 경우 업데이트를 방지
+    if (this.isAllRepos) {
+      return;
+    }
+
     const droppedRepo = this.dropEventService.getDraggingRepo();
     // 다른 리스트에서 온 것인지 다시 확인
     if (droppedRepo.location !== this.listId) {
@@ -122,18 +129,20 @@ export class RepoListComponent {
       const updatedRepo = { ...droppedRepo, location: this.listId };
       newRepos.splice(newRepos.length, 0, updatedRepo); // 새로운 repo를 리스트의 맨 밑에 추가.
       this.repos = newRepos;
-      // need conditionally save
-      if (!this.isAllRepos) {
-        this.repoListsService.updatingMyList(this.repos, this.listId);
-      } else {
-        this.repoService.updatingAllRepos(this.repos);
-      }
+
+      this.repoListsService.updatingMyList(this.repos, this.listId);
     }
   }
 
   // drag-event 모두 종료.
   // drag-end-event는 드래그가 시작된 repo-list 컴포넌트에서만 발생함.
   dragEnd() {
+    // all-repos-lists의 경우 업데이트를 방지
+    if (this.isAllRepos) {
+      this.dropEventService.dragDropSvcInit();
+      return;
+    }
+
     // 드래그가 끝난 시점에 다른 repo-list 컴포넌트에서 drop-event가 발생했는지 확인.
     const isDropped = this.dropEventService.getDropedState();
 
@@ -155,12 +164,8 @@ export class RepoListComponent {
     }
 
     this.dropEventService.dragDropSvcInit();
-    // need conditionally save
-    if (!this.isAllRepos) {
-      this.repoListsService.updatingMyList(this.repos, this.listId);
-    } else {
-      this.repoService.updatingAllRepos(this.repos);
-    }
+
+    this.repoListsService.updatingMyList(this.repos, this.listId);
   }
 
   // repo-list actions
