@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth, GithubAuthProvider } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { PaginatorComponent } from './ui/paginator/paginator.component';
+import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PaginatorComponent } from './ui/paginator/paginator.component';
     RepoComponent,
     MakeUpComponent,
     MyListsComponent,
+    AlertBarComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
