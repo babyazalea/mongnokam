@@ -83,6 +83,7 @@
 :root {
   --main-bg-color: #ffffff;
   --main-box-color: #f3f7fa;
+  --warning: #ffdddd;
   --header-font-color: #333;
   --text-primary-color: #333;
   --text-secondary-color: #8b949e;
