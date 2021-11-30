@@ -130,6 +130,7 @@ export class RepoListComponent {
 
     if (sameRepo) {
       // need warning
+      console.log('existed same repo');
       return;
     }
 
