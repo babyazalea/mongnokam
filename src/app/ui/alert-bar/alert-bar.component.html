@@ -1,5 +1,8 @@
-<ng-template [ngIf]="alertMessage">
+<ng-template [ngIf]="isAlert">
   <div class="alert-bar">
     <span>{{ alertMessage }}</span>
+    <button (click)="clearAlertHandler()">
+      <i class="far fa-times-circle"></i>
+    </button>
   </div>
 </ng-template>

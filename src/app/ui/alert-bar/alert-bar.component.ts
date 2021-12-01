@@ -8,6 +8,7 @@ import { AlertBarService } from './alert-bar.service';
   styleUrls: ['./alert-bar.component.css'],
 })
 export class AlertBarComponent implements OnInit, OnDestroy {
+  isAlert: boolean = false;
   alertMessage!: string;
   alertSub!: Subscription;
 
@@ -17,7 +18,17 @@ export class AlertBarComponent implements OnInit, OnDestroy {
     this.alertMessage = this.alertBarService.getAlert();
     this.alertSub = this.alertBarService
       .alertMessageListener()
-      .subscribe((alertData) => (this.alertMessage = alertData.message));
+      .subscribe((alertData) => {
+        if (alertData.message) {
+          this.isAlert = true;
+          this.alertMessage = alertData.message;
+        }
+      });
+  }
+
+  clearAlertHandler() {
+    this.isAlert = false;
+    this.alertBarService.clearAlert();
   }
 
   ngOnDestroy() {
