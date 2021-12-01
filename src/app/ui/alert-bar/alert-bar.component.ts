@@ -14,7 +14,7 @@ export class AlertBarComponent implements OnInit, OnDestroy {
   constructor(private alertBarService: AlertBarService) {}
 
   ngOnInit() {
-    this.alertMessage = this.alertBarService.getAlertMessage();
+    this.alertMessage = this.alertBarService.getAlert();
     this.alertSub = this.alertBarService
       .alertMessageListener()
       .subscribe((alertData) => (this.alertMessage = alertData.message));

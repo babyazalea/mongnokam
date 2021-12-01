@@ -4,6 +4,7 @@ import { Repo } from './repos/repo/repo.model';
 import { DragDropService } from '../../../shared/drag-drop/drag-drop.service';
 import { ReposService } from './repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
+import { AlertBarService } from 'src/app/ui/alert-bar/alert-bar.service';
 
 @Component({
   selector: 'app-repo-list',
@@ -35,7 +36,8 @@ export class RepoListComponent {
   constructor(
     private dropEventService: DragDropService,
     private repoService: ReposService,
-    private repoListsService: RepoListsService
+    private repoListsService: RepoListsService,
+    private alertBarService: AlertBarService
   ) {}
 
   // drag & drop actions
@@ -128,9 +130,11 @@ export class RepoListComponent {
     // 다른 리스트에서 온 것인지 & 현재 리스트에 repo가 중복되지 않는지 확인
     const sameRepo = this.repos.find((repo) => repo.id === droppedRepo.id);
 
+    // repo-list안에 중복된 레포지토리를 옮기려고 시도할 경우
     if (sameRepo) {
-      // need warning
-      console.log('existed same repo');
+      this.alertBarService.setAlert(
+        '옮기려는 저장소와 똑같은 저장소가 해당 리스트에 이미 존재해서 옮길 수 없습니다.'
+      );
       return;
     }
 

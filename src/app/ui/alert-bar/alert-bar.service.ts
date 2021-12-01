@@ -10,8 +10,15 @@ export class AlertBarService {
     message: string;
   }>();
 
-  getAlertMessage() {
+  getAlert() {
     return this.alertMessage;
+  }
+
+  setAlert(newAlertMessage: string) {
+    this.alertMessage = newAlertMessage;
+    this.alertUpdated.next({
+      message: this.alertMessage,
+    });
   }
 
   alertMessageListener() {
