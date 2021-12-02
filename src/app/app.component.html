@@ -1,4 +1,8 @@
-<app-alert-bar></app-alert-bar>
+<app-alert-bar
+  *ngIf="isAlert"
+  [alertMessage]="alertMessage"
+  (clearAlertEvent)="clearAlert()"
+></app-alert-bar>
 <main>
   <router-outlet></router-outlet>
 </main>
