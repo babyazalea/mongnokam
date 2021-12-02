@@ -1,4 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  state,
+  style,
+  trigger,
+  transition,
+  animate,
+} from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { AlertBarService } from './alert-bar.service';
 
@@ -6,6 +13,29 @@ import { AlertBarService } from './alert-bar.service';
   selector: 'app-alert-bar',
   templateUrl: './alert-bar.component.html',
   styleUrls: ['./alert-bar.component.css'],
+  animations: [
+    trigger('showHide', [
+      state(
+        '*',
+        style({
+          transform: 'translateY(-100%)',
+        })
+      ),
+      state(
+        'show',
+        style({
+          transform: 'translateY(0)',
+        })
+      ),
+      state(
+        'hide',
+        style({
+          transform: 'translateY(-100%)',
+        })
+      ),
+      transition('* => *', [animate('0.2s')]),
+    ]),
+  ],
 })
 export class AlertBarComponent implements OnInit, OnDestroy {
   isAlert: boolean = false;
@@ -19,16 +49,16 @@ export class AlertBarComponent implements OnInit, OnDestroy {
     this.alertSub = this.alertBarService
       .alertMessageListener()
       .subscribe((alertData) => {
-        if (alertData.message) {
+        if (alertData.message !== '') {
           this.isAlert = true;
-          this.alertMessage = alertData.message;
         }
+        this.alertMessage = alertData.message;
       });
   }
 
   clearAlertHandler() {
-    this.isAlert = false;
     this.alertBarService.clearAlert();
+    this.isAlert = false;
   }
 
   ngOnDestroy() {

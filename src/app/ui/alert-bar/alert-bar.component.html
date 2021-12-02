@@ -1,8 +1,10 @@
 <ng-template [ngIf]="isAlert">
-  <div class="alert-bar">
-    <span>{{ alertMessage }}</span>
-    <button (click)="clearAlertHandler()">
-      <i class="far fa-times-circle"></i>
-    </button>
+  <div [@showHide]="isAlert ? 'show' : 'hide'" class="alert-bar">
+    <ng-template [ngIf]="alertMessage !== ''">
+      <span>{{ alertMessage }}</span>
+      <button (click)="clearAlertHandler()">
+        <i class="far fa-times-circle"></i>
+      </button>
+    </ng-template>
   </div>
 </ng-template>

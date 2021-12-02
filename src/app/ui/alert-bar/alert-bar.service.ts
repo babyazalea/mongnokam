@@ -26,10 +26,8 @@ export class AlertBarService {
   }
 
   clearAlert() {
-    // this.isAlert = false;
     this.alertMessage = '';
     this.alertUpdated.next({
-      // isAlert: this.isAlert,
       message: this.alertMessage,
     });
   }
