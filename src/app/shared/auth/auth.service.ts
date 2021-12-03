@@ -44,19 +44,18 @@ export class AuthService {
         const token = credential?.accessToken;
         if (token) {
           console.log('got token');
-          this.isAuthenticated = true;
-          this.authStatusListener.next(true);
           const expiresDuration = Date.now() + 3600000;
           const authenticatedUserData = {
             token,
             expiresIn: new Date(expiresDuration),
           };
-          localStorage.setItem(
-            'authData',
-            JSON.stringify(authenticatedUserData)
-          );
-          this.setAuthTimer(expiresDuration);
+          const jsonAuthData = JSON.stringify(authenticatedUserData);
+          localStorage.setItem('authData', jsonAuthData);
+          console.log(localStorage.getItem('authData'));
+          this.setAuthTimer(3600000);
           this.userService.loadUserInfoFromGithub(token);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
         }
       })
       .catch((error) => console.log(error));
