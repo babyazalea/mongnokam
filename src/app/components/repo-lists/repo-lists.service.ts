@@ -99,6 +99,27 @@ export class RepoListsService {
     });
   }
 
+  editingListName(listName: string, listId: string) {
+    const myLists = this.myLists;
+
+    const foundList = myLists.find((list) => list.id === listId);
+    const foundListIndex = myLists.findIndex((list) => list.id === listId);
+
+    const updatedList = {
+      ...foundList!,
+      'list-name': listName,
+    };
+
+    myLists.splice(foundListIndex, 1, updatedList);
+    this.myLists = myLists;
+
+    this.detectedChangingMyLists = true;
+    this.myListsUpdated.next({
+      lists: [...this.myLists],
+      detectedChangingMyLists: this.detectedChangingMyLists,
+    });
+  }
+
   storingCurrentMyLists() {
     const currentMyLists = [...this.myLists];
     const currentMyListsJSON = JSON.stringify(currentMyLists);

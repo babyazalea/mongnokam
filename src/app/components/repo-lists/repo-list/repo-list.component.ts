@@ -193,7 +193,7 @@ export class RepoListComponent {
   }
 
   newListNameSubmit(newListName: string) {
-    this.newListNameEvent.emit({ listId: this.listId, listName: newListName });
+    this.repoListsService.editingListName(newListName, this.listId);
     this.isListNameEditing = false;
   }
 }

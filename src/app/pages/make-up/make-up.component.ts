@@ -111,28 +111,6 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     this.repoListsService.addMyList(newList);
   }
 
-  editListName(listObj: { listId: string; listName: string }) {
-    // finding editing list
-    const currentLists = this.myLists;
-    const editingList = this.myLists.find(
-      (list) => list.id === listObj.listId
-    )!;
-
-    // storing editing list index
-    const editingListIndex = this.myLists.findIndex(
-      (list) => list.id === listObj.listId
-    )!;
-
-    // change list name
-    editingList['list-name'] = listObj.listName;
-
-    // replace original list to editedList
-    currentLists.splice(editingListIndex, 1, editingList);
-
-    // replace original lists to editedLists
-    this.myLists = currentLists;
-  }
-
   ngOnDestroy() {
     this.isAuthSub.unsubscribe();
     this.myListsSub.unsubscribe();
