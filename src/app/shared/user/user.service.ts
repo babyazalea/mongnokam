@@ -28,6 +28,7 @@ export class UserService {
           if (response.login) {
             const loggedInUser: User = {
               username: response.login,
+              userId: response.id,
               avatarUrl: response['avatar_url'],
               githubUrl: response['html_url'],
               publicRepoAmount: response['public_repos'],

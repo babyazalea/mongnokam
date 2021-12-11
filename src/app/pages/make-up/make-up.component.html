@@ -40,16 +40,21 @@
     <button class="add-list-btn" (click)="onAddMyList()">
       <i class="fas fa-plus"></i>
     </button>
-    <ul>
-      <li *ngFor="let list of myLists">
-        <app-repo-list
-          [listName]="list['list-name']"
-          [createdDate]="list['createdDate']"
-          [listId]="list['id']"
-          [repos]="list['list-repos']"
-        >
-        </app-repo-list>
-      </li>
-    </ul>
+    <div class="consumer-loading" *ngIf="isConsumerLoading">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    <ng-template [ngIf]="!isConsumerLoading">
+      <ul>
+        <li *ngFor="let list of myLists">
+          <app-repo-list
+            [listName]="list['list-name']"
+            [createdDate]="list['createdDate']"
+            [listId]="list['id']"
+            [repos]="list['list-repos']"
+          >
+          </app-repo-list>
+        </li>
+      </ul>
+    </ng-template>
   </div>
 </ng-template>

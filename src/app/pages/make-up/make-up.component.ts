@@ -63,6 +63,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       .authStatsuListener()
       .subscribe((isAuth) => {
         this.isAuthenticated = isAuth;
+        this.isConsumerLoading = true;
+        this.repoListsService.getMyLists();
       });
 
     this.allRepos = this.reposService.getAllRepos();
@@ -74,11 +76,11 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
 
     // need load my-lists conditionally from database, localStroage or firebase
-    this.myLists = this.repoListsService.getMyListsInLocalStorage();
     this.myListsSub = this.repoListsService
       .getMyListsUpdateListener()
       .subscribe((listsData) => {
         this.myLists = listsData.lists;
+        this.isConsumerLoading = false;
       });
 
     // get userData

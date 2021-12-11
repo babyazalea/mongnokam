@@ -85,3 +85,15 @@ button:active {
   width: 70%;
   padding: 20px;
 }
+
+.consumer-loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.consumer-loading i {
+  font-size: 3rem;
+}

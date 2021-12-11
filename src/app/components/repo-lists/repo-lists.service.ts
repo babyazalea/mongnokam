@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { RepoList } from 'src/app/components/repo-lists/repo-list/repo-list.model';
 import { Repo } from 'src/app/components/repo-lists/repo-list/repos/repo/repo.model';
+import { UserService } from 'src/app/shared/user/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class RepoListsService {
@@ -45,16 +46,25 @@ export class RepoListsService {
   }
 
   getMyLists() {
+    const userData = localStorage.getItem('userData');
+
+    if (!userData) {
+      return;
+    }
+
+    const userId = JSON.parse(userData!).userId;
+
     this.http
       .get<Array<RepoList>>(
-        'https://mongnokam-default-rtdb.firebaseio.com/my-lists.json'
+        `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`
       )
       .pipe(catchError(this.handleError))
       .subscribe((listsData) => {
-        this.detectedChangingMyLists = true;
+        console.log(listsData);
         if (listsData === null) {
           return;
         }
+        this.detectedChangingMyLists = false;
         this.myLists = listsData;
         this.myListsUpdated.next({
           lists: [...this.myLists],
@@ -121,14 +131,21 @@ export class RepoListsService {
   }
 
   storingCurrentMyLists() {
-    const currentMyLists = [...this.myLists];
-    const currentMyListsJSON = JSON.stringify(currentMyLists);
+    const myLists = [...this.myLists];
+    const userData = localStorage.getItem('userData');
+    const userId = JSON.parse(userData!).userId;
 
-    localStorage.setItem('listsData', currentMyListsJSON);
+    this.http
+      .put(
+        `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`,
+        myLists
+      )
+      .pipe(catchError(this.handleError))
+      .subscribe((data) => console.log(data));
 
     this.detectedChangingMyLists = false;
     this.myListsUpdated.next({
-      lists: currentMyLists,
+      lists: myLists,
       detectedChangingMyLists: this.detectedChangingMyLists,
     });
   }
