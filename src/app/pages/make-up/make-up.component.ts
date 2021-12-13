@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Octokit } from '@octokit/core';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Repo } from '../../components/repo-lists/repo-list/repos/repo/repo.model';
@@ -41,8 +40,6 @@ export class MakeUpComponent implements OnInit, OnDestroy {
 
     return repoPageArr;
   };
-
-  octokit = new Octokit();
 
   private isAuthSub!: Subscription;
   private myListsSub!: Subscription;
