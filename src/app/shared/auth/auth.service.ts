@@ -43,7 +43,6 @@ export class AuthService {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         if (token) {
-          console.log('got token');
           const expiresDuration = Date.now() + 3600000;
           const authenticatedUserData = {
             token,
@@ -51,11 +50,11 @@ export class AuthService {
           };
           const jsonAuthData = JSON.stringify(authenticatedUserData);
           localStorage.setItem('authData', jsonAuthData);
-          console.log(localStorage.getItem('authData'));
           this.setAuthTimer(3600000);
-          this.userService.loadUserInfoFromGithub(token);
-          this.isAuthenticated = true;
-          this.authStatusListener.next(true);
+          this.userService.loadUserInfoFromGithub(token).add(() => {
+            this.isAuthenticated = true;
+            this.authStatusListener.next(true);
+          });
         }
       })
       .catch((error) => console.log(error));

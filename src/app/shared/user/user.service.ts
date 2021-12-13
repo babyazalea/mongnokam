@@ -16,7 +16,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   loadUserInfoFromGithub(token: string) {
-    this.http
+    return this.http
       .get('https://api.github.com/user', {
         headers: {
           Authorization: `token ${token}`,
