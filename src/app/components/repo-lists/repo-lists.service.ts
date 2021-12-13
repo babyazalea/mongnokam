@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 
 import { RepoList } from 'src/app/components/repo-lists/repo-list/repo-list.model';
 import { Repo } from 'src/app/components/repo-lists/repo-list/repos/repo/repo.model';
-import { UserService } from 'src/app/shared/user/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class RepoListsService {
@@ -60,7 +59,6 @@ export class RepoListsService {
       )
       .pipe(catchError(this.handleError))
       .subscribe((listsData) => {
-        console.log(listsData);
         if (listsData === null) {
           return;
         }
@@ -78,7 +76,6 @@ export class RepoListsService {
   }
 
   addMyList(listData: RepoList) {
-    console.log('add my list');
     this.myLists.push(listData);
     this.detectedChangingMyLists = true;
     this.myListsUpdated.next({
@@ -141,7 +138,7 @@ export class RepoListsService {
         myLists
       )
       .pipe(catchError(this.handleError))
-      .subscribe((data) => console.log(data));
+      .subscribe();
 
     this.detectedChangingMyLists = false;
     this.myListsUpdated.next({
