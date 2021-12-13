@@ -26,7 +26,7 @@ nav > div:not(:last-child) {
   font-weight: 700;
 }
 
-.page-menus > ul {
+.page-menus {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -42,17 +42,30 @@ nav > div:not(:last-child) {
   justify-content: center;
 }
 
-.menu button {
+.menu a,
+button {
   display: grid;
   grid-template-columns: 0.3fr 1fr;
+  column-gap: 0.3rem;
+  align-items: center;
+  justify-items: center;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  border: none;
+  background-color: var(--main-box-color);
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
-.first-menu {
-  grid-area: first;
+.menu a {
+  text-decoration: none;
+  color: black;
 }
 
-.second-menu {
-  grid-area: second;
+.make-up-nav a {
+  column-gap: 0;
 }
 
 .login-nav {
