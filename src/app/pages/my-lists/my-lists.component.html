@@ -1,24 +1,37 @@
 <main>
   <div class="list-container favorite-lists">
-    <ul>
-      <li *ngFor="let list of myFavoriteLists">
-        <app-repo-list
-          [listName]="list['list-name']"
-          [repos]="list['list-repos']"
-        >
-        </app-repo-list>
-      </li>
-    </ul>
+    <ng-template [ngIf]="!myFavoriteLists">
+      <span>즐겨찾기에 등록된 리스트가 없습니다.</span>
+    </ng-template>
+    <ng-template [ngIf]="myFavoriteLists">
+      <ul>
+        <li *ngFor="let list of myFavoriteLists">
+          <app-repo-list
+            [listName]="list['list-name']"
+            [repos]="list['list-repos']"
+          >
+          </app-repo-list>
+        </li>
+      </ul>
+    </ng-template>
   </div>
   <div class="list-container all-my-lists">
-    <ul>
-      <li *ngFor="let list of myLists">
-        <app-repo-list
-          [listName]="list['list-name']"
-          [repos]="list['list-repos']"
-        >
-        </app-repo-list>
-      </li>
-    </ul>
+    <ng-template [ngIf]="!myLists">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </ng-template>
+    <ng-template [ngIf]="myLists.length === 0">
+      <span>아직 생성된 리스트가 없습니다.</span>
+    </ng-template>
+    <ng-template [ngIf]="myLists.length > 0">
+      <ul>
+        <li *ngFor="let list of myLists">
+          <app-repo-list
+            [listName]="list['list-name']"
+            [repos]="list['list-repos']"
+          >
+          </app-repo-list>
+        </li>
+      </ul>
+    </ng-template>
   </div>
 </main>

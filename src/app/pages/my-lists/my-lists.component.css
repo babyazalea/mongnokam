@@ -7,3 +7,13 @@
 .all-my-lists {
   overflow: auto;
 }
+
+.list-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-pulse {
+  font-size: 3rem;
+}
