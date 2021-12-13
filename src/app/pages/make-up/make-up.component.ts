@@ -61,7 +61,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       .subscribe((isAuth) => {
         this.isAuthenticated = isAuth;
         this.isConsumerLoading = true;
-        this.repoListsService.getMyLists();
+        this.repoListsService.loadMyListsFromFirebase();
       });
 
     this.allRepos = this.reposService.getAllRepos();
@@ -73,8 +73,9 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
 
     // need load my-lists conditionally from database, localStroage or firebase
+    this.myLists = this.repoListsService.getMyLists();
     this.myListsSub = this.repoListsService
-      .getMyListsUpdateListener()
+      .myListsUpdateListener()
       .subscribe((listsData) => {
         this.myLists = listsData.lists;
         this.isConsumerLoading = false;

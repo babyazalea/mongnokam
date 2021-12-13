@@ -34,17 +34,11 @@ export class RepoListsService {
 
   constructor(private http: HttpClient) {}
 
-  getMyListsInLocalStorage() {
-    const listsData = localStorage.getItem('listsData');
-    if (listsData !== null) {
-      const lists = JSON.parse(listsData);
-      this.detectedChangingMyLists = true;
-      this.myLists = lists;
-    }
+  getMyLists() {
     return this.myLists;
   }
 
-  getMyLists() {
+  loadMyListsFromFirebase() {
     const userData = localStorage.getItem('userData');
 
     if (!userData) {
@@ -71,7 +65,7 @@ export class RepoListsService {
       });
   }
 
-  getMyListsUpdateListener() {
+  myListsUpdateListener() {
     return this.myListsUpdated.asObservable();
   }
 

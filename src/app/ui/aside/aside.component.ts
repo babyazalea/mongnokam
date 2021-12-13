@@ -20,7 +20,7 @@ export class AsideComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.myListsSub = this.repoListsService
-      .getMyListsUpdateListener()
+      .myListsUpdateListener()
       .subscribe((listsData) => {
         this.detectingChangingMyList = listsData.detectedChangingMyLists;
       });
