@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 import { UserService } from 'src/app/shared/user/user.service';
 import { ReposService } from 'src/app/components/repo-lists/repo-list/repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
+import { RepoList } from 'src/app/components/repo-lists/repo-list/repo-list.model';
 
 @Component({
   selector: 'app-make-up',
@@ -20,12 +21,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
   isProviderLoading: boolean = false;
   isConsumerLoading: boolean = false;
   allRepos!: Array<Repo>;
-  myLists!: Array<{
-    id: string;
-    'list-name': string;
-    createdDate: string;
-    'list-repos': Array<Repo>;
-  }>;
+  myLists!: Array<RepoList>;
   loggedInUser!: User;
   allPageNumArray!: Array<number>;
 
@@ -106,6 +102,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       'list-name': '생성된 리스트',
       createdDate: new Date().toLocaleString(),
       'list-repos': [],
+      isFavorite: false,
     };
 
     this.repoListsService.addMyList(newList);

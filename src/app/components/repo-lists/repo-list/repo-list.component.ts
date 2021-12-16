@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Repo } from './repos/repo/repo.model';
 import { DragDropService } from '../../../shared/drag-drop/drag-drop.service';
-import { ReposService } from './repos/repos.service';
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
 import { AlertBarService } from 'src/app/ui/alert-bar/alert-bar.service';
 
@@ -16,11 +15,9 @@ export class RepoListComponent {
   @Input() listName: string = '';
   @Input() createdDate: string = '';
   @Input() listId: string = '';
+  @Input() listIndex!: number;
+  @Input() isFavorite!: boolean;
   @Input() repos: Array<Repo> = [];
-  @Output() newListNameEvent = new EventEmitter<{
-    listId: string;
-    listName: string;
-  }>();
 
   // drag & drop state
   initRepos!: Array<Repo>;
@@ -144,7 +141,7 @@ export class RepoListComponent {
       newRepos.splice(newRepos.length, 0, updatedRepo); // 새로운 repo를 리스트의 맨 밑에 추가.
       this.repos = newRepos;
 
-      this.repoListsService.updatingMyList(this.repos, this.listId);
+      this.repoListsService.updatingMyLists(this.repos, this.listId);
     }
   }
 
@@ -179,7 +176,7 @@ export class RepoListComponent {
 
     this.dropEventService.dragDropSvcInit();
 
-    this.repoListsService.updatingMyList(this.repos, this.listId);
+    this.repoListsService.updatingMyLists(this.repos, this.listId);
   }
 
   // repo-list actions
@@ -198,5 +195,10 @@ export class RepoListComponent {
 
   listNameEditCancel() {
     this.isListNameEditing = false;
+  }
+
+  listFavoriteHandler(isFavorite: boolean, listIndex: number) {
+    this.isFavorite = isFavorite;
+    this.repoListsService.toggelFavoriteList(true, listIndex);
   }
 }

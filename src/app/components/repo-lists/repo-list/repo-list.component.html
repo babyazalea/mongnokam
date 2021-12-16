@@ -26,6 +26,16 @@
         </button>
       </ng-template>
     </div>
+    <div class="repo-list-info repo-list-favorite">
+      <button (click)="listFavoriteHandler(!isFavorite, listIndex)">
+        <ng-template [ngIf]="isFavorite === false">
+          <i class="far fa-star"></i>
+        </ng-template>
+        <ng-template [ngIf]="isFavorite === true">
+          <i class="fas fa-star"></i>
+        </ng-template>
+      </button>
+    </div>
     <div
       class="repo-list-info repo-list-created-date"
       [ngClass]="{ expanded: isDateExpanded }"

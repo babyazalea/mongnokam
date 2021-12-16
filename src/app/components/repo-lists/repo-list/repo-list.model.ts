@@ -5,4 +5,5 @@ export interface RepoList {
   'list-name': string;
   createdDate: string;
   'list-repos': Array<Repo>;
+  isFavorite: boolean;
 }

@@ -45,12 +45,14 @@
     </div>
     <ng-template [ngIf]="!isConsumerLoading">
       <ul>
-        <li *ngFor="let list of myLists">
+        <li *ngFor="let list of myLists; index as i">
           <app-repo-list
             [listName]="list['list-name']"
             [createdDate]="list['createdDate']"
             [listId]="list['id']"
             [repos]="list['list-repos']"
+            [isFavorite]="list.isFavorite"
+            [listIndex]="i"
           >
           </app-repo-list>
         </li>

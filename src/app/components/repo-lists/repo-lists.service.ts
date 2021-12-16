@@ -78,7 +78,7 @@ export class RepoListsService {
     });
   }
 
-  updatingMyList(updatedRepos: Array<Repo>, listId: string) {
+  updatingMyLists(updatedRepos: Array<Repo>, listId: string) {
     const myLists = this.myLists;
 
     const foundList = myLists.find((list) => list.id === listId);
@@ -112,6 +112,20 @@ export class RepoListsService {
     };
 
     myLists.splice(foundListIndex, 1, updatedList);
+    this.myLists = myLists;
+
+    this.detectedChangingMyLists = true;
+    this.myListsUpdated.next({
+      lists: [...this.myLists],
+      detectedChangingMyLists: this.detectedChangingMyLists,
+    });
+  }
+
+  toggelFavoriteList(isFavorite: boolean, repoListIndex: number) {
+    console.log('toggleFavoriteList');
+    const myLists = this.myLists;
+    myLists[repoListIndex].isFavorite = isFavorite;
+
     this.myLists = myLists;
 
     this.detectedChangingMyLists = true;
