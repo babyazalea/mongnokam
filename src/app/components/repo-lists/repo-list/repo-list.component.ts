@@ -35,7 +35,6 @@ export class RepoListComponent {
 
   constructor(
     private dropEventService: DragDropService,
-    private repoService: ReposService,
     private repoListsService: RepoListsService,
     private alertBarService: AlertBarService
   ) {}
@@ -127,7 +126,7 @@ export class RepoListComponent {
     }
 
     const droppedRepo = this.dropEventService.getDraggingRepo();
-    // 다른 리스트에서 온 것인지 & 현재 리스트에 repo가 중복되지 않는지 확인
+    // 다른 리스트에서 온 것인지 & 현재 리스트에 해당 repo의 중복 여부를 확인
     const sameRepo = this.repos.find((repo) => repo.id === droppedRepo.id);
 
     // repo-list안에 중복된 레포지토리를 옮기려고 시도할 경우
@@ -194,6 +193,10 @@ export class RepoListComponent {
 
   newListNameSubmit(newListName: string) {
     this.repoListsService.editingListName(newListName, this.listId);
+    this.isListNameEditing = false;
+  }
+
+  listNameEditCancel() {
     this.isListNameEditing = false;
   }
 }

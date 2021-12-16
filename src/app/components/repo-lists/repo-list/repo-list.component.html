@@ -8,20 +8,20 @@
 >
   <ng-template [ngIf]="!isAllRepos">
     <div class="repo-list-info repo-list-name">
-      <ng-container *ngIf="!isListNameEditing; else liseNameInput">
+      <ng-template [ngIf]="!isListNameEditing" [ngIfElse]="liseNameInput">
         <span>
           {{ listName }}
         </span>
         <button (click)="listNameEditHandler()">
           <i class="fas fa-pencil-alt"></i>
         </button>
-      </ng-container>
+      </ng-template>
       <ng-template #liseNameInput>
         <input type="text" [(ngModel)]="listName" />
         <button (click)="newListNameSubmit(listName)">
           <i class="far fa-save"></i>
         </button>
-        <button>
+        <button (click)="listNameEditCancel()">
           <i class="far fa-times-circle"></i>
         </button>
       </ng-template>
