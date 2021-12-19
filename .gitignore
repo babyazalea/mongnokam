@@ -47,6 +47,7 @@ Thumbs.db
 # environment
 environment.ts
 environment.prod.ts
+
 # Firebase
 .firebase
 *-debug.log
