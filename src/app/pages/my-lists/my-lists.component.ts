@@ -10,8 +10,8 @@ import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.servi
   styleUrls: ['./my-lists.component.css', '../../shared/styles/main.css'],
 })
 export class MyListsComponent implements OnInit, OnDestroy {
-  myFavoriteLists!: Array<RepoList>;
   myLists!: Array<RepoList>;
+  myFavoriteLists!: Array<RepoList>;
 
   private myListsSub!: Subscription;
 
@@ -19,10 +19,18 @@ export class MyListsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.myLists = this.repoListsService.getMyLists();
+    if (this.myLists.length > 0) {
+      this.myFavoriteLists = this.myLists.filter(
+        (repoList) => repoList.isFavorite
+      );
+    }
     this.myListsSub = this.repoListsService
       .myListsUpdateListener()
       .subscribe((listsData) => {
         this.myLists = listsData.lists;
+        this.myFavoriteLists = listsData.lists.filter(
+          (repoList) => repoList.isFavorite
+        );
       });
   }
 

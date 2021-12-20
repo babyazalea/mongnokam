@@ -16,7 +16,7 @@ export class RepoListsService {
     detectedChangingMyLists: boolean;
   }>();
 
-  private handleError(error: HttpErrorResponse) {
+  private static handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
@@ -51,7 +51,7 @@ export class RepoListsService {
       .get<Array<RepoList>>(
         `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`
       )
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(RepoListsService.handleError))
       .subscribe((listsData) => {
         if (listsData === null) {
           return;
@@ -121,12 +121,12 @@ export class RepoListsService {
     });
   }
 
-  toggelFavoriteList(isFavorite: boolean, repoListIndex: number) {
-    console.log('toggleFavoriteList');
+  toggleFavoriteList(isFavorite: boolean, repoListIndex: number) {
     const myLists = this.myLists;
     myLists[repoListIndex].isFavorite = isFavorite;
 
     this.myLists = myLists;
+    console.log(this.myLists);
 
     this.detectedChangingMyLists = true;
     this.myListsUpdated.next({
@@ -140,12 +140,14 @@ export class RepoListsService {
     const userData = localStorage.getItem('userData');
     const userId = JSON.parse(userData!).userId;
 
+    console.log(myLists);
+
     this.http
       .put(
         `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`,
         myLists
       )
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(RepoListsService.handleError))
       .subscribe();
 
     this.detectedChangingMyLists = false;

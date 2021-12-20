@@ -50,13 +50,9 @@ export class RepoListComponent {
   // repo를 드래그 중일 때 css-styling(overlay) 적용
   draggingStyling(id: string, location: string) {
     const currentDraggingItem = this.dropEventService.getDraggingRepo();
-    if (
-      currentDraggingItem.id === id &&
-      currentDraggingItem.location === location
-    ) {
-      return true;
-    }
-    return false;
+    return (
+      currentDraggingItem.id === id && currentDraggingItem.location === location
+    );
   }
 
   // 드래그가 현재의 repo-list 안에서 이루어지는 중일 때 발생하는 drag-enter-event-handler
@@ -199,6 +195,6 @@ export class RepoListComponent {
 
   listFavoriteHandler(isFavorite: boolean, listIndex: number) {
     this.isFavorite = isFavorite;
-    this.repoListsService.toggelFavoriteList(true, listIndex);
+    this.repoListsService.toggleFavoriteList(isFavorite, listIndex);
   }
 }
