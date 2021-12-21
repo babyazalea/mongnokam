@@ -1,46 +1,30 @@
-<ng-template [ngIf]="!isAuthenticated" [ngIfElse]="loggedIn">
+<ng-template
+  [ngIf]="!isAuthenticated"
+  [ngIfElse]="loggedIn"
+>
   <div class="greeting-message">
     <p>아래의 메뉴에서 Github 로그인을 하시면 저장소를 불러올 수 있습니다.</p>
     <p>(이전에 저장한 데이터가 있다면 곧바로 불러옵니다.)</p>
   </div>
 </ng-template>
 <ng-template #loggedIn>
-  <div class="provider list-container">
-    <div class="provider-inside">
-      <ng-template [ngIf]="isProviderLoading">
-        <i class="fas fa-spinner fa-pulse"></i>
-      </ng-template>
-      <ng-template [ngIf]="!allRepos && !isProviderLoading">
-        <p>Github에서 저장소를 불러 올까요?</p>
-        <button (click)="loadReposPageHandler(1)">
-          <i class="fab fa-github"></i>
-          <i class="fas fa-share"></i>
-          <i class="fas fa-list-ul"></i>
-        </button>
-      </ng-template>
-      <ng-template [ngIf]="allRepos && !isProviderLoading">
-        <ng-template [ngIf]="allRepos.length === 0">
-          <p>no repos found.</p>
-          <button (click)="loadReposPageHandler(1)">
-            <span>retry</span>
-            <i class="fas fa-redo-alt"></i>
-          </button>
-        </ng-template>
-        <ng-template [ngIf]="allRepos.length > 0 && !isProviderLoading">
-          <app-repo-list [isAllRepos]="true" [repos]="allRepos"></app-repo-list>
-          <app-paginator
-            [allPageNumArray]="allPageNumArray"
-            (paginatingEvent)="loadReposPageHandler($event)"
-          ></app-paginator>
-        </ng-template>
-      </ng-template>
-    </div>
-  </div>
+  <app-make-up-room
+    [allRepos]="allRepos"
+    [isProviderLoading]="isProviderLoading"
+    [allPageNumArray]="allPageNumArray"
+    (loadReposEvent)="loadingProvider($event)"
+  ></app-make-up-room>
   <div class="consumer list-container">
-    <button class="add-list-btn" (click)="onAddMyList()">
+    <button
+      class="add-list-btn"
+      (click)="onAddMyList()"
+    >
       <i class="fas fa-plus"></i>
     </button>
-    <div class="consumer-loading" *ngIf="isConsumerLoading">
+    <div
+      class="consumer-loading"
+      *ngIf="isConsumerLoading"
+    >
       <i class="fas fa-spinner fa-pulse"></i>
     </div>
     <ng-template [ngIf]="!isConsumerLoading">

@@ -18,6 +18,7 @@ import { provideAuth, getAuth, GithubAuthProvider } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { PaginatorComponent } from './ui/paginator/paginator.component';
 import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
+import { MakeUpRoomComponent } from './pages/make-up/make-up-room/make-up-room.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
     MakeUpComponent,
     MyListsComponent,
     AlertBarComponent,
+    MakeUpRoomComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),

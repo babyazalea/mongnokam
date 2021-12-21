@@ -1,45 +1,45 @@
 <main>
-    <div class="list-container favorite-lists">
-        <ng-template [ngIf]="!myFavoriteLists">
-            <span>즐겨찾기에 등록된 리스트가 없습니다.</span>
-        </ng-template>
-        <ng-template [ngIf]="myFavoriteLists">
-            <ul>
-                <li *ngFor="let list of myFavoriteLists; index as i">
-                    <app-repo-list
-                            [listName]="list['list-name']"
-                            [createdDate]="list['createdDate']"
-                            [listId]="list['id']"
-                            [repos]="list['list-repos']"
-                            [isFavorite]="list.isFavorite"
-                            [listIndex]="i"
-                    >
-                    </app-repo-list>
-                </li>
-            </ul>
-        </ng-template>
-    </div>
-    <div class="list-container all-my-lists">
-        <ng-template [ngIf]="!myLists">
-            <i class="fas fa-spinner fa-pulse"></i>
-        </ng-template>
-        <ng-template [ngIf]="myLists.length === 0">
-            <span>아직 생성된 리스트가 없습니다.</span>
-        </ng-template>
-        <ng-template [ngIf]="myLists.length > 0">
-            <ul>
-                <li *ngFor="let list of myLists; index as i">
-                    <app-repo-list
-                            [listName]="list['list-name']"
-                            [createdDate]="list['createdDate']"
-                            [listId]="list['id']"
-                            [repos]="list['list-repos']"
-                            [isFavorite]="list.isFavorite"
-                            [listIndex]="i"
-                    >
-                    </app-repo-list>
-                </li>
-            </ul>
-        </ng-template>
-    </div>
+  <div class="list-container favorite-lists">
+    <ng-template [ngIf]="!myFavoriteLists">
+      <span>즐겨찾기에 등록된 리스트가 없습니다.</span>
+    </ng-template>
+    <ng-template [ngIf]="myFavoriteLists">
+      <ul>
+        <li *ngFor="let list of myFavoriteLists; index as i">
+          <app-repo-list
+            [listName]="list['list-name']"
+            [createdDate]="list['createdDate']"
+            [listId]="list['id']"
+            [repos]="list['list-repos']"
+            [isFavorite]="list.isFavorite"
+            [listIndex]="i"
+          >
+          </app-repo-list>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+  <div class="list-container all-my-lists">
+    <ng-template [ngIf]="!myLists">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </ng-template>
+    <ng-template [ngIf]="myLists.length === 0">
+      <span>아직 생성된 리스트가 없습니다.</span>
+    </ng-template>
+    <ng-template [ngIf]="myLists.length > 0">
+      <ul>
+        <li *ngFor="let list of myLists; index as i">
+          <app-repo-list
+            [listName]="list['list-name']"
+            [createdDate]="list['createdDate']"
+            [listId]="list['id']"
+            [repos]="list['list-repos']"
+            [isFavorite]="list.isFavorite"
+            [listIndex]="i"
+          >
+          </app-repo-list>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
 </main>

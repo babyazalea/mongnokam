@@ -90,10 +90,8 @@ export class MakeUpComponent implements OnInit, OnDestroy {
       });
   } //ngOnInit
 
-  loadReposPageHandler(pageNum: number) {
-    this.isProviderLoading = true;
-
-    this.reposService.loadRepos(pageNum);
+  loadingProvider(isLoading: boolean) {
+    this.isProviderLoading = isLoading;
   }
 
   onAddMyList() {

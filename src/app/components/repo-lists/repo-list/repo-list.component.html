@@ -1,6 +1,7 @@
 <div
   class="repo-list-wrapper"
   [ngClass]="{ 'dragging-over-container': draggingOver }"
+  [ngClass]="{ 'all-repos-wrapper': isAllRepos }"
   (dragenter)="dragEnterOnList($event)"
   (dragover)="!draggingInList && dragOverOnList($event)"
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
