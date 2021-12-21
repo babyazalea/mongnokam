@@ -1,7 +1,7 @@
 :host {
+  padding-top: 2rem;
   width: 50%;
   height: 100%;
-  padding-top: 1rem;
 }
 
 .provider.list-container {
@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 .provider-inside .fa-spinner {
