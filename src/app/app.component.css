@@ -27,11 +27,14 @@ aside {
 }
 
 footer {
-  width: 100%;
+  width: 87%;
   height: 50%;
   grid-area: footer;
   border: 1px solid red;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+}
+
+footer div {
 }
