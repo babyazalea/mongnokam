@@ -11,7 +11,7 @@ import { AlertBarService } from 'src/app/ui/alert-bar/alert-bar.service';
   styleUrls: ['./repo-list.component.css'],
 })
 export class RepoListComponent {
-  @Input() isAllRepos: boolean = false;
+  @Input() isMakeUp: boolean = false;
   @Input() listName: string = '';
   @Input() createdDate: string = '';
   @Input() listId: string = '';
@@ -114,7 +114,7 @@ export class RepoListComponent {
     this.draggingInList = false;
 
     // all-repos-lists의 경우 업데이트를 방지
-    if (this.isAllRepos) {
+    if (this.isMakeUp) {
       return;
     }
 
@@ -145,7 +145,7 @@ export class RepoListComponent {
   // drag-end-event는 드래그가 시작된 repo-list 컴포넌트에서만 발생함.
   dragEnd() {
     // all-repos-lists의 경우 업데이트를 방지
-    if (this.isAllRepos) {
+    if (this.isMakeUp) {
       this.dropEventService.dragDropSvcInit();
       return;
     }

@@ -20,7 +20,7 @@
         </button>
       </ng-template>
       <ng-template [ngIf]="allRepos.length > 0 && !isProviderLoading">
-        <app-repo-list [isAllRepos]="true" [repos]="allRepos"></app-repo-list>
+        <app-repo-list [isMakeUp]="true" [repos]="allRepos"></app-repo-list>
         <app-paginator
           [allPageNumArray]="allPageNumArray"
           (paginatingEvent)="loadReposPageHandler($event)"

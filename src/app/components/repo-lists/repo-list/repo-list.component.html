@@ -1,13 +1,11 @@
 <div
   class="repo-list-wrapper"
   [ngClass]="{ 'dragging-over-container': draggingOver }"
-  [ngClass]="{ 'all-repos-wrapper': isAllRepos }"
   (dragenter)="dragEnterOnList($event)"
   (dragover)="!draggingInList && dragOverOnList($event)"
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-  <ng-template [ngIf]="!isAllRepos">
     <div class="repo-list-info repo-list-name">
       <ng-template [ngIf]="!isListNameEditing" [ngIfElse]="liseNameInput">
         <span>
@@ -27,7 +25,7 @@
         </button>
       </ng-template>
     </div>
-    <div class="repo-list-info repo-list-favorite">
+    <div class="repo-list-info repo-list-favorite" *ngIf="!isMakeUp">
       <button (click)="listFavoriteHandler(!isFavorite, listIndex)">
         <ng-template [ngIf]="isFavorite === false">
           <i class="far fa-star"></i>
@@ -50,7 +48,6 @@
         {{ createdDate }}
       </div>
     </div>
-  </ng-template>
   <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li
@@ -59,7 +56,7 @@
         'dragging-item':
           draggingInList && draggingStyling(repo.id, repo.location)
       }"
-      draggable="true"
+      [draggable]="isMakeUp"
       (dragstart)="dragStart($event, i, repo)"
       (dragenter)="draggingInList && dragEnterInList($event, i)"
       (dragend)="dragEnd()"
