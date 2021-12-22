@@ -14,7 +14,7 @@ import { UserService } from 'src/app/shared/user/user.service';
 })
 export class AuthService {
   private isAuthenticated: boolean = false;
-  private authStatusListener = new BehaviorSubject<boolean>(false);
+  private authStatusUpdated = new BehaviorSubject<boolean>(false);
   private authTimer!: NodeJS.Timer;
 
   constructor(
@@ -27,8 +27,8 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  authStatsuListener() {
-    return this.authStatusListener.asObservable();
+  authStatusListener() {
+    return this.authStatusUpdated.asObservable();
   }
 
   githubLogin() {
@@ -53,7 +53,7 @@ export class AuthService {
           this.setAuthTimer(3600000);
           this.userService.loadUserInfoFromGithub(token).add(() => {
             this.isAuthenticated = true;
-            this.authStatusListener.next(true);
+            this.authStatusUpdated.next(true);
           });
         }
       })
@@ -72,7 +72,7 @@ export class AuthService {
     const remainingDuration = expiresInDate.getTime() - now.getTime();
     if (remainingDuration > 0) {
       this.isAuthenticated = true;
-      this.authStatusListener.next(true);
+      this.authStatusUpdated.next(true);
       this.setAuthTimer(remainingDuration);
     }
   }
@@ -81,7 +81,7 @@ export class AuthService {
     signOut(this.auth)
       .then((res) => {
         this.isAuthenticated = false;
-        this.authStatusListener.next(false);
+        this.authStatusUpdated.next(false);
         clearTimeout(this.authTimer);
         localStorage.removeItem('userData');
         localStorage.removeItem('authData');

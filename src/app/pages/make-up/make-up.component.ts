@@ -53,7 +53,7 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     // load auth-status
     this.isAuthenticated = this.authService.getIsAuth();
     this.isAuthSub = this.authService
-      .authStatsuListener()
+      .authStatusListener()
       .subscribe((isAuth) => {
         this.isAuthenticated = isAuth;
         this.isConsumerLoading = true;

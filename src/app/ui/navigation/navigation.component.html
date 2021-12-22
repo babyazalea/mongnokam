@@ -2,34 +2,38 @@
   <div class="logo">
     <span>몽노캄</span>
   </div>
-  <div class="page-menus">
-    <div class="menu make-up-nav">
+  <ul class="page-menus">
+    <li class="menu make-up-nav" *ngIf="isAuthenticated">
       <a routerLink="/">
         <i class="fas fa-arrows-alt"></i>
         <span>리스트 꾸미기</span>
       </a>
-    </div>
-    <div class="menu my-lists-nav">
+    </li>
+    <li class="menu my-lists-nav" *ngIf="isAuthenticated">
       <a routerLink="/my-lists">
         <i class="fas fa-box-open"></i>
-        <span>리스트 보기</span>
+        <span>list view</span>
       </a>
-    </div>
-    <div class="menu login-nav" *ngIf="!isAuthenticated">
+    </li>
+    <li class="menu login-nav" *ngIf="!isAuthenticated">
       <button (click)="githubLoginHandler()">
         <i class="fas fa-sign-in-alt"></i>
         <span>로그인</span>
       </button>
-    </div>
-    <div class="menu logged-in-nav" *ngIf="isAuthenticated">
-      <button class="btn btn-user-info">
-        <i class="fas fa-user"></i>
-        <span>내 정보</span>
-      </button>
-      <button (click)="logoutHandler()">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>로그아웃</span>
-      </button>
-    </div>
-  </div>
+    </li>
+    <ng-template [ngIf]="isAuthenticated">
+      <li class="menu logged-in-nav">
+        <button class="btn btn-user-info">
+          <i class="fas fa-user"></i>
+          <span>내 정보</span>
+        </button>
+      </li>
+      <li class="menu logged-in-nav">
+        <button (click)="logoutHandler()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>로그아웃</span>
+        </button>
+      </li>
+    </ng-template>
+  </ul>
 </nav>

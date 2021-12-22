@@ -1,11 +1,8 @@
-<ng-template [ngIf]="isMakeUpPage">
-  <button><i class="fas fa-redo"></i></button>
-  <button [disabled]="!detectingChangingMyList" (click)="saveRecentLists()">
-    <i class="far fa-save"></i>
-  </button>
-</ng-template>
-<ng-template [ngIf]="!isMakeUpPage">
-  <form>
-    <input type="text" />
-  </form>
+<ng-template [ngIf]="isAuthenticated">
+  <ng-template [ngIf]="isMakeUpPage">
+    <button><i class="fas fa-redo"></i></button>
+    <button [disabled]="!detectingChangingMyList" (click)="saveRecentLists()">
+      <i class="far fa-save"></i>
+    </button>
+  </ng-template>
 </ng-template>

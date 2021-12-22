@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.service';
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-aside',
@@ -11,11 +12,15 @@ import { RepoListsService } from 'src/app/components/repo-lists/repo-lists.servi
   styleUrls: ['./aside.component.css'],
 })
 export class AsideComponent implements OnInit, OnDestroy {
+  isAuthenticated!: boolean;
   isMakeUpPage!: boolean;
   detectingChangingMyList: boolean = false;
+
+  private isAuthSub: Subscription = new Subscription();
   private myListsSub: Subscription = new Subscription();
 
   constructor(
+    private authService: AuthService,
     private router: Router,
     private repoListsService: RepoListsService
   ) {
@@ -23,12 +28,19 @@ export class AsideComponent implements OnInit, OnDestroy {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          this.isMakeUpPage = event.url === '/' ? true : false;
+          this.isMakeUpPage = event.url === '/';
         }
       });
   }
 
   ngOnInit() {
+    this.isAuthenticated = this.authService.getIsAuth();
+    this.isAuthSub = this.authService
+      .authStatusListener()
+      .subscribe((isAuth) => {
+        this.isAuthenticated = isAuth;
+      });
+
     this.myListsSub = this.repoListsService
       .myListsUpdateListener()
       .subscribe((listsData) => {
