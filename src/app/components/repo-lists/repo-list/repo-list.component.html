@@ -6,48 +6,49 @@
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-    <div class="repo-list-info repo-list-name">
-      <ng-template [ngIf]="!isListNameEditing" [ngIfElse]="liseNameInput">
+  <div class="repo-list-info repo-list-name" *ngIf="!isAllRepos">
+    <ng-template [ngIf]="!isListNameEditing">
         <span>
           {{ listName }}
         </span>
-        <button (click)="listNameEditHandler()">
-          <i class="fas fa-pencil-alt"></i>
-        </button>
-      </ng-template>
-      <ng-template #liseNameInput>
-        <input type="text" [(ngModel)]="listName" />
-        <button (click)="newListNameSubmit(listName)">
-          <i class="far fa-save"></i>
-        </button>
-        <button (click)="listNameEditCancel()">
-          <i class="far fa-times-circle"></i>
-        </button>
-      </ng-template>
-    </div>
-    <div class="repo-list-info repo-list-favorite" *ngIf="!isMakeUp">
-      <button (click)="listFavoriteHandler(!isFavorite, listIndex)">
-        <ng-template [ngIf]="isFavorite === false">
-          <i class="far fa-star"></i>
-        </ng-template>
-        <ng-template [ngIf]="isFavorite === true">
-          <i class="fas fa-star"></i>
-        </ng-template>
+      <button *ngIf="isMakeUp" (click)="listNameEditHandler()">
+        <i class="fas fa-pencil-alt"></i>
       </button>
-    </div>
-    <div
-      class="repo-list-info repo-list-created-date"
-      [ngClass]="{ expanded: isDateExpanded }"
-      (click)="dateExpandHandler()"
-    >
+    </ng-template>
+    <ng-template [ngIf]="isListNameEditing">
+      <input type="text" [(ngModel)]="listName"/>
+      <button (click)="newListNameSubmit(listName)">
+        <i class="far fa-save"></i>
+      </button>
+      <button (click)="listNameEditCancel()">
+        <i class="far fa-times-circle"></i>
+      </button>
+    </ng-template>
+  </div>
+  <div class="repo-list-info repo-list-favorite" *ngIf="!isMakeUp">
+    <button (click)="listFavoriteHandler(!isFavorite, listIndex)">
+      <ng-template [ngIf]="isFavorite === false">
+        <i class="far fa-star"></i>
+      </ng-template>
+      <ng-template [ngIf]="isFavorite === true">
+        <i class="fas fa-star"></i>
+      </ng-template>
+    </button>
+  </div>
+  <div
+    class="repo-list-info repo-list-created-date"
+    [ngClass]="{ expanded: isDateExpanded }"
+    (click)="dateExpandHandler()"
+    *ngIf="!isAllRepos"
+  >
       <span class="repo-list-created-date-icon">
         <i class="far fa-clock"></i>
       </span>
-      <div class="repo-list-created-date-text">
-        <span>만들어진 시각:</span>
-        {{ createdDate }}
-      </div>
+    <div class="repo-list-created-date-text">
+      <span>만들어진 시각:</span>
+      {{ createdDate }}
     </div>
+  </div>
   <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
     <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li

@@ -12,6 +12,7 @@ import { AlertBarService } from 'src/app/ui/alert-bar/alert-bar.service';
 })
 export class RepoListComponent {
   @Input() isMakeUp: boolean = false;
+  @Input() isAllRepos: boolean = false;
   @Input() listName: string = '';
   @Input() createdDate: string = '';
   @Input() listId: string = '';
