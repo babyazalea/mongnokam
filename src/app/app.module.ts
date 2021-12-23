@@ -19,6 +19,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { PaginatorComponent } from './ui/paginator/paginator.component';
 import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
 import { MakeUpRoomComponent } from './pages/make-up/make-up-room/make-up-room.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MakeUpRoomComponent } from './pages/make-up/make-up-room/make-up-room.c
     MyListsComponent,
     AlertBarComponent,
     MakeUpRoomComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
