@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { UserService } from '../../shared/user/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,9 +11,15 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
-  private authStatusSub!: Subscription;
+  userName!: string;
 
-  constructor(private authService: AuthService) {}
+  private authStatusSub!: Subscription;
+  private userSub!: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     // load auth status
@@ -22,6 +29,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe((isAuth) => {
         this.isAuthenticated = isAuth;
       });
+
+    // load user name
+    const userInfoInLocalStorage = localStorage.getItem('userData');
+    if (userInfoInLocalStorage) {
+      const username = JSON.parse(userInfoInLocalStorage).username;
+      this.userName = username;
+      return;
+    }
+    this.userSub = this.userService
+      .getUserUpdateListener()
+      .subscribe((userData) => (this.userName = userData.user.username));
   }
 
   githubLoginHandler() {
