@@ -2,7 +2,7 @@
   <div class="logo">
     <span>몽노캄</span>
   </div>
-  <ul class="page-menus">
+  <ul class="page-menus" [ngClass]="{'not-logged-in': !isAuthenticated}">
     <li class="menu make-up-nav" *ngIf="isAuthenticated">
       <a routerLink="/">
         <i class="fas fa-arrows-alt"></i>

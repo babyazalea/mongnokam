@@ -2,7 +2,6 @@
   grid-area: header;
   width: 100%;
   height: 80%;
-  border: 1px solid red;
 }
 
 nav {
@@ -22,13 +21,23 @@ nav {
 }
 
 .page-menus {
+  width: 70%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  padding-right: 4rem;
+  padding-right: 1rem;
 }
 
+.page-menus.not-logged-in {
+  justify-content: flex-start;
+}
+
+.menu {
+  width: 6rem;
+  height: 3rem;
+}
 
 .menu a {
   display: block;
@@ -38,6 +47,8 @@ nav {
 
 .menu a,
 button {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,7 +60,6 @@ button {
   cursor: pointer;
   font-size: 0.8rem;
   border-radius: 0.5rem;
-  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   gap: 0.4rem;
 }
 
