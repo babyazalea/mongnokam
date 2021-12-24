@@ -70,8 +70,9 @@
   grid-row: 5;
 }
 
-.my-info-user-repo-amount hr {
-  width: 15rem;
+.my-info-user-repo-amount-hr {
+  width: 100%;
+  border-top: 0.15rem solid rgba(0,0,0,0.5);
   grid-row: 7;
 }
 

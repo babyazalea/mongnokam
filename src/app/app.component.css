@@ -23,7 +23,7 @@ aside {
   width: 80%;
   height: 80%;
   grid-area: aside;
-  padding: 1rem;
+  justify-self: center;
 }
 
 footer {
