@@ -20,6 +20,7 @@ import { PaginatorComponent } from './ui/paginator/paginator.component';
 import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
 import { MakeUpRoomComponent } from './pages/make-up/make-up-room/make-up-room.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { MyInfoComponent } from './pages/my-info/my-info.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     AlertBarComponent,
     MakeUpRoomComponent,
     PageNotFoundComponent,
+    MyInfoComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),

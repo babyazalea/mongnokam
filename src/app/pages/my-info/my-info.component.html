@@ -1,0 +1,29 @@
+<div class="my-info">
+  <div class="my-info-user-avatar">
+    <img [src]="user.avatarUrl" alt="My Avatar Image"/>
+  </div>
+  <div class="my-info-user-name">
+    <span>{{user.username}}</span>
+  </div>
+  <div class="my-info-user-repo-amount">
+    <span>공개된 저장소(Public Repositories)
+      <span class="my-info-user-repo-amount-data">{{user.publicRepoAmount}}</span>
+    </span>
+    <span>비공개 저장소(Private Repositories)
+      <span class="my-info-user-repo-amount-data">{{user.privateRepoAmount}}</span>
+    </span>
+    <hr/>
+    <span class="my-info-user-repo-amount-all">
+      <span>모든 저장소</span>
+      <span>{{user.publicRepoAmount + user.privateRepoAmount}}</span>
+    </span>
+  </div>
+  <div class="my-info-github-link">
+    <a [href]="user.githubUrl">
+      <span>
+        내 깃헙 바로가기
+      </span>
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+</div>

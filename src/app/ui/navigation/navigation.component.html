@@ -23,10 +23,10 @@
     </li>
     <ng-template [ngIf]="isAuthenticated">
       <li class="menu logged-in-nav">
-        <button class="btn btn-user-info">
+        <a class="btn btn-user-info" routerLink="/my-info">
           <i class="fas fa-user"></i>
           <span>{{userName || "내 정보"}}</span>
-        </button>
+        </a>
       </li>
       <li class="menu logged-in-nav">
         <button (click)="logoutHandler()">
