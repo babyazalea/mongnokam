@@ -19,6 +19,9 @@ export class MyListsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.myLists = this.repoListsService.getMyLists();
+    if (this.myLists.length === 0) {
+      this.repoListsService.loadMyListsFromFirebase();
+    }
     if (this.myLists.length > 0) {
       this.myFavoriteLists = this.myLists.filter(
         (repoList) => repoList.isFavorite
