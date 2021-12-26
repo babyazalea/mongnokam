@@ -29,12 +29,12 @@ export class MakeUpComponent implements OnInit, OnDestroy {
     const allReposAmount =
       userData.privateRepoAmount + userData.publicRepoAmount;
     const repoPageNum = Math.floor(allReposAmount / 30) + 1;
-    let repoPageArr = [];
+    let repoPageNumArr = [];
     for (let i = 1; i < repoPageNum + 1; i++) {
-      repoPageArr.push(i);
+      repoPageNumArr.push(i);
     }
 
-    return repoPageArr;
+    return repoPageNumArr;
   };
 
   private isAuthSub!: Subscription;
