@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -40,16 +44,20 @@ export class RepoListsService {
 
   loadMyListsFromFirebase() {
     const userData = localStorage.getItem('userData');
+    const authData = localStorage.getItem('authData');
 
     if (!userData) {
       return;
     }
 
     const userId = JSON.parse(userData!).userId;
+    const token = JSON.parse(authData!).token;
+    const params = new HttpParams({ fromString: `?auth=${token}` });
 
     this.http
       .get<Array<RepoList>>(
-        `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`
+        `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`,
+        { params }
       )
       .pipe(catchError(RepoListsService.handleError))
       .subscribe((listsData) => {
@@ -138,14 +146,19 @@ export class RepoListsService {
   storingCurrentMyLists() {
     const myLists = [...this.myLists];
     const userData = localStorage.getItem('userData');
+    const authData = localStorage.getItem('authData');
+
     const userId = JSON.parse(userData!).userId;
+    const token = JSON.parse(authData!).token;
+    const params = new HttpParams({ fromString: `?auth=${token}` });
 
     console.log(myLists);
 
     this.http
       .put(
         `https://mongnokam-default-rtdb.firebaseio.com/my-lists/${userId}.json`,
-        myLists
+        myLists,
+        { params }
       )
       .pipe(catchError(RepoListsService.handleError))
       .subscribe();
