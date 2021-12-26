@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import {
   Auth,
@@ -20,7 +21,8 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private githubAuthProvider: GithubAuthProvider,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   getIsAuth() {
@@ -79,12 +81,13 @@ export class AuthService {
 
   logout() {
     signOut(this.auth)
-      .then((res) => {
+      .then(() => {
         this.isAuthenticated = false;
         this.authStatusUpdated.next(false);
         clearTimeout(this.authTimer);
         localStorage.removeItem('userData');
         localStorage.removeItem('authData');
+        this.router.navigate(['/']).finally(() => {});
       })
       .catch((error) => error);
   }
