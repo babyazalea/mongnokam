@@ -43,21 +43,24 @@ export class AuthService {
     signInWithPopup(this.auth, ghProvider)
       .then((result) => {
         const credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        if (token) {
-          const expiresDuration = Date.now() + 3600000;
-          const authenticatedUserData = {
-            token,
-            expiresIn: new Date(expiresDuration),
-          };
-          const jsonAuthData = JSON.stringify(authenticatedUserData);
-          localStorage.setItem('authData', jsonAuthData);
-          this.setAuthTimer(3600000);
-          this.userService.loadUserInfoFromGithub(token).add(() => {
-            this.isAuthenticated = true;
-            this.authStatusUpdated.next(true);
-          });
-        }
+        const accessToken = credential?.accessToken;
+        result.user.getIdToken().then((idToken) => {
+          if (accessToken) {
+            const expiresDuration = Date.now() + 3600000;
+            const authenticatedUserData = {
+              accessToken,
+              idToken,
+              expiresIn: new Date(expiresDuration),
+            };
+            const jsonAuthData = JSON.stringify(authenticatedUserData);
+            localStorage.setItem('authData', jsonAuthData);
+            this.setAuthTimer(3600000);
+            this.userService.loadUserInfoFromGithub(accessToken).add(() => {
+              this.isAuthenticated = true;
+              this.authStatusUpdated.next(true);
+            });
+          }
+        });
       })
       .catch((error) => console.log(error));
   }

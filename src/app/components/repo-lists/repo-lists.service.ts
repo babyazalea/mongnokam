@@ -51,8 +51,8 @@ export class RepoListsService {
     }
 
     const userId = JSON.parse(userData!).userId;
-    const token = JSON.parse(authData!).token;
-    const params = new HttpParams({ fromString: `?auth=${token}` });
+    const idToken = JSON.parse(authData!).idToken;
+    const params = new HttpParams({ fromString: `?auth=${idToken}` });
 
     this.http
       .get<Array<RepoList>>(
@@ -134,7 +134,6 @@ export class RepoListsService {
     myLists[repoListIndex].isFavorite = isFavorite;
 
     this.myLists = myLists;
-    console.log(this.myLists);
 
     this.detectedChangingMyLists = true;
     this.myListsUpdated.next({
@@ -149,10 +148,8 @@ export class RepoListsService {
     const authData = localStorage.getItem('authData');
 
     const userId = JSON.parse(userData!).userId;
-    const token = JSON.parse(authData!).token;
-    const params = new HttpParams({ fromString: `?auth=${token}` });
-
-    console.log(myLists);
+    const idToken = JSON.parse(authData!).idToken;
+    const params = new HttpParams({ fromString: `?auth=${idToken}` });
 
     this.http
       .put(
