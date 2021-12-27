@@ -21,6 +21,7 @@ import { AlertBarComponent } from './ui/alert-bar/alert-bar.component';
 import { MakeUpRoomComponent } from './pages/make-up/make-up-room/make-up-room.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { MyInfoComponent } from './pages/my-info/my-info.component';
+import { FooterComponent } from './ui/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MyInfoComponent } from './pages/my-info/my-info.component';
     MakeUpRoomComponent,
     PageNotFoundComponent,
     MyInfoComponent,
+    FooterComponent,
   ],
   imports: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),

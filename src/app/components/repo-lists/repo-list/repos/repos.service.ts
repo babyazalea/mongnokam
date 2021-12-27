@@ -21,7 +21,7 @@ export class ReposService {
   loadRepos(pageNum: number) {
     const authData = localStorage.getItem('authData');
     const parsedAuthData = JSON.parse(authData!);
-    const token = parsedAuthData.token;
+    const token = parsedAuthData.accessToken;
 
     this.http
       .get('https://api.github.com/user/repos', {
