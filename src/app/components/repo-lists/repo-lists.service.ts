@@ -146,6 +146,7 @@ export class RepoListsService {
   }
 
   storingCurrentMyLists() {
+    console.log(this.myLists);
     const myLists = [...this.myLists];
     const userData = localStorage.getItem('userData');
     const authData = localStorage.getItem('authData');

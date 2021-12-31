@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import { Repo } from './repos/repo/repo.model';
 import { DragDropService } from '../../../shared/drag-drop/drag-drop.service';
@@ -10,7 +10,7 @@ import { AlertBarService } from 'src/app/ui/alert-bar/alert-bar.service';
   templateUrl: './repo-list.component.html',
   styleUrls: ['./repo-list.component.css'],
 })
-export class RepoListComponent {
+export class RepoListComponent implements OnInit {
   @Input() isMakeUp: boolean = false;
   @Input() isAllRepos: boolean = false;
   @Input() listName: string = '';
@@ -18,7 +18,7 @@ export class RepoListComponent {
   @Input() listId: string = '';
   @Input() listIndex!: number;
   @Input() isFavorite!: boolean;
-  @Input() repos: Array<Repo> = [];
+  @Input() repos?: Array<Repo>;
 
   // drag & drop state
   initRepos!: Array<Repo>;
@@ -37,11 +37,17 @@ export class RepoListComponent {
     private alertBarService: AlertBarService
   ) {}
 
+  ngOnInit() {
+    if(!this.repos) {
+      this.repos = [];
+    }
+  }
+
   // drag & drop actions
 
   // 드래그를 시작하는 순간 발생하는 drag-start-event-handler
   dragStart(event: DragEvent, index: number, repo: Repo) {
-    this.initRepos = this.repos;
+    this.initRepos = this.repos!;
     this.draggingInList = true; // drag-start event는 무조건, 어느 list이건 list 내부에서 발생
     this.draggingNode = event.target; // 드래그 중인 repo-component의 HTML Element 자체를 컴포넌트 내에 저장
     this.dropEventService.setDraggingRepo(repo); // drag-drop-service 안에 드래그 중인 repo의 데이터를 저장
@@ -59,13 +65,19 @@ export class RepoListComponent {
   // 드래그가 현재의 repo-list 안에서 이루어지는 중일 때 발생하는 drag-enter-event-handler
   dragEnterInList(event: DragEvent, index: number) {
     event.preventDefault(); // default-event를 방지
+
+    // all-repos-repo-list의 경우 리스트를 나의 리스트로 옮기는 것만 가능
+    if(this.isAllRepos) {
+      return;
+    }
+
     this.draggingInList = true;
     const draggingRepoIndex = this.draggingRepoIndex;
     const draggingNode = this.draggingNode;
     // 현재의 이벤트(드래그) 타겟과 drag-start-event에서 저장된 dragging-node가 동일한 객체인지 확인
     if (event.target !== draggingNode) {
       // 서로 다른 객체일 경우: drag-entering된 지점의 repo와 드래그 중인 repo가 서로 다른 repo임이 확인됌.
-      const newRepoList = this.repos; // 현재의 repos(repo들을 담고 있는 배열)를 복사.
+      const newRepoList = this.repos!; // 현재의 repos(repo들을 담고 있는 배열)를 복사.
       const currentItem = newRepoList.splice(draggingRepoIndex, 1)[0]; // 드래그 중인 repo의 index를 이용해 리스트 내에서 드래그 중인 repo-item(node가 아닌 repo)를 할당.
       newRepoList.splice(index, 0, currentItem); // 앞선 데이터와 splice 함수를 이용해 newRepoList를 업데이트.
       // 변경된 드래그 중인 repo의 인덱스와 repo-list를 새로 할당.
@@ -115,13 +127,14 @@ export class RepoListComponent {
     this.draggingInList = false;
 
     // all-repos-lists의 경우 업데이트를 방지
-    if (this.isMakeUp) {
+    if (this.isAllRepos) {
       return;
     }
 
+
     const droppedRepo = this.dropEventService.getDraggingRepo();
     // 다른 리스트에서 온 것인지 & 현재 리스트에 해당 repo의 중복 여부를 확인
-    const sameRepo = this.repos.find((repo) => repo.id === droppedRepo.id);
+    const sameRepo = this.repos!.find((repo) => repo.id === droppedRepo.id);
 
     // repo-list안에 중복된 레포지토리를 옮기려고 시도할 경우
     if (sameRepo) {
@@ -133,7 +146,7 @@ export class RepoListComponent {
 
     if (droppedRepo.location !== this.listId) {
       this.dropEventService.dropedInOtherList();
-      const newRepos = this.repos;
+      const newRepos = this.repos!;
       const updatedRepo = { ...droppedRepo, location: this.listId };
       newRepos.splice(newRepos.length, 0, updatedRepo); // 새로운 repo를 리스트의 맨 밑에 추가.
       this.repos = newRepos;
@@ -146,7 +159,7 @@ export class RepoListComponent {
   // drag-end-event는 드래그가 시작된 repo-list 컴포넌트에서만 발생함.
   dragEnd() {
     // all-repos-lists의 경우 업데이트를 방지
-    if (this.isMakeUp) {
+    if (this.isAllRepos) {
       this.dropEventService.dragDropSvcInit();
       return;
     }
@@ -155,11 +168,10 @@ export class RepoListComponent {
     const isDropped = this.dropEventService.getDropedState();
 
     if (isDropped) {
-      console.log('dropped');
       // 발생했을 경우: 현재의 repo-list에서 드래그된 repo가 다른 repo-list 컴포넌트에 drop 되었음을 의미하므로, lists를 업데이트.
       const draggingRepo = this.dropEventService.getDraggingRepo();
       let updatedRepos;
-      updatedRepos = this.repos.filter((repo) => repo.id !== draggingRepo.id);
+      updatedRepos = this.repos!.filter((repo) => repo.id !== draggingRepo.id);
       this.repos = updatedRepos;
     }
 
@@ -173,7 +185,7 @@ export class RepoListComponent {
 
     this.dropEventService.dragDropSvcInit();
 
-    this.repoListsService.updatingMyLists(this.repos, this.listId);
+    this.repoListsService.updatingMyLists(this.repos!, this.listId);
   }
 
   // repo-list actions
