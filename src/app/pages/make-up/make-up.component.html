@@ -28,20 +28,27 @@
       <i class="fas fa-spinner fa-pulse"></i>
     </div>
     <ng-template [ngIf]="!isConsumerLoading">
-      <ul>
-        <li *ngFor="let list of myLists; index as i">
-          <app-repo-list
-            [listName]="list['list-name']"
-            [createdDate]="list['createdDate']"
-            [listId]="list['id']"
-            [repos]="list['list-repos']"
-            [isFavorite]="list.isFavorite"
-            [listIndex]="i"
-            [isMakeUp]="true"
-          >
-          </app-repo-list>
-        </li>
-      </ul>
+      <ng-template [ngIf]="myLists.length === 0">
+        <div class="no-my-lists">
+          <p>리스트가 아직 없습니다.</p>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="myLists.length > 0">
+        <ul>
+          <li *ngFor="let list of myLists; index as i">
+            <app-repo-list
+              [listName]="list['list-name']"
+              [createdDate]="list['createdDate']"
+              [listId]="list['id']"
+              [repos]="list['list-repos']"
+              [isFavorite]="list.isFavorite"
+              [listIndex]="i"
+              [isMakeUp]="true"
+            >
+            </app-repo-list>
+          </li>
+        </ul>
+      </ng-template>
     </ng-template>
   </div>
 </ng-template>

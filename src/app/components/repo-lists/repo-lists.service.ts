@@ -61,11 +61,14 @@ export class RepoListsService {
       )
       .pipe(catchError(RepoListsService.handleError))
       .subscribe((listsData) => {
-        if (listsData === null) {
-          return;
-        }
         this.detectedChangingMyLists = false;
-        this.myLists = listsData;
+
+        if(!listsData || listsData === null || Object.keys(listsData).length === 0) {
+          this.myLists = [];
+        } else if(Object.keys(listsData).length > 0) {
+          this.myLists = listsData;
+        }
+
         this.myListsUpdated.next({
           lists: [...this.myLists],
           detectedChangingMyLists: this.detectedChangingMyLists,
