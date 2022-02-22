@@ -2,12 +2,16 @@
 > 레포지토리를 목록으로 만들어 관리할 수 있는 웹 앱입니다.
 
 Angular, Firebase, Github API를 이용하여 만든 레포지토리 관리용 웹 앱입니다. 현재는 데스크톱 스크린의 웹 브라우저에 최적화 되어 있으며, 깃헙 아이디를 연동하면 해당 유저의 모든 레포지토리를 불러올 수 있고, 불러온 레포지토리를 드래그-앤-드롭 방식으로 간단하게 리스트로 만들 수 있습니다.
+<br>
+<br>
 
 ## 사용하기
 
 Firebase를 통해서 호스팅되고 있습니다. 아래의 주소에서 직접 사용이 가능합니다.
 
 [https://mongnokam.firebaseapp.com/](https://mongnokam.firebaseapp.com/)
+<br>
+<br>
 
 ## 로컬에서 테스트 해보기
 
@@ -52,6 +56,8 @@ export const environment = {
 (별도의 백엔드 서버를 연결할 수 있겠으나, 몽노캄은 Firebase의 Angular 프로젝트 전용 의존성 패키지인 `@angular/fire`로 로그인, 유저의 레포지토리 리스트 데이터 저장 등 데이터와 관련된 로직을 관리하고 있어 이를 모두 변경해야 합니다.)
 
 위 예시에서 `environment` 객체 속 `firebase` 프로퍼티의 구성 요소는 Firebase의 콘솔에서 '프로젝트 설정'에 들어가시면 쉽게 확인이 가능합니다. (보통 프로덕션 환경까지 테스트는 진행하지 않으시겠지만) 원활한 테스트를 위해 `environments.prod.ts`의 내용은 위의 예시에서 `production` 프로퍼티의 값만 `true`로 변경하여 저장한 뒤 사용하시길 권장드립니다.
+<br>
+<br>
 
 ## 업데이트 내역
 
@@ -62,6 +68,8 @@ export const environment = {
   - Firebase 통해 배포
 * 2021-09
   - 프로젝트 시작
+<br>
+<br>
 
 ## 만든 사람
 
