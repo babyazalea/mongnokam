@@ -8,6 +8,8 @@ Angular, Firebase, Github API를 이용하여 만든 레포지토리 관리용 �
 ## 사용하기
 
 Firebase를 통해서 호스팅되고 있습니다. 아래의 주소에서 직접 사용이 가능합니다.
+<br>
+(몽노캄은 현재 반응형 스타일링이 적용되지 않아서, 모바일 환경에서는 정상적인 작동이 어려울 수 있습니다.)
 
 [https://mongnokam.firebaseapp.com/](https://mongnokam.firebaseapp.com/)
 <br>
@@ -36,7 +38,9 @@ npm install
 
 ### 주의사항
 
-몽노캄을 로컬 환경에서 올바르게 테스트하기 위해서는 Firebase의 시크릿을 담고 있는 `environments.ts`, `environments.prod.ts` 파일이 필요합니다. 아래는 `environments.ts` 파일의 예시입니다.
+몽노캄을 로컬 환경에서 올바르게 테스트하기 위해서는 Firebase의 시크릿을 담고 있는 `environments.ts`, `environments.prod.ts` 파일이 필요합니다. 이 파일들은 루트 프로젝트의 `/src/envirionments` 폴더에 위치해야 합니다.
+
+아래는 `environments.ts` 파일의 예시입니다.
 ```javascript
 export const environment = {
   production: false,
@@ -51,11 +55,11 @@ export const environment = {
   },
 };
 ```
-몽노캄은 별도의 백엔드 서버가 없으며, 백엔드 서비스인 Firebase를 활용하고 있습니다. 만약에 테스트에 이용할 수 있는 Firebase 프로젝트가 없다면, 로컬 환경 테스트가 어려울 수 있습니다.
+몽노캄은 백엔드 서비스인 Firebase를 활용하고 있습니다. 만약에 테스트에 이용할 수 있는 Firebase 프로젝트가 없다면, 로컬 환경 테스트가 어려울 수 있습니다.
 <br>
-(별도의 백엔드 서버를 연결할 수 있겠으나, 몽노캄은 Firebase의 Angular 프로젝트 전용 의존성 패키지인 `@angular/fire`로 로그인, 유저의 레포지토리 리스트 데이터 저장 등 데이터와 관련된 로직을 관리하고 있어 이를 모두 변경해야 합니다.)
+(별도의 백엔드 서버를 연결할 수 있겠으나, 몽노캄은 Firebase의 Angular 전용 의존성 패키지인 `@angular/fire`로 로그인, 유저의 레포지토리 리스트 데이터 저장 등 데이터와 관련된 로직을 관리하고 있어 이와 관련된 로직을 모두 변경해야 합니다.)
 
-위 예시에서 `environment` 객체 속 `firebase` 프로퍼티의 구성 요소는 Firebase의 콘솔에서 '프로젝트 설정'에 들어가시면 쉽게 확인이 가능합니다. (보통 프로덕션 환경까지 테스트는 진행하지 않으시겠지만) 원활한 테스트를 위해 `environments.prod.ts`의 내용은 위의 예시에서 `production` 프로퍼티의 값만 `true`로 변경하여 저장한 뒤 사용하시길 권장드립니다.
+위 예시에서 `environment` 객체 속 `firebase` 프로퍼티의 구성 요소는 Firebase 프로젝트의 콘솔에서 '프로젝트 설정'에 들어가시면 쉽게 확인이 가능합니다. (보통 프로덕션 환경까지 테스트는 진행하지 않으시겠지만) 원활한 테스트를 위해 `environments.prod.ts`의 내용은 위의 예시에서 `production` 프로퍼티의 값만 `true`로 변경하여 저장한 뒤 테스트하시길 권장드립니다.
 <br>
 <br>
 
