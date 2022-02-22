@@ -7,7 +7,7 @@ Angular, Firebase, Github API를 이용하여 만든 레포지토리 관리용 �
 
 Firebase를 통해서 호스팅되고 있습니다. 아래의 주소에서 직접 사용이 가능합니다.
 
-[https://mongnokam.firebaseapp.com/]("https://mongnokam.firebaseapp.com/")
+[https://mongnokam.firebaseapp.com/](https://mongnokam.firebaseapp.com/)
 
 ## 로컬에서 테스트 해보기
 
@@ -65,6 +65,6 @@ export const environment = {
 
 ## 만든 사람
 
-Github: [tyange]("https://github.com/tyange")
+Github: [tyange](https://github.com/tyange)
 <br>
 Email: [usun16@gmail.com](mailto:usun16@gmail.com)
