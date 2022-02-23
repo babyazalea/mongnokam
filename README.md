@@ -72,6 +72,8 @@ export const environment = {
   - Firebase 통해 배포
 * 2021-09
   - 프로젝트 시작
+  
+[작업 일지 & Todos (Notion)](https://tyange.notion.site/monokam-Angular-0c7af346e58640a4ad83841ddf02c960)
 <br>
 <br>
 
